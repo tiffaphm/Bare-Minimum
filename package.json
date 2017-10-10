@@ -33,7 +33,6 @@
     "mapbox-gl": "^0.40.1",
     "mapbox-gl-geocoder": "^2.0.1",
     "mysql": "^2.14.1",
-    "nodemon": "^1.12.1",
     "npm": "^5.4.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -58,6 +57,7 @@
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "nodemon": "^1.12.1",
     "chai": "^4.1.2",
     "mocha": "^3.5.3",
     "node-mocks-http": "^1.6.5",
