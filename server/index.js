@@ -8,6 +8,10 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
+const http = require('http').Server(app);
+// export before require loop
+module.exports = http;
+const socket = require('./socket.js')
 
 // Express Middleware
 
@@ -238,8 +242,11 @@ function redirectUnmatched(req, res) {
 
 app.use(redirectUnmatched);
 
-app.listen(process.env.PORT, () => {
+// no express app listen for socket.io
+// app.listen(process.env.PORT, () => {
+//   console.log('listening to port ', process.env.PORT);
+// });
+
+http.listen(process.env.PORT, () => {
   console.log('listening to port ', process.env.PORT);
 });
-
-module.exports.app = app;
