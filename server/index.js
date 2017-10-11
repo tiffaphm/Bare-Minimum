@@ -249,7 +249,7 @@ app.post('/dummydata', (req, res) => {
     .then(() => dummyData.addPhotos())
     .then(() => res.send(200))
     .catch(err => {
-      // console.log('error adding dummy data', err);
+      console.log('error adding dummy data', err);
       res.status(400).send('FAILED - Add dummy data');
     });
 });

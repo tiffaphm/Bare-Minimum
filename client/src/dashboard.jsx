@@ -20,7 +20,7 @@ import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
 import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
-import Landmarks from './components/landmarks/landmarks.jsx';
+// import Landmarks from './components/landmarks/landmarks.jsx';
 import NotificationsModal from './components/notifications/NotificationsModal.jsx';
 import PhotoList from './components/photos/photoList.jsx';
 
@@ -73,8 +73,8 @@ class Dashboard extends React.Component {
   		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
   	} else if (store.getState().view === 'ExpenseTracker') {
   		return <ExpenseTracker />;
-  	} else if (store.getState().view === 'Landmarks') {
-  		return <Landmarks />;
+  	// } else if (store.getState().view === 'Landmarks') {
+  	// 	return <Landmarks />;
   	} else if (store.getState().view === 'Photos') {
   		return <PhotoList />;
   	} else {
