@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import '../dist/vendor/bootstrap/css/bootstrap.css';
 import '../dist/style.css';
 import '../dist/sb-admin.css';
 
