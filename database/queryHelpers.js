@@ -231,6 +231,10 @@ const getExpensesForTrip = function(targetId) {
   });
 };
 
+const findAllPhotos = () => {
+  return db.Photos.findAll();
+};
+
 module.exports = {
   addUser: addUser,
 	findUser: findUser,
@@ -245,5 +249,6 @@ module.exports = {
   getExpensesForTrip: getExpensesForTrip,
   joinTrip: joinTrip,
   getUserTripDetails: getUserTripDetails,
-  updateUserTripDetails: updateUserTripDetails
+  updateUserTripDetails: updateUserTripDetails,
+  findAllPhotos: findAllPhotos
 };

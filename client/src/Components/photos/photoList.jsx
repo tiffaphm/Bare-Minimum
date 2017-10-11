@@ -13,28 +13,32 @@ class PhotoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: ['./images/np1.jpg', '/images/np2.jpg']
+      photos: []
     };
 
-    // this.getPhotos = this.getPhotos.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
   }
 
-  // componentDidMount () {
-  //   this.getPhotos();
-  //   // this.getUsers();
-  // }
+  componentDidMount () {
+    this.getPhotos();
+    // this.getUsers();
+  }
 
-  // getPhotos () {
-  //   const options = { tripId: this.props.trip.id };
-  //   $.ajax({
-  //     url: SERVER_URL + '/expense',
-  //     data: options,
-  //     method: 'GET',
-  //     success: function(photos) {
-  //       this.setState({ photos: photoss });
-  //     }
-  //   });
-  // }
+  getPhotos () {
+    // const options = { tripId: this.props.trip.id };
+    $.ajax({
+      url: HOSTNAME + '/photos',
+      // data: options,
+      method: 'GET',
+      success: (photos) => {
+        // console.log('received photos', photos);
+        this.setState({photos: photos });
+      },
+      error: (err) => {
+        console.log('error while getting photos (client)', err);
+      } 
+    });
+  }
 
   // findUser (userId) {
   //   for (var user of this.state.usersOnTrip) {

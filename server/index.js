@@ -153,17 +153,6 @@ app.post('/landmarks', (req, res) => {
   })
 })
 
-app.post('/dummydata', (req, res) => {
-  dummyData.addUsers()
-    .then(() => dummyData.addTrips())
-    .then(() => dummyData.addPhotos())
-    .then(() => res.send(200))
-    .catch(err => {
-      console.log('error adding dummy data', err);
-      res.status(400).send('FAILED - Add dummy data');
-    });
-});
-
 app.get('/landmarks', (req, res) => {
   let tripId = req.url.split('=')[1];
   query.findLandmarks(tripId, (landmarks) => {
@@ -246,6 +235,34 @@ app.post('/popup', (req, res) => {
       return res.status(201).send(id);
     }
   })
+});
+
+
+
+///////////////////QDOT/////////////////////////////////////////////////
+
+app.post('/dummydata', (req, res) => {
+  dummyData.addUsers()
+    .then(() => dummyData.addTrips())
+    .then(() => dummyData.addPhotos())
+    .then(() => res.send(200))
+    .catch(err => {
+      console.log('error adding dummy data', err);
+      res.status(400).send('FAILED - Add dummy data');
+    });
+});
+
+app.get('/photos', (req, res) => {
+  query.findAllPhotos()
+    .then(result => {
+      console.log('ophoooootototttoooooossss', result);
+      res.send(result);
+    })
+    .catch(err => {
+      console.log('error finding photo', err);
+      res.status(400).send('FAILED to get photos');
+    });
+    
 });
 
 function redirectUnmatched(req, res) {
