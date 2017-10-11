@@ -2,7 +2,8 @@ import React from 'react';
 import reducer from '../../Reducers';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
-import PhotoEntry from './photoEntry.jsX';
+import PhotoEntry from './photoEntry.jsx';
+import AddPhoto from './addPhoto.jsX';
 
 import { connect } from 'react-redux';
 import $ from 'jquery';
@@ -65,3 +66,5 @@ let mapStateToProps = ({ trip, user }) => {
 };
 
 export default connect(mapStateToProps)(PhotoList);
+
+//// <AddPhoto />

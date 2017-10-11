@@ -104,8 +104,8 @@ app.post('/jointrip', (req, res) => {
     } else {
       return res.status(200).end();
     }
-  })
-})
+  });
+});
 
 app.get('/fetchtrips', (req, res) => {
   query.findTripsForUser(req.query.userId, (result) => {
@@ -125,7 +125,7 @@ app.post('/signup', (req, res) => {
       res.status(400).send('Bad signup request. Username may be taken.');
     } else {
       req.session.user = req.body.email;
-      query.addSession(req.session.id, req.body.email)
+      query.addSession(req.session.id, req.body.email);
       res.redirect('/dashboard');
     }
   });
@@ -133,14 +133,13 @@ app.post('/signup', (req, res) => {
 
 app.post('/vote', (req, res) => {
   db.Votes.create(req.body)
-  .then(() => {
-    return res.status(200).end();
-  })
-  .catch((err) => {
-    console.log('error in vote insertion', err)
-  })
-
-})
+    .then(() => {
+      return res.status(200).end();
+    })
+    .catch((err) => {
+      console.log('error in vote insertion', err);
+    });
+});
 
 app.post('/landmarks', (req, res) => {
 
@@ -150,15 +149,15 @@ app.post('/landmarks', (req, res) => {
       console.log('there was error on landmarks submission ', err);
     }
     return res.status(200).send('submission successful');
-  })
-})
+  });
+});
 
 app.get('/landmarks', (req, res) => {
   let tripId = req.url.split('=')[1];
   query.findLandmarks(tripId, (landmarks) => {
     return res.status(200).send(landmarks);
-  })
-})
+  });
+});
 
 app.post('/expense', (req, res) => {
   query.createExpense(req.body).then((response) => {
@@ -221,9 +220,9 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   db.Users.findById(id)
-  .then( (user) => {
-    done(null, user.dataValues);
-  });
+    .then( (user) => {
+      done(null, user.dataValues);
+    });
 });
 
 app.post('/popup', (req, res) => {
@@ -234,12 +233,15 @@ app.post('/popup', (req, res) => {
     } else {
       return res.status(201).send(id);
     }
-  })
+  });
 });
 
 
 
-///////////////////QDOT/////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+////                                     Q-DOT                                    ////
+//////////////////////////////////////////////////////////////////////////////////////
+
 
 app.post('/dummydata', (req, res) => {
   dummyData.addUsers()
@@ -247,7 +249,7 @@ app.post('/dummydata', (req, res) => {
     .then(() => dummyData.addPhotos())
     .then(() => res.send(200))
     .catch(err => {
-      console.log('error adding dummy data', err);
+      // console.log('error adding dummy data', err);
       res.status(400).send('FAILED - Add dummy data');
     });
 });
@@ -255,7 +257,7 @@ app.post('/dummydata', (req, res) => {
 app.get('/photos', (req, res) => {
   query.findAllPhotos()
     .then(result => {
-      console.log('ophoooootototttoooooossss', result);
+      // console.log('ophoooootototttoooooossss', result);
       res.send(result);
     })
     .catch(err => {
@@ -265,9 +267,9 @@ app.get('/photos', (req, res) => {
     
 });
 
-function redirectUnmatched(req, res) {
+const redirectUnmatched = (req, res) => {
   res.redirect(process.env.HOSTNAME + '/');
-}
+};
 
 app.use(redirectUnmatched);
 

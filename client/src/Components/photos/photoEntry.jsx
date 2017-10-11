@@ -1,7 +1,5 @@
 import React from 'react';
 import reducer from '../../Reducers';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 // import TripNavBar from '../tripDashboard/tripNavBar.jsx';
 // import dummyData from '../tripDashboard/dummyData.js';
