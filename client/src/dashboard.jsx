@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <NavSideBar />
+        <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
 
         <div className='content-wrapper'>
           <div className='container-fluid'>
@@ -96,6 +96,16 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
+        <footer className="sticky-footer">
+          <div className="container">
+            <div className="text-center">
+              <small>made with love by the eggs, coffee & toast team.</small>
+            </div>
+          </div>
+        </footer>
+        <a className="scroll-to-top rounded" href="#page-top">
+          <i className="fa fa-angle-up"></i>
+        </a>
       </div>
     );
   }

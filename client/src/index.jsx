@@ -14,26 +14,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userSignup: '',
-      userLogin: ''
+      userLogin: true
     };
+  }
+
+  changeMode (boolean) {
+    this.setState({
+      userLogin: boolean
+    });
   }
 
   render() {
     return (
       <div>
-        <ul className="navbar">
-          <li id="title">The Travel App</li>
-          <li className="link">Home</li>
-          <li className="link">News</li>
-          <li className="link">Contact</li>
-        </ul>
-        <div className="row">
-          <Signup />
+        <div className="fullscreen-bg">
+          <video loop muted autoPlay poster="./images/10K_Feet.jpg" className="fullscreen-bg__video">
+            <source src="./images/10K_Feet.webm" type="video/webm" />
+          </video>
         </div>
-        <div className="row">
-          <Login />
-        </div>
+        {
+          this.state.userLogin ?
+            <Login changeMode={this.changeMode.bind(this)}/> :
+            <Signup changeMode={this.changeMode.bind(this)}/>
+        }
       </div>
     );
   }
