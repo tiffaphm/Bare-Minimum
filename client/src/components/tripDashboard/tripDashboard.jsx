@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 
 import Mapbox from '../mapboxViewer.jsx';
-import Landmarks from '../landmarks/landmarks.jsx';
+// import Landmarks from '../landmarks/landmarks.jsx';
 import TripNavBar from './tripNavBar.jsx';
 import UserInfo from './userInfo.jsx';
-import ProfileEditor from '../profileEditor/ProfileEditor.jsx'; // remove after testing
+// import ProfileEditor from '../profileEditor/ProfileEditor.jsx'; // remove after testing
 import reducer from '../../Reducers';
 import dummyData from './dummyData.js';
 import TripUserList from './tripUserList.jsx';
@@ -86,17 +86,14 @@ class TripDashboard extends React.Component {
           <TripDetails trip={this.props.trip} />
           {this.state.map ? (
             <Mapbox location={this.props.trip.location} />
-          ) : (
-            <Landmarks />
-          )}
+          ) : null}
 
-          {/*<Button className="button" onClick={this.toggleMap}>Toggle center panel (not currently used)</Button>*/}
+          // {/*<Button className="button" onClick={this.toggleMap}>Toggle center panel (not currently used)</Button>*/}
           <TripUserList
             users={this.state.users}
             selectedUser={this.state.selectedUserInfo}
             showUserInfo={this.showUserInfo}
           />
-          <ProfileEditor user={this.props.user} trip={this.props.trip.id} />
         </div>
       </div>
     );
@@ -104,3 +101,9 @@ class TripDashboard extends React.Component {
 }
 
 export default connect(mapStateToProps)(TripDashboard);
+
+// <ProfileEditor user={this.props.user} trip={this.props.trip.id} />
+
+ // (
+ //            <Landmarks />
+ //          )}
