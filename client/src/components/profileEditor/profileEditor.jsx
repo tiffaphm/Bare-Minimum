@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import { Button } from 'react-bootstrap';
-
 const SERVER_URL = HOSTNAME;
 
 class ProfileEditor extends React.Component {
@@ -13,7 +11,7 @@ class ProfileEditor extends React.Component {
     this.state = {
       itinerary: '',
       phone: ''
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.submitInfoUpdate = this.submitInfoUpdate.bind(this);
@@ -32,14 +30,14 @@ class ProfileEditor extends React.Component {
     let options = {
       url: `${HOSTNAME}/userinfo/${this.props.user.id}/${this.props.trip}/${this.state.itinerary}/${this.state.phone}`,
       method: 'PATCH'
-    }
+    };
 
     $.ajax(options)
-    .then(() => {
-    })
-    .fail((err) => {
-      console.error('update error', err);
-    });
+      .then(() => {
+      })
+      .fail((err) => {
+        console.error('update error', err);
+      });
 
     this.state.itinerary = '';
     this.state.phone = '';
@@ -57,10 +55,10 @@ class ProfileEditor extends React.Component {
           <input type="text" className="phone" onChange={this.handleChange} value={this.state.phone} ref="phone"/>
           <label><h3>&nbsp;&nbsp;Itinerary:&nbsp;&nbsp;</h3></label>
           <input type="text" className="itinerary" value={this.state.itinerary} onChange={this.handleChange} ref="itinerary"/>
-          <Button onClick={this.submitInfoUpdate}>Submit</Button>
+          <button onClick={this.submitInfoUpdate}>Submit</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

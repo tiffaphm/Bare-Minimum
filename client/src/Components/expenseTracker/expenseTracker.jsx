@@ -13,8 +13,8 @@ import dummyData from '../tripDashboard/dummyData.js';
 const SERVER_URL = HOSTNAME;
 
 class ExpenseTracker extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
     this.state = {
       expenseCost: 0,
       expenseDesc: '',
@@ -23,7 +23,7 @@ class ExpenseTracker extends React.Component {
       totalExpense: 0,
       usersOnTrip: []
     };
-	}
+  }
 
   handleBack () {
     this.props.dispatch(reducer.changeView('TripDashboard'));
@@ -40,7 +40,7 @@ class ExpenseTracker extends React.Component {
       error: (data) => {
         console.error('FAILED GET - Userlist', data);
       }
-    }
+    };
     $.ajax(options);
   }
 
@@ -52,17 +52,17 @@ class ExpenseTracker extends React.Component {
   fetchExpenses () {
     let options = { tripId: this.props.trip.id };
     let self = this;
-		$.ajax({
-			url: SERVER_URL + '/expense',
-			data: options,
+    $.ajax({
+      url: SERVER_URL + '/expense',
+      data: options,
       method: 'GET',
-			success: function(res) {
-				self.setState({ expenses: res });
+      success: function(res) {
+        self.setState({ expenses: res });
         self.setState({ totalExpense: res.reduce((acc, currExp) => {
           return acc + currExp.amount;
-        }, 0).toFixed(2) })
-			}
-		});
+        }, 0).toFixed(2) });
+      }
+    });
   }
 
   findUser (userId) {
@@ -73,10 +73,10 @@ class ExpenseTracker extends React.Component {
     }
   }
 
-	render() {
-		return(
-			<Row>
-        <Col md={8} mdOffset={2}>
+  render() {
+    return (
+      <div className='row'>
+        <div className='col-md-8 col-md-offset-2'>
           <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
           <h3>Expenses Tracker</h3>
           <div>
@@ -85,20 +85,20 @@ class ExpenseTracker extends React.Component {
             <div>
               <h3>Current Expenses</h3>
               {this.state.expenses.map((item) => {
-                return <ExpenseEntry expense={item} key={item.id} payer={this.findUser(item.userId)}/>
+                return <ExpenseEntry expense={item} key={item.id} payer={this.findUser(item.userId)}/>;
               })}
               <h3>Total Cost</h3>
               <div className="ExpenseEntry">${this.state.totalExpense}</div>
             </div>
           </div>
-        </Col>
-      </Row>
-    )
-	}
+        </div>
+      </div>
+    );
+  }
 }
 
 let mapStateToProps = ({ trip, user }) => {
   return { trip, user };
-}
+};
 
 export default connect(mapStateToProps)(ExpenseTracker);
