@@ -2,6 +2,7 @@ import React from 'react';
 import Popup from 'react-popup';
 import TripPopup from './tripPopup.jsx';
 import TripEntry from './tripEntry.jsx';
+import TripList from './TripList.jsx';
 import reducer from '../../Reducers';
 
 import { connect } from 'react-redux';
@@ -68,6 +69,7 @@ class Dashboard extends React.Component {
     return (
       <div>
 
+        <TripList />
 
       
         <div className="row create manager-main">
@@ -86,15 +88,11 @@ class Dashboard extends React.Component {
           </div>
         </div>
 
+        
         <div className="row trip-history manager-main">
           <div className="col-md-8">
-<<<<<<< HEAD
-      			<h3>Trip History</h3>
-            <table className="table historytable table-bordered">
-=======
             <h3>Trip History</h3>
-            <table className="historytable table-bordered">
->>>>>>> refactor styles
+            <table className="table historytable table-bordered">
               <thead className="thead-inverse">
                 <tr>
                   <th> <h4 className="bold">Trip Name</h4> </th>
