@@ -84,14 +84,8 @@ const Sessions = db.define('Sessions', {
   UserId: Sequelize.INTEGER
 });
 
-//---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
-Users.sync();
-UserTrip.sync();
-Trips.sync();
-Votes.sync();
-Landmarks.sync();
-Expenses.sync();
-Sessions.sync();
+Trip.hasMany(Photo);
+Photo.belongsTo(Trip);
 
 //--------------------FOREIGN KEY SETTINGS -----------------
 
@@ -118,6 +112,25 @@ Expenses.belongsTo(Trips, {foreignkey: 'tripId'});
 
 Users.hasOne(Sessions, {foreignKey: 'userId'});
 Sessions.hasOne(Users, {foreignKey: 'sessionId'});
+
+//---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
+// Users.sync();
+// UserTrip.sync();
+// Trips.sync();
+// Votes.sync();
+// Landmarks.sync();
+// Expenses.sync();
+// Sessions.sync();
+// Photo.sync();
+
+Users.sync()
+  .then(() => UserTrip.sync())
+  .then(() => Trips.sync())
+  .then(() => Votes.sync())
+  .then(() => Landmarks.sync())
+  .then(() => Expenses.sync())
+  .then(() => Sessions.sync())
+  .then(() => Photo.sync());
 
 
 
