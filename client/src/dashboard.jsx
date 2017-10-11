@@ -22,6 +22,8 @@ import MapboxViewer from './components/mapboxViewer.jsx';
 import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import Landmarks from './components/landmarks/landmarks.jsx';
 import NotificationsModal from './components/notifications/NotificationsModal.jsx';
+import PhotoList from './components/photos/photoList.jsx'
+import io from 'socket.io-client';
 
 const SERVER_URL = HOSTNAME;
 
@@ -46,6 +48,7 @@ class Dashboard extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   fetchLists() {
     let options = { userId: store.getState().user.id };
     let self = this;
@@ -57,6 +60,34 @@ class Dashboard extends React.Component {
       }
     });
   }
+=======
+	handleLogout () {
+		$.post(SERVER_URL + '/logout').then((reply) => {
+			location.reload();
+		}).catch((err) => {
+			console.error('Error!', err);
+		});
+	};
+
+	getViewComponent () {
+		if (store.getState().view === 'TripManager') {
+			return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
+		} else if (store.getState().view === 'ExpenseTracker') {
+			return <ExpenseTracker />;
+		} else if (store.getState().view === 'Landmarks') {
+			return <Landmarks />;
+		} else if (store.getState().view === 'Photos') {
+			return <PhotoList />;
+		} else {
+			return <TripDashboard user={store.getState().user}/>;
+		}
+	}
+
+	render() {
+		return(
+			<div>
+				<NavSideBar />
+>>>>>>> Add basic component for photos rendering (not working)
 
   handleLogout () {
     $.post(SERVER_URL + '/logout').then((reply) => {
