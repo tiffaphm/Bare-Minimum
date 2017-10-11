@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Muli|Roboto|Open+Sans');
 
 body {
-  font-family: Roboto, Arial, Verdana;
   background-color: #EAEDEF;
+  font-family: Muli, Roboto, Open Sans, sans-serif
 }
 
 .btn-row {
