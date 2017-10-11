@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import '../dist/style.css';
+import '../dist/sb-admin.css';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
@@ -16,6 +17,7 @@ import { connect } from 'react-redux';
 const store = createStore(reducer.travelReducer);
 const { getState } = store;
 
+import NavSideBar from './NavSideBar.jsx';
 import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
@@ -79,14 +81,7 @@ class Dashboard extends React.Component {
 	render() {
 		return(
 			<div>
-				<div className="navbar">
-          <ul>
-            <li id="title">The Travel App</li>
-            <li className="link">Home</li>
-            <li className="link">News</li>
-            <li className="link">Contact</li>
-          </ul>
-        </div>
+				<NavSideBar />
 
         <div className="dashbody">
 

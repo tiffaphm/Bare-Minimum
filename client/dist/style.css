@@ -7,18 +7,15 @@ blackcoard #565656
 oxblood #76323f
 tan #c09f80
 */
-
+body {
+  font-family: Roboto, Arial, Verdana;
+  background-color: #EAEDEF;
+}
+/*
 * {
   letter-spacing: 1px;
 }
 
-body {
-  font-family: Roboto, Arial, Verdana;
-  background-color: #76323f;
-  margin-top: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-}
 
 p {
   text-align: center;
@@ -187,7 +184,7 @@ th, td {
 
 .popupbutton {
   background-color: #76323f;
-/*  border-radius: 12px;*/
+  border-radius: 12px;
   color: #D7CEC7;
 }
 
@@ -311,7 +308,7 @@ th, td {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-
+*/
 /*
 #76323f 
 grey #D7CEC7 
