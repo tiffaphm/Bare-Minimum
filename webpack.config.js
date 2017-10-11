@@ -1,6 +1,7 @@
 const webpack = require('webpack');
-var SRC_DIR = __dirname + '/client/src';
-var DIST_DIR = __dirname + '/client/dist';
+const path = require('path');
+var SRC_DIR = path.resolve(__dirname, 'client/src');
+var DIST_DIR = path.resolve(__dirname, 'client/dist');
 
 const environment = process.env.NODE_ENV;
 const envPath = '.env.' + environment;
@@ -9,12 +10,12 @@ console.log('the webpack is in this env', environment);
 
 module.exports = {
   entry: {
-    main: `${SRC_DIR}/index.jsx`,
-    dashboard: `${SRC_DIR}/dashboard.jsx`
+    main: path.resolve(__dirname, 'client/src/index.jsx'),
+    dashboard: path.resolve(__dirname, 'client/src/dashboard.jsx')
   },
   output: {
     filename: '[name].bundle.js',
-    path: DIST_DIR
+    path: path.resolve(__dirname, 'client/dist')
   },
   module: {
     loaders: [
@@ -35,6 +36,10 @@ module.exports = {
       {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
         loader: 'url-loader'
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp4|webm)$/,
+        loader: 'file-loader?name=/assets/[name].[ext]'
       }
     ]
   },
