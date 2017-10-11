@@ -1,0 +1,19 @@
+import React from 'react';
+import reducer from '../../Reducers';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+// import TripNavBar from '../tripDashboard/tripNavBar.jsx';
+// import dummyData from '../tripDashboard/dummyData.js';
+
+const PhotoEntry = (props) => (
+  <div>
+    <img className="here-1" src={props.photo}/>
+  </div>
+);
+
+let mapStateToProps = ({ trip, user }) => {
+  return { trip, user };
+};
+
+export default connect(mapStateToProps)(PhotoEntry);

@@ -9,6 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const http = require('http').Server(app);
+const dummyData = require('../database/dummyData.js');
 // export before require loop
 module.exports = http;
 const socket = require('./socket.js')
@@ -151,6 +152,17 @@ app.post('/landmarks', (req, res) => {
     return res.status(200).send('submission successful');
   })
 })
+
+app.post('/dummydata', (req, res) => {
+  dummyData.addUsers()
+    .then(() => dummyData.addTrips())
+    .then(() => dummyData.addPhotos())
+    .then(() => res.send(200))
+    .catch(err => {
+      console.log('error adding dummy data', err);
+      res.status(400).send('FAILED - Add dummy data');
+    });
+});
 
 app.get('/landmarks', (req, res) => {
   let tripId = req.url.split('=')[1];

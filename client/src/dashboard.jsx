@@ -37,6 +37,7 @@ class Dashboard extends React.Component {
     this.fetchLists = this.fetchLists.bind(this);
     this.socket = io();
   }
+  
   componentWillMount () {
     //Get login user
     $.get(SERVER_URL + '/loginuser').then((data) => {
@@ -67,25 +68,24 @@ class Dashboard extends React.Component {
     });
   }
 
-	getViewComponent () {
-		if (store.getState().view === 'TripManager') {
-			return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
-		} else if (store.getState().view === 'ExpenseTracker') {
-			return <ExpenseTracker />;
-		} else if (store.getState().view === 'Landmarks') {
-			return <Landmarks />;
-		} else if (store.getState().view === 'Photos') {
-			return <PhotoList />;
-		} else {
-			return <TripDashboard user={store.getState().user}/>;
-		}
-	}
+  getViewComponent () {
+  	if (store.getState().view === 'TripManager') {
+  		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
+  	} else if (store.getState().view === 'ExpenseTracker') {
+  		return <ExpenseTracker />;
+  	} else if (store.getState().view === 'Landmarks') {
+  		return <Landmarks />;
+  	} else if (store.getState().view === 'Photos') {
+  		return <PhotoList />;
+  	} else {
+  		return <TripDashboard user={store.getState().user}/>;
+  	}
+  }
 
   render() {
     return (
       <div>
         <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
-
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>

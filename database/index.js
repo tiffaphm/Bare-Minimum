@@ -92,8 +92,14 @@ const Photos = db.define('photo', {
     autoIncrement: true
   },
 
-  image: Sequelize.BLOB
+  path: {
+    type: Sequelize.STRING,
+    unique: true
+  }
 });
+
+// Trips.hasMany(Photos);
+// Photos.belongsTo(Trips);
 
 //---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
 Users.sync();
@@ -143,8 +149,8 @@ Expenses.belongsTo(Trips, {foreignkey: 'tripId'});
 Users.hasOne(Sessions, {foreignKey: 'userId'});
 Sessions.hasOne(Users, {foreignKey: 'sessionId'});
 
-Trips.hasMany(Photos);
-Photos.belongsTo(Trips);
+// Trips.hasMany(Photos);
+// Photos.belongsTo(Trips);
 
 
 module.exports = {
