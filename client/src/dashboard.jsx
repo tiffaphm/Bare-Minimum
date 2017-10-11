@@ -102,7 +102,7 @@ class Dashboard extends React.Component {
         <footer className="sticky-footer">
           <div className="container">
             <div className="text-center">
-              <small>made with love by the eggs, coffee & toast team.</small>
+              <small>made with love by the eggs, coffee & toast team</small>
             </div>
           </div>
         </footer>
