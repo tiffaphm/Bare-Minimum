@@ -1,16 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import $ from "jquery";
+import React from 'react';
+import { connect } from 'react-redux';
+import $ from 'jquery';
 
-import Mapbox from "../mapboxViewer.jsx";
-import Landmarks from "../landmarks/landmarks.jsx";
-import TripNavBar from "./tripNavBar.jsx";
-import UserInfo from "./userInfo.jsx";
-import ProfileEditor from "../profileEditor/ProfileEditor.jsx"; // remove after testing
-import reducer from "../../Reducers";
-import dummyData from "./dummyData.js";
-import TripUserList from "./tripUserList.jsx";
-import TripDetails from "./tripDetails.jsx";
+import Mapbox from '../mapboxViewer.jsx';
+import Landmarks from '../landmarks/landmarks.jsx';
+import TripNavBar from './tripNavBar.jsx';
+import UserInfo from './userInfo.jsx';
+import ProfileEditor from '../profileEditor/ProfileEditor.jsx'; // remove after testing
+import reducer from '../../Reducers';
+import dummyData from './dummyData.js';
+import TripUserList from './tripUserList.jsx';
+import TripDetails from './tripDetails.jsx';
 
 let mapStateToProps = ({ trip }) => {
   return { trip };
@@ -23,7 +23,7 @@ class TripDashboard extends React.Component {
     this.state = {
       map: true,
       users: [],
-      selectedUserInfo: ""
+      selectedUserInfo: ''
     };
 
     this.toggleMap = this.toggleMap.bind(this);
@@ -33,14 +33,14 @@ class TripDashboard extends React.Component {
   // retrieves array of users on trip
   getUsers() {
     let options = {
-      url: HOSTNAME + "/tripusers/" + this.props.trip.id,
+      url: HOSTNAME + '/tripusers/' + this.props.trip.id,
       success: data => {
         this.setState({
           users: data
         });
       },
       error: data => {
-        console.error("FAILED GET - Userlist", data);
+        console.error('FAILED GET - Userlist', data);
       }
     };
 
@@ -64,7 +64,7 @@ class TripDashboard extends React.Component {
         });
       },
       error: data => {
-        console.log("FAILED GET - User Info", data);
+        console.log('FAILED GET - User Info', data);
       }
     };
 

@@ -9,7 +9,7 @@ const TripUserList = (props) => {
       {props.users.map((user, index) => {
         return (
           <div className="user-entry" key={index} className="tripdata" onClick={() => { props.showUserInfo(user.id); }}>
-            <Button className="btn-large"><span className="glyphicon user" /> {user.name}</Button>
+            <button className="btn-large"><span className="glyphicon user" /> {user.name}</button>
             {props.selectedUser.UserId === user.id ? <UserInfo user={props.selectedUser} /> : null}
           </div>
         );
