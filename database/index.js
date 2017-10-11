@@ -84,8 +84,38 @@ const Sessions = db.define('Sessions', {
   UserId: Sequelize.INTEGER
 });
 
-Trip.hasMany(Photo);
-Photo.belongsTo(Trip);
+//Photo Schema
+const Photos = db.define('photo', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+
+  image: Sequelize.BLOB
+});
+
+//---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
+Users.sync();
+UserTrip.sync();
+Trips.sync();
+Votes.sync();
+Landmarks.sync();
+Expenses.sync();
+Sessions.sync();
+Photos.sync();
+
+
+//Promises do not work!!!!
+// Users.sync()
+//   .then(() => UserTrip.sync())
+//   .then(() => Trips.sync())
+//   .then(() => Votes.sync())
+//   .then(() => Landmarks.sync())
+//   .then(() => Expenses.sync())
+//   .then(() => Sessions.sync())
+//   // .then(() => Photos.sync())
+//   .catch(err => console.log('error syncing database', err));
 
 //--------------------FOREIGN KEY SETTINGS -----------------
 
@@ -113,25 +143,8 @@ Expenses.belongsTo(Trips, {foreignkey: 'tripId'});
 Users.hasOne(Sessions, {foreignKey: 'userId'});
 Sessions.hasOne(Users, {foreignKey: 'sessionId'});
 
-//---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
-// Users.sync();
-// UserTrip.sync();
-// Trips.sync();
-// Votes.sync();
-// Landmarks.sync();
-// Expenses.sync();
-// Sessions.sync();
-// Photo.sync();
-
-Users.sync()
-  .then(() => UserTrip.sync())
-  .then(() => Trips.sync())
-  .then(() => Votes.sync())
-  .then(() => Landmarks.sync())
-  .then(() => Expenses.sync())
-  .then(() => Sessions.sync())
-  .then(() => Photo.sync());
-
+Trips.hasMany(Photos);
+Photos.belongsTo(Trips);
 
 
 module.exports = {
@@ -142,5 +155,6 @@ module.exports = {
   Votes: Votes,
   Landmarks: Landmarks,
   Expenses: Expenses,
-  Sessions: Sessions
-}
+  Sessions: Sessions,
+  Photos: Photos
+};
