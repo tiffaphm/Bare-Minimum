@@ -4,10 +4,9 @@ import $ from 'jquery';
 import Login from './components/homepage/Login.jsx';
 import Signup from './components/homepage/Signup.jsx';
 
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import '../dist/vendor/bootstrap/css/bootstrap.css';
 import '../dist/style.css';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
+import '../dist/sb-admin.css';
 
 const serverURL = HOSTNAME;
 
@@ -29,12 +28,12 @@ class App extends React.Component {
           <li className="link">News</li>
           <li className="link">Contact</li>
         </ul>
-        <Row>
+        <div className="row">
           <Signup />
-        </Row>
-        <Row>
+        </div>
+        <div className="row">
           <Login />
-        </Row>
+        </div>
       </div>
     );
   }

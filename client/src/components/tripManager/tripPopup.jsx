@@ -4,10 +4,6 @@ import $ from 'jquery';
 import { connect } from 'react-redux';
 import reducer from '../../Reducers';
 import TripDashboard from '../tripDashboard/tripDashboard.jsx';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import { Button } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
 
 const SERVER_URL = HOSTNAME;
 
@@ -55,8 +51,8 @@ class TripPopup extends React.Component {
 
   render() {
     return (
-      <Row className="popup">
-        <Col md={4} mdOffset={4} className="popup_inner">
+      <div className="row popup">
+        <div className="col-md-4" className="popup_inner">
           <h3>Create a new trip:</h3>
           <form className="popupform" onSubmit={this.handleSubmit}>
             <div className="form-entry">
@@ -86,8 +82,8 @@ class TripPopup extends React.Component {
 
             <Button className="popupbutton" type="submit" value="create trip">Submit</Button>
           </form>
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
 }
