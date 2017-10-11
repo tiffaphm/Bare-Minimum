@@ -267,6 +267,21 @@ app.get('/photos', (req, res) => {
     
 });
 
+app.get('/notifications', (req, res) => {
+  if (req.query.tripId) {
+    query.getNotificationForTrip(req.query.tripId)
+      .then((result) => {
+        console.log(result);
+        res.status(200).end();
+      })
+      .catch((err) => {
+        res.status(500).end();
+      });
+  } else {
+    res.status(400).end();
+  }
+});
+
 const redirectUnmatched = (req, res) => {
   res.redirect(process.env.HOSTNAME + '/');
 };
