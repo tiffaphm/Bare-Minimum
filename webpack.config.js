@@ -5,7 +5,7 @@ var DIST_DIR = __dirname + '/client/dist';
 const environment = process.env.NODE_ENV;
 const envPath = '.env.' + environment;
 const envVars = require('dotenv').config({path: envPath});
-console.log('the webpack is in this env', environment)
+console.log('the webpack is in this env', environment);
 
 module.exports = {
   entry: {
@@ -19,9 +19,9 @@ module.exports = {
   module: {
     loaders: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',
+        test: /\.jsx?/,
+        include: SRC_DIR,
+        loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015']
         }

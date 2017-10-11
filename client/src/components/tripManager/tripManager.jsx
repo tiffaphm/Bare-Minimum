@@ -11,21 +11,21 @@ const SERVER_URL = HOSTNAME;
 
 let mapStateToProps = ({ user }) => {
   return { user };
-}
+};
 
 class Dashboard extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
     this.state = {
       showPopup: false,
-			trips: [],
-			joinTrip: ''
+      trips: [],
+      joinTrip: ''
     };
 
     this.togglePopup = this.togglePopup.bind(this);
     this.joinTrip = this.joinTrip.bind(this);
     this.selectTrip = this.selectTrip.bind(this);
-	}
+  }
 
   componentDidMount() {
   }
@@ -36,21 +36,21 @@ class Dashboard extends React.Component {
     });
   }
 
-	selectTrip(trip){
-		this.props.dispatch(reducer.changeTrip(trip));
-		this.props.dispatch(reducer.changeView('TripDashboard'));
-	}
+  selectTrip(trip) {
+    this.props.dispatch(reducer.changeTrip(trip));
+    this.props.dispatch(reducer.changeView('TripDashboard'));
+  }
 
-	handleChange(e){
-		this.setState({joinTrip:e.target.value})
-	}
+  handleChange(e) {
+    this.setState({joinTrip: e.target.value});
+  }
 
-	joinTrip() {
-		let obj = {
+  joinTrip() {
+    let obj = {
       accessCode: this.state.joinTrip,
       userId: this.props.user.id
-		};
-		let context = this;
+    };
+    let context = this;
     $.ajax({
       url: SERVER_URL + '/jointrip',
       method: 'POST',
@@ -59,17 +59,20 @@ class Dashboard extends React.Component {
         context.props.fetchLists();
       },
       error: function(err) {
-      	console.error(err)
+        console.error(err);
       }
-    })
-	}
+    });
+  }
 
-	render() {
-		return(
-			<div>
+  render() {
+    return (
+      <div>
+
+
+      
         <div className="row create manager-main">
           <div className="col-md-6">
-            <button className="btn-large block" id="createtripbutton" onClick={this.togglePopup}>Create New Trip</button>
+            <button className="btn" id="createtripbutton" onClick={this.togglePopup}>Create New Trip</button>
           </div>
         </div>
 
@@ -77,16 +80,21 @@ class Dashboard extends React.Component {
           <div className="col-md-4">
             <h3 className="welcome">Join Trip</h3>
             <div>
-            <input value={this.state.joinTrip} onChange={e => this.handleChange(e)} type="text" name="code" placeholder="add code here"/>
-            <button className="btn" onClick={this.joinTrip}>Submit</button>
+              <input value={this.state.joinTrip} onChange={e => this.handleChange(e)} type="text" name="code" placeholder="add code here"/>
+              <button className="btn" onClick={this.joinTrip}>Submit</button>
             </div>
           </div>
         </div>
 
         <div className="row trip-history manager-main">
           <div className="col-md-8">
+<<<<<<< HEAD
       			<h3>Trip History</h3>
             <table className="table historytable table-bordered">
+=======
+            <h3>Trip History</h3>
+            <table className="historytable table-bordered">
+>>>>>>> refactor styles
               <thead className="thead-inverse">
                 <tr>
                   <th> <h4 className="bold">Trip Name</h4> </th>
@@ -98,9 +106,9 @@ class Dashboard extends React.Component {
               </thead>
               <tbody>
                 {(this.props.trips.map((ele) => {
-    		    				return <TripEntry trip={ele} key={ele.id} onClick={() => this.selectTrip(ele)}/>
-    				    }))}
-    					</tbody>
+                  return <TripEntry trip={ele} key={ele.id} onClick={() => this.selectTrip(ele)}/>;
+                }))}
+              </tbody>
             </table>
           </div>
         </div>
@@ -114,8 +122,8 @@ class Dashboard extends React.Component {
           : null
         }
       </div>
-		)
-	}
+    );
+  }
 }
 
 export default connect(mapStateToProps)(Dashboard);
