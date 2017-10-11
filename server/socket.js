@@ -1,4 +1,4 @@
-const http = require('./index.js')
+const http = require('./index.js');
 const io = require('socket.io')(http);
 
 io.on('connection', (socket) => {
