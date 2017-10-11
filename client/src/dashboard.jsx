@@ -87,22 +87,18 @@ class Dashboard extends React.Component {
         <NavSideBar />
 
         <div className='content-wrapper'>
-        <div className='container-fluid'>
-        	<Row>
-        		<Col md={7} mdOffset={2}>
-              <h3>Hello {store.getState().user.name}, welcome back</h3>
-            </Col>
-
-            <Col md={2}>
-              <Button id="logoutbutton" onClick={this.handleLogout}>Logout</Button>
-            </Col>
-          </Row>
-
-          <button id="hide" onClick={() => store.dispatch(reducer.changeView('TripManager'))}>Trip Manager</button>
-          
-          {this.getViewComponent()}
-          <NotificationsModal />
-        </div>
+          <div className='container-fluid'>
+            <div className='row'>
+              <div className='col-lg-8'>
+              	<h3>Hello {store.getState().user.name}, welcome back</h3>
+              	<button id="hide" onClick={() => store.dispatch(reducer.changeView('TripManager'))}>Trip Manager</button>
+            		{this.getViewComponent()}
+              </div>
+              <div className='col-lg-4'>
+                <NotificationsModal />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
