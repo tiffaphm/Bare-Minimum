@@ -3,7 +3,7 @@ import reducer from '../../Reducers';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import PhotoEntry from './photoEntry.jsx';
-import AddPhoto from './addPhoto.jsX';
+import PhotoUpload from './photoUpload.jsX';
 
 import { connect } from 'react-redux';
 import $ from 'jquery';
@@ -54,6 +54,7 @@ class PhotoList extends React.Component {
       <Col md={8} mdOffset={2}>
         <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
         <div>
+        <PhotoUpload />
           {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} key={i}/>)}
         </div>
       </Col>

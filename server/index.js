@@ -264,7 +264,18 @@ app.get('/photos', (req, res) => {
       console.log('error finding photo', err);
       res.status(400).send('FAILED to get photos');
     });
-    
+});
+
+app.post('/photos', (req, res) => {
+  query.addPhoto()
+    .then(() => {
+      console.log('added photo');
+      res.send();
+    })
+    .catch(err => {
+      console.log('err adding photo', err);
+      res.status(400).send('Failed to add photo');
+    });
 });
 
 app.get('/notifications', (req, res) => {

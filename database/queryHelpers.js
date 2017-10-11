@@ -230,8 +230,11 @@ const findAllPhotos = () => {
   return db.Photos.findAll();
 };
 
-// Notifications
+const addPhoto = (photo) => {
+  return db.Photos.create(photo);
+};
 
+// Notifications
 const getNotificationForTrip = (tripId) => {
   return new Promise((resolve, reject) => {
     db.Notifications.findAll({ where: { tripId: tripId } })
@@ -247,6 +250,8 @@ const generateNotification = (tripId, type, contentId) => {
       .catch((err) => console.log(`error occur when generating notification: ${err}`));
   });
 };
+
+
 
 module.exports = {
   addUser: addUser,
@@ -264,5 +269,6 @@ module.exports = {
   getUserTripDetails: getUserTripDetails,
   updateUserTripDetails: updateUserTripDetails,
   findAllPhotos: findAllPhotos,
-  getNotificationForTrip: getNotificationForTrip
+  getNotificationForTrip: getNotificationForTrip,
+  addPhoto: addPhoto
 };
