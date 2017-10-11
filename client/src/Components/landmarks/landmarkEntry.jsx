@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import $ from 'jquery';
 
 const SERVER_URL = HOSTNAME;
@@ -19,8 +18,8 @@ const LandmarkEntry = (props) => {
       success: function(body) {
         props.fetch();
       }
-    })
-	};
+    });
+  }
 
   const buttonState = () => {
     let showButton = true;
@@ -32,16 +31,16 @@ const LandmarkEntry = (props) => {
     return showButton;
   };
 
-	return (
+  return (
     <tr>
-      <td><Button style={buttonState() ? {} : { display: 'none' }} onClick={handleClick}>vote</Button></td>
+      <td><button style={buttonState() ? {} : { display: 'none' }} onClick={handleClick}>vote</button></td>
       <td>{props.landmark.description}</td>
       <td><a href={props.landmark.url}>{props.landmark.url}</a></td>
       <td>{props.landmark.address}</td>
       <td>{props.landmark.User.name}</td>
       <td>{props.landmark.votes.length}</td>
     </tr>
-	);
+  );
 };
 
 export default LandmarkEntry;

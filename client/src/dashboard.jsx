@@ -4,9 +4,6 @@ import $ from 'jquery';
 
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import '../dist/style.css';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
 import '../dist/sb-admin.css';
 
 import { Provider } from 'react-redux';
