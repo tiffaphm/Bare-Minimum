@@ -98,6 +98,14 @@ const Photos = db.define('photo', {
   }
 });
 
+// Notifi Schema
+
+const Notifications = db.define('notification', {
+  tripId: Sequelize.INTEGER,
+  type: Sequelize.STRING,
+  contentId: Sequelize.INTEGER
+});
+
 // Trips.hasMany(Photos);
 // Photos.belongsTo(Trips);
 

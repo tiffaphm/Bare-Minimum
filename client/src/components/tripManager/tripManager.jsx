@@ -103,9 +103,9 @@ class Dashboard extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {(this.props.trips.map((ele) => {
+                {Array.isArray(this.props.trips) ? this.props.trips.map((ele) => {
                   return <TripEntry trip={ele} key={ele.id} onClick={() => this.selectTrip(ele)}/>;
-                }))}
+                }) : null}
               </tbody>
             </table>
           </div>
