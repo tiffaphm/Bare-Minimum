@@ -1,11 +1,10 @@
-import React from "react";
-import { Button, Navbar, Nav, NavItem } from "react-bootstrap";
+import React from 'react';
 
 const NavSideBar = () => {
   return (
     <div className="universal-navbar">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-          <a class="navbar-brand" href="index.html">V2 Travels</a>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a className="navbar-brand" href="index.html">V2 Travels</a>
       </nav>
     </div>
   );

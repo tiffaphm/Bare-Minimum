@@ -1,7 +1,5 @@
 import React from 'react';
 import reducer from '../../Reducers';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
 
 import ExpenseEntry from './expenseEntry.jsx';
 import ExpenseInput from './expenseInput.jsx';

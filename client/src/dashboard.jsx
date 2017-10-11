@@ -87,9 +87,9 @@ class Dashboard extends React.Component {
           <div className='container-fluid'>
             <div className='row'>
               <div className='col-lg-8'>
-              	<h3>Hello {store.getState().user.name}, welcome back</h3>
-              	<button id="hide" onClick={() => store.dispatch(reducer.changeView('TripManager'))}>Trip Manager</button>
-            		{this.getViewComponent()}
+                <h3>Hello {store.getState().user.name}, welcome back</h3>
+                <button id="hide" onClick={() => store.dispatch(reducer.changeView('TripManager'))}>Trip Manager</button>
+                {this.getViewComponent()}
               </div>
               <div className='col-lg-4'>
                 <NotificationsModal />

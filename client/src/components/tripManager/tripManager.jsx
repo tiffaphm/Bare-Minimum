@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
 			<div>
         <div className="row create manager-main">
           <div className="col-md-6">
-            <Button className="btn-large block" id="createtripbutton" onClick={this.togglePopup}>Create New Trip</Button>
+            <button className="btn-large block" id="createtripbutton" onClick={this.togglePopup}>Create New Trip</button>
           </div>
         </div>
 
@@ -78,7 +78,7 @@ class Dashboard extends React.Component {
             <h3 className="welcome">Join Trip</h3>
             <div>
             <input value={this.state.joinTrip} onChange={e => this.handleChange(e)} type="text" name="code" placeholder="add code here"/>
-            <Button className="btn" onClick={this.joinTrip}>Submit</Button>
+            <button className="btn" onClick={this.joinTrip}>Submit</button>
             </div>
           </div>
         </div>
