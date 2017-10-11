@@ -11,7 +11,7 @@ const TripDetails = (props) => {
         <li className="tripdata">Lodging:&nbsp;&nbsp;{props.trip.lodging}</li>
       </ul>
     </div>
-  )
+  );
 };
 
 export default TripDetails;
