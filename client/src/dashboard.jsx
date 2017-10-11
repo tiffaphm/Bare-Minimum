@@ -21,6 +21,7 @@ import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
 import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import Landmarks from './components/landmarks/landmarks.jsx'
+import io from 'socket.io-client';
 
 const SERVER_URL = HOSTNAME;
 
@@ -33,6 +34,7 @@ class Dashboard extends React.Component {
 			trips: []
 		};
 		this.fetchLists = this.fetchLists.bind(this);
+		this.socket = io();
 	}
 	componentWillMount () {
 		//Get login user
