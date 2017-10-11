@@ -24,10 +24,18 @@ const addExpenses = () => {
 
 };
 
+const dropDB = () => {
+
+};
+
 const addTrips = () => {
-  return db.Trips.findOrCreate({where: {name: 'HR6', location: 'San Francisco', startDate: '2017-10-12', endDate: '2017-10-18', lodging: 'HR-6thFloor', accessCode: 'HR6', isopen: true}})
-    .then(() => db.Trips.findOrCreate({where: {name: 'HR7', location: 'San Jose', startDate: '2017-10-14', endDate: '2017-10-20', lodging: 'HR-7thFloor', accessCode: 'HR7', isopen: true}}))
-    .then(() => db.Trips.findOrCreate({where: {name: 'HR8', location: 'San Mateo', startDate: '2017-10-15', endDate: '2017-10-22', lodging: 'HR-8thFloor', accessCode: 'HR8', isopen: true}}));
+  return db.Trips.findOrCreate({where: {name: 'HR6', location: 'San Francisco', startDate: '2017-10-12', endDate: '2017-10-18', lodging: 'HR-6thFloor', accessCode: 'HR6', isopen: 'true'}})
+    .then(() => db.Trips.findOrCreate({where: {name: 'HR7', location: 'San Jose', startDate: '2017-10-14', endDate: '2017-10-20', lodging: 'HR-7thFloor', accessCode: 'HR7', isopen: 'true'}}))
+    .then(() => db.Trips.findOrCreate({where: {name: 'HR8', location: 'San Mateo', startDate: '2017-10-15', endDate: '2017-10-22', lodging: 'HR-8thFloor', accessCode: 'HR8', isopen: 'true'}}));
+
+};
+
+const addUserTrips = () => {
 
 };
 
@@ -35,7 +43,9 @@ module.exports = {
   addUsers: addUsers,
   addPhotos: addPhotos,
   addExpenses: addExpenses,
-  addTrips: addTrips
+  addTrips: addTrips,
+  dropDB: dropDB,
+  addUserTrips: addUserTrips
 };
 
 // INSERT INTO Users (name, email, password, salt, createdAt, updatedAt) VALUES ('Death', 'deadnotsleeping@gmail.com', 'DeathP', '1234', CURDATE(), CURDATE());

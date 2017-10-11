@@ -33,10 +33,10 @@ data.features = [
     name: 'Share Expense',
     link: 'ExpenseTracker'
   },
-  {
-    name: 'Destinations',
-    link: 'Landmarks'
-  },
+  // {
+  //   name: 'Destinations',
+  //   link: 'Landmarks'
+  // },
   {
     name: 'Calendar',
     link: 'some_link_to_calendar'
@@ -45,10 +45,10 @@ data.features = [
     name: 'Photos',
     link: 'Photos'
   },
-  {
-    name: 'Dashboard',
-    link: 'TripDashboard'
-  },
+  // {
+  //   name: 'Dashboard',
+  //   link: 'TripDashboard'
+  // },
   {
     name: 'Trip Manager',
     link: 'TripManager'
