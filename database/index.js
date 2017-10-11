@@ -84,6 +84,23 @@ const Sessions = db.define('Sessions', {
   UserId: Sequelize.INTEGER
 });
 
+//Photo Schema
+const Photos = db.define('photo', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+
+  path: {
+    type: Sequelize.STRING,
+    unique: true
+  }
+});
+
+// Trips.hasMany(Photos);
+// Photos.belongsTo(Trips);
+
 //---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
 Users.sync();
 UserTrip.sync();
@@ -92,6 +109,19 @@ Votes.sync();
 Landmarks.sync();
 Expenses.sync();
 Sessions.sync();
+Photos.sync();
+
+
+//Promises do not work!!!!
+// Users.sync()
+//   .then(() => UserTrip.sync())
+//   .then(() => Trips.sync())
+//   .then(() => Votes.sync())
+//   .then(() => Landmarks.sync())
+//   .then(() => Expenses.sync())
+//   .then(() => Sessions.sync())
+//   // .then(() => Photos.sync())
+//   .catch(err => console.log('error syncing database', err));
 
 //--------------------FOREIGN KEY SETTINGS -----------------
 
@@ -119,6 +149,8 @@ Expenses.belongsTo(Trips, {foreignkey: 'tripId'});
 Users.hasOne(Sessions, {foreignKey: 'userId'});
 Sessions.hasOne(Users, {foreignKey: 'sessionId'});
 
+// Trips.hasMany(Photos);
+// Photos.belongsTo(Trips);
 
 
 module.exports = {
@@ -129,5 +161,6 @@ module.exports = {
   Votes: Votes,
   Landmarks: Landmarks,
   Expenses: Expenses,
-  Sessions: Sessions
-}
+  Sessions: Sessions,
+  Photos: Photos
+};

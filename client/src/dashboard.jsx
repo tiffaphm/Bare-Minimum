@@ -22,6 +22,7 @@ import MapboxViewer from './components/mapboxViewer.jsx';
 import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import Landmarks from './components/landmarks/landmarks.jsx';
 import NotificationsModal from './components/notifications/NotificationsModal.jsx';
+import PhotoList from './components/photos/photoList.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -36,6 +37,7 @@ class Dashboard extends React.Component {
     this.fetchLists = this.fetchLists.bind(this);
     this.socket = io();
   }
+  
   componentWillMount () {
     //Get login user
     $.get(SERVER_URL + '/loginuser').then((data) => {
@@ -43,6 +45,14 @@ class Dashboard extends React.Component {
       this.fetchLists();
     }).catch((err) => {
       console.error('Error getting login user', err);
+    });
+  }
+
+  handleLogout () {
+    $.post(SERVER_URL + '/logout').then((reply) => {
+      location.reload();
+    }).catch((err) => {
+      console.error('Error!', err);
     });
   }
 
@@ -58,31 +68,24 @@ class Dashboard extends React.Component {
     });
   }
 
-  handleLogout () {
-    $.post(SERVER_URL + '/logout').then((reply) => {
-      location.reload();
-    }).catch((err) => {
-      console.error('Error!', err);
-    });
-  }
-
   getViewComponent () {
-    if (store.getState().view === 'TripManager') {
-      return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
-    } else if (store.getState().view === 'ExpenseTracker') {
-      return <ExpenseTracker />;
-    } else if (store.getState().view === 'Landmarks') {
-      return <Landmarks />;
-    } else {
-      return <TripDashboard user={store.getState().user}/>;
-    }
+  	if (store.getState().view === 'TripManager') {
+  		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
+  	} else if (store.getState().view === 'ExpenseTracker') {
+  		return <ExpenseTracker />;
+  	} else if (store.getState().view === 'Landmarks') {
+  		return <Landmarks />;
+  	} else if (store.getState().view === 'Photos') {
+  		return <PhotoList />;
+  	} else {
+  		return <TripDashboard user={store.getState().user}/>;
+  	}
   }
 
   render() {
     return (
       <div>
         <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
-
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>

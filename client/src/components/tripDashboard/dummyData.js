@@ -43,7 +43,7 @@ data.features = [
   },
   {
     name: 'Photos',
-    link: 'some_link_to_photos'
+    link: 'Photos'
   },
   {
     name: 'Dashboard',

@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS travelapp;
+
+CREATE DATABASE IF NOT EXISTS travelapp;
+
+USE travelapp;
