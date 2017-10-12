@@ -27,9 +27,8 @@ class PhotoList extends React.Component {
   }
 
   getPhotos () {
-    // const options = { tripId: this.props.trip.id };
     $.ajax({
-      url: HOSTNAME + '/photos',
+      url: HOSTNAME + `/photos?tripId=${this.props.trip.id}`,
       // data: options,
       method: 'GET',
       success: (photos) => {
@@ -54,5 +53,3 @@ class PhotoList extends React.Component {
 }
 
 export default connect(mapStateToProps)(PhotoList);
-
-//// <AddPhoto />
