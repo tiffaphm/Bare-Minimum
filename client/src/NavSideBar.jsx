@@ -26,13 +26,13 @@ const NavSideBar = (props) => {
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
               <a className="nav-link" onClick={getMap}>
                 <i className="fa fa-fw fa-map"></i>
-                <span className="nav-link-text">Map</span>
+                <span className="nav-link-text"> Map</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
               <a className="nav-link" href="charts.html">
-                <i className="fa fa-fw fa-area-chart"></i>
-                <span className="nav-link-text">Charts</span>
+                <i className="fa fa-fw fa-photo"></i>
+                <span className="nav-link-text"> Photos</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
