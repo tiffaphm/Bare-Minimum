@@ -6,12 +6,20 @@ import dummyData from '../tripDashboard/dummyData.js';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import $ from 'jquery';
+import { BindActionCreaters } from 'redux';
 const CLOUDINARY_UPLOAD_PRESET = 'lfnra5zh';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/djffzbz5m/upload';
 
-let mapStateToProps = ({ trip, user }) => {
+
+const mapStateToProps = ({ trip, user }) => {
   return { trip, user };
 };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreaters({ photos: []}, dispatch);
+// // photos: this.state.images
+// };
+
 
 class PhotoUpload extends React.Component {
   constructor (props) {
@@ -39,8 +47,9 @@ class PhotoUpload extends React.Component {
       data: {images: images},
       method: 'POST',
       success: (images) => {
-        // console.log('added photos to database', images);
-        this.setState({images: images});
+        console.log('back in client with trip photos after adding to database', images);
+        // this.setState({images: images});
+        this.props.dispatch(reducer.changePhotos(images));
       },
       error: (err) => {
         console.log('error while adding photos to database', err);
@@ -51,14 +60,13 @@ class PhotoUpload extends React.Component {
   addAllImagesToCloud(images) {
     let counter = 0;
     images.forEach(img => {
-      console.log('image', img);
       this.addOneImageToCloud(img)
         .then(url => {
           this.state.uploadedFileCloudinaryUrls.push({name: img.name, tripId: this.trip, path: url, userId: this.user});
           counter ++;
           if (counter === images.length) {
             this.addImagesToDatabase(this.state.uploadedFileCloudinaryUrls);
-            this.setState({images: this.state.uploadedFileCloudinaryUrls});
+            // this.setState({images: this.state.uploadedFileCloudinaryUrls});
           }
         })
         .catch(err => console.log('error adding multiple images to cloudinary', err));
@@ -75,7 +83,6 @@ class PhotoUpload extends React.Component {
         if (err) {
           reject(err);
         } else if (response.body.secure_url !== '') {
-          // console.log('success from cloudinary', response.body.secure_url);
           resolve(response.body.secure_url);
         }
       });

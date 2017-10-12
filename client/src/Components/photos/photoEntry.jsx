@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 const PhotoEntry = (props) => (
   <div>
-    <img className="here-1" src={props.photo.path}/>
+    <img className="photo-entry" src={props.photo.path}/>
   </div>
 );
 
