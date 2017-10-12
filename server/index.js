@@ -246,9 +246,7 @@ app.post('/popup', (req, res) => {
 
 
 app.post('/dummydata', (req, res) => {
-  dummyData.addUsers()
-    .then(() => dummyData.addTrips())
-    .then(() => dummyData.addPhotos())
+  dummyData.addData()
     .then(() => res.send(200))
     .catch(err => {
       console.log('error adding dummy data', err);
@@ -258,9 +256,8 @@ app.post('/dummydata', (req, res) => {
 
 //get trip photos from database
 app.get('/photos', (req, res) => {
-  query.findAllPhotos()
+  query.findPhotos(req.query)
     .then(result => {
-      // console.log('ophoooootototttoooooossss', result);
       res.send(result);
     })
     .catch(err => {
