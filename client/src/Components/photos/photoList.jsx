@@ -1,7 +1,5 @@
 import React from 'react';
 import reducer from '../../Reducers';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
 import PhotoEntry from './photoEntry.jsx';
 import PhotoUpload from './photoUpload.jsX';
 
@@ -26,7 +24,6 @@ class PhotoList extends React.Component {
 
   componentDidMount () {
     this.getPhotos();
-    // this.getUsers();
   }
 
   getPhotos () {
@@ -45,23 +42,13 @@ class PhotoList extends React.Component {
     });
   }
 
-  // findUser (userId) {
-  //   for (var user of this.state.usersOnTrip) {
-  //     if (user.id === userId) {
-  //       return user.name;
-  //     }
-  //   }
-  // }
-
   render() {
     return (
-      <Col md={8} mdOffset={2}>
+      <div className="row">
         <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
-        <div>
         <PhotoUpload />
-          {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} key={i}/>)}
-        </div>
-      </Col>
+        {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} key={i}/>)}
+      </div>
     );
   }
 }
