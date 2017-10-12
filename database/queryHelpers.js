@@ -287,25 +287,6 @@ const addPhotos = (images) => {
     .then(() => db.Photos.findAll({where: {tripId: images[0].tripId}}));
 };
 
-// Notifications
-const getNotificationForTrip = (tripId) => {
-  return new Promise((resolve, reject) => {
-    db.Notifications.findAll({ where: { tripId: tripId } })
-      .then((result) => resolve(result))
-      .catch((err) => reject(err));
-  });
-};
-
-const generateNotification = (tripId, type, contentId) => {
-  return new Promise((resolve, reject) => {
-    db.Notifications.create({ tripId: tripId, type: type, contentId: contentId })
-      .then((result) => resolve(result))
-      .catch((err) => console.log(`error occur when generating notification: ${err}`));
-  });
-};
-
-
-
 module.exports = {
   addUser: addUser,
   findUser: findUser,
