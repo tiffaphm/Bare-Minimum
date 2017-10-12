@@ -1,6 +1,21 @@
 import React from 'react';
+import reducer from './Reducers';
+import { connect } from 'react-redux';
 
+  // selectTrip(trip) {
+  //   this.props.dispatch(reducer.changeTrip(trip));
+  //   this.props.dispatch(reducer.changeView('TripDashboard'));
+  // }
+
+  let mapStateToProps = ({ trip }) => {
+    return { trip };
+  };
 const NavSideBar = (props) => {
+
+  let getMap = () => {
+    props.dispatch(reducer.changeView('PlacesOfInterest'))
+  };
+
   return (
     <div className="universal-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
@@ -9,9 +24,9 @@ const NavSideBar = (props) => {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a className="nav-link" href="index.html">
-                <i className="fa fa-fw fa-dashboard"></i>
-                <span className="nav-link-text">Dashboard</span>
+              <a className="nav-link" onClick={getMap}>
+                <i className="fa fa-fw fa-map"></i>
+                <span className="nav-link-text">Map</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -208,4 +223,4 @@ const NavSideBar = (props) => {
   );
 };
 
-export default NavSideBar;
+export default connect(mapStateToProps)(NavSideBar);
