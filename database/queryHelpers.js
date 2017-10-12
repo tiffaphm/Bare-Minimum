@@ -56,20 +56,13 @@ const findUsersOnTrip = function(tripId, callback) {
     });
 };
 
-const findTripsForUser = function(userId, callback) {
-  db.Trips.findAll({
+const findTripsForUser = (userId) => {
+  return db.Trips.findAll({
     include: [{
       model: db.Users,
       where: { id: userId }
     }]
-  })
-    .then((result) => {
-      return callback(result);
-    })
-    .catch((err) => {
-      console.error('There was an error looking up trips for user', err);
-      callback(err);
-    });
+  });
 };
 
 // TODO: setUserTripDetails
@@ -120,43 +113,42 @@ const addSession = function(sessionId, email) {
 
 const getDetailedNotification = (notification) => {
   if (notification.type === 'expense') {
-    return db.Expenses.findOne({ 
-      where: { id: notification.contentId },
-      ordering: [['createdAt', 'DESC']]
-    });
+    return db.Expenses.findOne({ where: { id: notification.contentId }})
+      .then((content) => {
+        notification.content = content.dataValues;
+        return notification;
+      });
   }
 };
 
 const getNotificationForTrip = (tripId) => {
-  return new Promise((resolve, reject) => {
-    db.Notifications.findAll({ where: { tripId: tripId } })
-      .then((results) => {
-        let counter = 0;
-        let finishCall = () => {
-          counter++;
-          if (counter === results.length) {
-            resolve(results);
-          }
-        };
-        for (let i = 0; i < results.length; i++) {
-          getDetailedNotification(results[i].dataValues)
-            .then((content) => {
-              let notification = results[i].dataValues;
-              notification.content = content.dataValues;
-              results[i] = notification;
-              finishCall();
-            })
-            .catch((err) => reject(err));
-        }
-      })
-      .catch((err) => reject(err));
-  });
+  return db.Notifications.findAll({ 
+    where: { tripId: tripId },
+    ordering: [['createdAt', 'DESC']]
+  })
+    .then((results) => {
+      let promises = [];
+      for (let result of results) {
+        promises.push(getDetailedNotification(result.dataValues));
+      }
+      return Promise.all(promises);
+    });
+};
+
+const getNotificationForUser = (userId) => {
+  findTripsForUser(userId)
+    .then((results) => {
+      let promises = [];
+      console.log(results);
+      for (let result of results) {
+        promises.push(getNotificationForTrip(result.dataValues.id));
+      }
+      return Promise.all(promises);
+    });
 };
 
 const generateNotification = (tripId, type, contentId) => {
-  return db.Notifications.create({ tripId: tripId, type: type, contentId: contentId })
-    .then((result) => result)
-    .catch((err) => console.log(`error occur when generating notification: ${err}`));
+  return db.Notifications.create({ tripId: tripId, type: type, contentId: contentId });
 };
 
 // ==== TRIPS ====
@@ -246,21 +238,14 @@ const findLandmarks = function(tripId, callback) {
 // ==== EXPENSES ==== 
 
 const createExpense = function(options) {
-  return new Promise ((resolve, reject) => {
-    return db.Expenses.create(options)
-      .then((result) => {
-        resolve('Added to database');
-        return generateNotification(options.tripId, 'expense', result.dataValues.id);
-      })
-      .then((result) => {
-        console.log(result.dataValues);
-        // TODO: send notification through socket
-        
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return db.Expenses.create(options)
+    .then((result) => {
+      // generate a notification
+      return generateNotification(options.tripId, 'expense', result.dataValues.id);
+    })
+    .then((notiResult) => {
+      return getDetailedNotification(notiResult.dataValues);
+    });
 };
 
 const getExpensesForTrip = function(targetId) {
@@ -304,5 +289,6 @@ module.exports = {
   updateUserTripDetails: updateUserTripDetails,
   findAllPhotos: findAllPhotos,
   getNotificationForTrip: getNotificationForTrip,
-  addPhotos: addPhotos
+  addPhotos: addPhotos,
+  getNotificationForUser: getNotificationForUser
 };

@@ -7,7 +7,7 @@ GET request to '/notifications' returns a list of all the notifications for a sp
 Example:
 
 ```
-request.get('travel-by-egt.herokuapp.com/notifications');
+request.get('travel-by-egt.herokuapp.com/notifications?tripId=2');
 
 //response
 
