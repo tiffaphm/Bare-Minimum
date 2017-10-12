@@ -115,6 +115,50 @@ const addSession = function(sessionId, email) {
   console.log('this is db helper ', sessionId, email);
 };
 
+
+// Notifications
+
+const getDetailedNotification = (notification) => {
+  if (notification.type === 'expense') {
+    return db.Expenses.findOne({ 
+      where: { id: notification.contentId },
+      ordering: [['createdAt', 'DESC']]
+    });
+  }
+};
+
+const getNotificationForTrip = (tripId) => {
+  return new Promise((resolve, reject) => {
+    db.Notifications.findAll({ where: { tripId: tripId } })
+      .then((results) => {
+        let counter = 0;
+        let finishCall = () => {
+          counter++;
+          if (counter === results.length) {
+            resolve(results);
+          }
+        };
+        for (let i = 0; i < results.length; i++) {
+          getDetailedNotification(results[i].dataValues)
+            .then((content) => {
+              let notification = results[i].dataValues;
+              notification.content = content.dataValues;
+              results[i] = notification;
+              finishCall();
+            })
+            .catch((err) => reject(err));
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+const generateNotification = (tripId, type, contentId) => {
+  return db.Notifications.create({ tripId: tripId, type: type, contentId: contentId })
+    .then((result) => result)
+    .catch((err) => console.log(`error occur when generating notification: ${err}`));
+};
+
 // ==== TRIPS ====
 
 const createTrip = function(trip, callback) {
@@ -203,12 +247,19 @@ const findLandmarks = function(tripId, callback) {
 
 const createExpense = function(options) {
   return new Promise ((resolve, reject) => {
-    return db.Expenses.create(options).then((result) => {
-      // TODO: generate notification
-      resolve('Added to database');
-    }).catch((err) => {
-      reject(err);
-    });
+    return db.Expenses.create(options)
+      .then((result) => {
+        resolve('Added to database');
+        return generateNotification(options.tripId, 'expense', result.dataValues.id);
+      })
+      .then((result) => {
+        console.log(result.dataValues);
+        // TODO: send notification through socket
+        
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 
@@ -235,25 +286,6 @@ const addPhotos = (images) => {
   return db.Photos.bulkCreate(images)
     .then(() => db.Photos.findAll({where: {tripId: images[0].tripId}}));
 };
-
-// Notifications
-const getNotificationForTrip = (tripId) => {
-  return new Promise((resolve, reject) => {
-    db.Notifications.findAll({ where: { tripId: tripId } })
-      .then((result) => resolve(result))
-      .catch((err) => reject(err));
-  });
-};
-
-const generateNotification = (tripId, type, contentId) => {
-  return new Promise((resolve, reject) => {
-    db.Notifications.create({ tripId: tripId, type: type, contentId: contentId })
-      .then((result) => resolve(result))
-      .catch((err) => console.log(`error occur when generating notification: ${err}`));
-  });
-};
-
-
 
 module.exports = {
   addUser: addUser,
