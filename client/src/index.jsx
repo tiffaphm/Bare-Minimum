@@ -5,7 +5,7 @@ import Login from './components/homepage/Login.jsx';
 import Signup from './components/homepage/Signup.jsx';
 
 import '../dist/vendor/bootstrap/css/bootstrap.css';
-import '../dist/style.css';
+import '../dist/stylesheet.css';
 import '../dist/sb-admin.css';
 
 const serverURL = HOSTNAME;
