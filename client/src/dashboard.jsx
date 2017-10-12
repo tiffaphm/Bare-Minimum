@@ -89,13 +89,8 @@ class Dashboard extends React.Component {
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>
-              <div className='col-lg-8'>
                 <h3>welcome back, {store.getState().user.name}</h3>
                 {this.getViewComponent()}
-              </div>
-              <div className='col-lg-4'>
-                <NotificationsModal />
-              </div>
             </div>
           </div>
         </div>
