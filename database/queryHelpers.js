@@ -230,8 +230,10 @@ const findAllPhotos = () => {
   return db.Photos.findAll();
 };
 
-const addPhoto = (photo) => {
-  return db.Photos.create(photo);
+const addPhotos = (images) => {
+  console.log('here with images', images);
+  return db.Photos.bulkCreate(images)
+    .then(() => db.Photos.findAll({where: {tripId: images[0].tripId}}));
 };
 
 // Notifications

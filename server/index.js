@@ -12,7 +12,7 @@ const http = require('http').Server(app);
 const dummyData = require('../database/dummyData.js');
 // export before require loop
 module.exports = http;
-const socket = require('./socket.js')
+const socket = require('./socket.js');
 
 // Express Middleware
 
@@ -62,8 +62,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //Routes
 app.post('/login', passport.authenticate('local-signin'), function(req, res) {
-  req.session.user = req.body.email
-  query.addSession(req.session.id, req.body.email)
+  req.session.user = req.body.email;
+  query.addSession(req.session.id, req.body.email);
   res.redirect('/dashboard');
 });
 
@@ -75,7 +75,7 @@ app.post('/logout', (req, res) => {
     } else {
       console.log('Session destroyed');
       //clean the cookie
-      res.cookie("connect.sid", "", { expires: new Date() });
+      res.cookie('connect.sid', '', { expires: new Date() });
       res.redirect('/');
     }
   });
@@ -86,7 +86,7 @@ app.get('/dashboard', (req, res) => {
     res.contentType('text/html');
     res.status(200).sendFile(path.resolve(__dirname + '/../client/dist/dashboard.html'));
   } else {
-    res.status(403).redirect('/')
+    res.status(403).redirect('/');
   }
 });
 
@@ -254,6 +254,7 @@ app.post('/dummydata', (req, res) => {
     });
 });
 
+//get trip photos from database
 app.get('/photos', (req, res) => {
   query.findAllPhotos()
     .then(result => {
@@ -266,15 +267,17 @@ app.get('/photos', (req, res) => {
     });
 });
 
+
+//add trip photos to database
 app.post('/photos', (req, res) => {
-  query.addPhoto()
-    .then(() => {
-      console.log('added photo');
-      res.send();
+  query.addPhotos(req.body.images)
+    .then(result => {
+      console.log('added all photos to database', result);
+      res.send(result);
     })
     .catch(err => {
-      console.log('err adding photo', err);
-      res.status(400).send('Failed to add photo');
+      console.log('error adding all images to database', err);
+      res.status(418).send('Adding photos to database failed');
     });
 });
 

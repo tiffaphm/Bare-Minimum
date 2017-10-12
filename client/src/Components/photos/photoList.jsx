@@ -10,6 +10,10 @@ import $ from 'jquery';
 import TripNavBar from '../tripDashboard/tripNavBar.jsx';
 import dummyData from '../tripDashboard/dummyData.js';
 
+let mapStateToProps = ({ trip, user }) => {
+  return { trip, user };
+};
+
 class PhotoList extends React.Component {
   constructor(props) {
     super(props);
@@ -61,10 +65,6 @@ class PhotoList extends React.Component {
     );
   }
 }
-
-let mapStateToProps = ({ trip, user }) => {
-  return { trip, user };
-};
 
 export default connect(mapStateToProps)(PhotoList);
 

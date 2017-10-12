@@ -1,12 +1,5 @@
-//Be able to drag a photo on a page
-// on mouse down, add photo to database
-//on click, find all images associated with the trip
-// render random sized images
-
 import React from 'react';
 import reducer from '../../Reducers';
-// import { Row } from 'react-bootstrap';
-// import { Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import TripNavBar from '../tripDashboard/tripNavBar.jsx';
 import dummyData from '../tripDashboard/dummyData.js';
@@ -20,61 +13,73 @@ let mapStateToProps = ({ trip, user }) => {
   return { trip, user };
 };
 
-
 class PhotoUpload extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      photos: [],
+      images: [],
       uploadedFileCloudinaryUrls: []
     };
     this.onImageDrop = this.onImageDrop.bind(this);
+    this.addImagesToDatabase = this.addImagesToDatabase.bind(this);
+    this.addAllImagesToCloud = this.addAllImagesToCloud.bind(this);
+    this.addOneImageToCloud = this.addOneImageToCloud.bind(this);
+    this.trip = this.props.trip.id;
+    this.user = this.props.user.id;
   }
 
   onImageDrop(files) {
-    // console.log(files);
-    const tripImages = files.map(img => {
-      img.tripId = this.props.trip.id;
-      img.userId = this.props.user.id;
-      return img;
-    });
-
-    this.setState({photos: tripImages});
-    this.handleImageUpload(tripImages);
+    this.setState({images: files});
+    this.addAllImagesToCloud(files);
   }
 
-  handleImageUpload(files) {
-    // $.ajax({
-    //   url: HOSTNAME + '/photos',
-    //   data: JSON.stringify(files),
-    //   method: 'POST',
-    //   success: (response) => {
-    //     console.log('added photos to database', response);
-    //     // this.setState({photos: photos });
-    //   },
-    //   error: (err) => {
-    //     console.log('error while adding photos to databse', err);
-    //   } 
-    // });
+  addImagesToDatabase(images) {
+    $.ajax({
+      url: HOSTNAME + '/photos',
+      data: {images: images},
+      method: 'POST',
+      success: (images) => {
+        // console.log('added photos to database', images);
+        this.setState({images: images});
+      },
+      error: (err) => {
+        console.log('error while adding photos to database', err);
+      } 
+    });
+  }
 
-    files.forEach(img => {
+  addAllImagesToCloud(images) {
+    let counter = 0;
+    images.forEach(img => {
+      console.log('image', img);
+      this.addOneImageToCloud(img)
+        .then(url => {
+          this.state.uploadedFileCloudinaryUrls.push({name: img.name, tripId: this.trip, path: url, userId: this.user});
+          counter ++;
+          if (counter === images.length) {
+            this.addImagesToDatabase(this.state.uploadedFileCloudinaryUrls);
+            this.setState({images: this.state.uploadedFileCloudinaryUrls});
+          }
+        })
+        .catch(err => console.log('error adding multiple images to cloudinary', err));
+    });
+  }
+
+  addOneImageToCloud(img) {
+    return new Promise((resolve, reject) => {
       let upload = request.post(CLOUDINARY_UPLOAD_URL)
         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
         .field('file', img);
 
       upload.end((err, response) => {
         if (err) {
-          console.error('error adding to cloudinary', err);
+          reject(err);
         } else if (response.body.secure_url !== '') {
-          // this.setState({
-          //   uploadedFileCloudinaryUrl: response.body.secure_url
-          // });
-          console.log('success from cloudinary', response.body.secure_url);
+          // console.log('success from cloudinary', response.body.secure_url);
+          resolve(response.body.secure_url);
         }
       });
     });
-
-    
   }
 
   render() {
@@ -87,15 +92,11 @@ class PhotoUpload extends React.Component {
           <p>Add image</p>
         </Dropzone>
         <div className="uploaded-images">
-          {this.state.photos.map(photo => <img src={photo.preview} key={photo.name}/>)}
+          {this.state.images.map((photo, i) => <img src={photo.preview} key={i}/>)}
         </div>
       </div>
     );
   }
 }
-
-// let mapStateToProps = ({ trip, user }) => {
-//   return { trip, user };
-// };
 
 export default connect(mapStateToProps)(PhotoUpload);

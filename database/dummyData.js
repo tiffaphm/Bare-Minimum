@@ -1,5 +1,7 @@
 const db = require('./index.js');
 
+const photos = [];
+
 const addUsers = () => {
   return db.Users.findOrCreate({where: {name: 'Neha Chaudhary', email: 'neha@gmail.com', password: 'blob', salt: 'neha'}})
     .then(() => db.Users.findOrCreate({where: {name: 'Eugene Soo', email: 'eugene@gmail.com', password: 'blob', salt: 'eugene'}}))
@@ -8,16 +10,16 @@ const addUsers = () => {
 };
 
 const addPhotos = () => {
-  return db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np1.jpg'}})
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np2.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np3.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np4.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np5.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np6.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np7.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np8.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np9.jpg'}}))
-    .then(() => db.Photos.findOrCreate({where: {path: '/Trip-Images/HR-1/np10.jpg'}}));
+  return db.Photos.findOrCreate({where: {name: 'np1.jpg', path: '/Trip-Images/HR-1/np1.jpg', tripId: 3}})
+    .then(() => db.Photos.findOrCreate({where: {name: 'np2.jpg', path: '/Trip-Images/HR-1/np2.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np3.jpg', path: '/Trip-Images/HR-1/np3.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np4.jpg', path: '/Trip-Images/HR-1/np4.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np5.jpg', path: '/Trip-Images/HR-1/np5.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np6.jpg', path: '/Trip-Images/HR-1/np6.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np7.jpg', path: '/Trip-Images/HR-1/np7.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np8.jpg', path: '/Trip-Images/HR-1/np8.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np9.jpg', path: '/Trip-Images/HR-1/np9.jpg', tripId: 3}}))
+    .then(() => db.Photos.findOrCreate({where: {name: 'np10.jpg', path: '/Trip-Images/HR-1/np10.jpg', tripId: 3}}));
 };
 
 const addExpenses = () => {
