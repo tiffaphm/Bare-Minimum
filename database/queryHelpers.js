@@ -272,5 +272,5 @@ module.exports = {
   updateUserTripDetails: updateUserTripDetails,
   findAllPhotos: findAllPhotos,
   getNotificationForTrip: getNotificationForTrip,
-  addPhoto: addPhoto
+  addPhotos: addPhotos
 };
