@@ -31,9 +31,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use('local-signin', new Strategy({
-  usernameField: 'email'
-  },
+passport.use('local-signin', new Strategy({ usernameField: 'email' },
   function(email, password, done) {
     db.Users.findOne({ where: {email: email} })
       .then( (user) => {
@@ -108,13 +106,15 @@ app.post('/jointrip', (req, res) => {
 });
 
 app.get('/fetchtrips', (req, res) => {
-  query.findTripsForUser(req.query.userId, (result) => {
-    // console.log('Result of query', result);
-    //Array of objects where only the dataValues keys is useful
-    let finalResult = result.map((ele) => ele.dataValues);
-    // console.log('Trips for user:', finalResult);
-    return res.status(200).send(finalResult);
-  });
+  query.findTripsForUser(req.query.userId)
+    .then((result) => {
+      let finalResult = result.map((ele) => ele.dataValues);
+      // console.log('Trips for user:', finalResult);
+      res.status(200).send(finalResult);
+    })
+    .catch((err) => {
+      res.status(500).end();
+    });
 });
 
 //on successful login or signup, issue new session
@@ -160,13 +160,15 @@ app.get('/landmarks', (req, res) => {
 });
 
 app.post('/expense', (req, res) => {
-  query.createExpense(req.body).then((response) => {
-    console.log('Got back from DB:', response);
-    res.status(200).end();
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).end();
-  });
+  query.createExpense(req.body)
+    .then((notification) => {
+      // send notification through socket;
+      res.status(200).end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
 });
 
 app.get('/expense', (req, res) => {
@@ -281,6 +283,14 @@ app.post('/photos', (req, res) => {
 app.get('/notifications', (req, res) => {
   if (req.query.tripId) {
     query.getNotificationForTrip(req.query.tripId)
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((err) => {
+        res.status(500).end();
+      });
+  } else if (req.query.userId) {
+    query.getNotificationForUser(req.query.userId)
       .then((result) => {
         res.status(200).json(result);
       })
