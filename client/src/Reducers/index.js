@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import $ from 'jquery';
 
 const APP_VIEWS = require('../appViewsList').APP_VIEWS;
 
@@ -40,6 +41,10 @@ const showMore = (notificationsCount = 10) => ({
   type: SHOW_MORE,
   notificationsCount
 });
+
+const updateNotifications = () => {
+  console.log('lolololol');
+};
 
 /*
 REDUCERS
@@ -112,7 +117,8 @@ module.exports = {
   changeUser,
   changeTrip,
   changeView,
-  changePhotos
+  changePhotos,
+  updateNotifications
 };
 
 /*

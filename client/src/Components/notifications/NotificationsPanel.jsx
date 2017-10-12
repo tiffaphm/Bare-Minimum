@@ -3,7 +3,8 @@ import NotificationsPanelEntry from './NotificationsPanelEntry.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import io from 'socket.io-client';
-
+import { updatedNotifications } from '../../Reducers';
+import { bindActionCreators } from 'redux';
 const socket = io();
 
 const mapStateToProps = (state) => {
@@ -11,6 +12,12 @@ const mapStateToProps = (state) => {
     notifications: state.notifications,
     state: state
   };
+};
+
+//anything returns from this function will end up as props
+const mapDispatchToProps = (dispatch) => {
+  //whenever updatedNotifications is called, result flows to all reducers
+  return bindActionCreators({updateNotifications: updateNotifications}, dispatch);
 };
 
 class NotificationsPanel extends React.Component {
@@ -23,6 +30,7 @@ class NotificationsPanel extends React.Component {
   }
 
   componentDidMount() {
+    this.props.updatedNotifications();
     var self = this;
     socket.on('update', function(notification) {
       console.log('BULBASAUR!');
