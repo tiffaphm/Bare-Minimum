@@ -7,6 +7,7 @@ SYMBOLS - How a user might alter state
 const CHANGE_USER = 'CHANGE_USER';
 const CHANGE_TRIP = 'CHANGE_TRIP';
 const CHANGE_VIEW = 'CHANGE_VIEW';
+const CHANGE_PHOTOS = 'CHANGE_PHOTOS';
 
 /*
 ACTIONS
@@ -26,11 +27,17 @@ const changeView = (view = '') => ({
   view
 });
 
+const changePhotos = (photos = []) => ({
+  type: CHANGE_PHOTOS,
+  payload: photos
+});
+
 /*
 REDUCERS
 */
 
 const initialState = {
+  photos: [],
   user: '',
   trip: '',
   view: 'TripManager'
@@ -46,6 +53,8 @@ const travelReducer = (state = initialState, action) => {
     return Object.assign({}, state, {trip: action.trip});
   case CHANGE_VIEW:
     return Object.assign({}, state, {view: action.view});
+  case CHANGE_PHOTOS:
+    return Object.assign({}, state, {photos: action.payload});
   default:
     return state;
   }
@@ -55,7 +64,8 @@ module.exports = {
   travelReducer,
   changeUser,
   changeTrip,
-  changeView
+  changeView,
+  changePhotos
 };
 
 /*

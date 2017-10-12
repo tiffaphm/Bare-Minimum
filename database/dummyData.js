@@ -57,12 +57,3 @@ const addData = () => {
 module.exports = {
   addData: addData,
 };
-
-// INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('AA567', '867-5309', 1, 1, CURDATE(), CURDATE());
-// INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('AA395', '555-5566', 1, 2, CURDATE(), CURDATE());
-// INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('WOW1755', '867-1234', 2, 3, CURDATE(), CURDATE());
-// INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('WOW5766', '444-5566', 2, 4, CURDATE(), CURDATE());
-
-
-
-

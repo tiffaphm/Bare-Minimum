@@ -1,16 +1,27 @@
 import React from 'react';
-import reducer from '../../Reducers';
+import reducer, { changePhotos } from '../../Reducers';
 import PhotoEntry from './photoEntry.jsx';
 import PhotoUpload from './photoUpload.jsX';
-
 import { connect } from 'react-redux';
+import { bindActionCreaters } from 'redux';
 import $ from 'jquery';
 import TripNavBar from '../tripDashboard/tripNavBar.jsx';
 import dummyData from '../tripDashboard/dummyData.js';
 
-let mapStateToProps = ({ trip, user }) => {
-  return { trip, user };
+// const updatePhotos = (photos) => {
+//   return {
+//     type: 'CHANGE_PHOTOS',
+//     payload: photos
+//   };
+// };
+
+const mapStateToProps = ({ trip, user, photos }) => {
+  return { trip, user, photos };
 };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreaters({ changePhotos: changePhotos }, dispatch);
+// };
 
 class PhotoList extends React.Component {
   constructor(props) {
@@ -33,7 +44,8 @@ class PhotoList extends React.Component {
       method: 'GET',
       success: (photos) => {
         // console.log('received photos', photos);
-        this.setState({photos: photos });
+        this.setState({photos: photos});
+        // this.props.dispatch(reducer.changePhotos(photos));
       },
       error: (err) => {
         console.log('error while getting photos (client)', err);

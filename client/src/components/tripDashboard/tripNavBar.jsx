@@ -14,7 +14,7 @@ const TripNavBar = (props) => {
                 <div className="card-body-icon">
                   <i className="fa fa-fw fa-comments"></i>
                 </div>
-                <div className="mr-5">26 New Messages!</div>
+                <div className="mr-5"></div>
               </div>
               <a className="card-footer text-white clearfix small z-1" href="#">
                 <span onClick={() => {
