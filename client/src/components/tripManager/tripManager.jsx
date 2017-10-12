@@ -71,6 +71,7 @@ class Dashboard extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-8">
+          <h3>welcome back, {this.props.user.name}</h3>
             <TripList />
           </div>
           <div className="col-lg-4">
