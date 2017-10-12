@@ -12,6 +12,7 @@ const CHANGE_TRIP = 'CHANGE_TRIP';
 const CHANGE_VIEW = 'CHANGE_VIEW';
 const CHANGE_PHOTOS = 'CHANGE_PHOTOS';
 const SHOW_MORE = 'SHOW_MORE';
+const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 
 /*
 ACTION CREATORS
@@ -42,8 +43,12 @@ const showMore = (notificationsCount = 10) => ({
   notificationsCount
 });
 
-const updateNotifications = () => {
+const updateNotifications = (updatedNotifications) => {
   console.log('lolololol');
+  return {
+    type: UPDATE_NOTIFICATIONS,
+    payload: updatedNotifications
+  };
 };
 
 /*
@@ -107,6 +112,8 @@ const travelReducer = (state = initialState, action) => {
     return Object.assign({}, state, {view: action.view});
   case CHANGE_PHOTOS:
     return Object.assign({}, state, {photos: action.payload});
+  case UPDATE_NOTIFICATIONS:
+    return Object.assign({}, state, {notifications: action.payload});
   default:
     return state;
   }

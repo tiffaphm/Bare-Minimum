@@ -3,14 +3,16 @@ import NotificationsPanelEntry from './NotificationsPanelEntry.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import io from 'socket.io-client';
-import { updatedNotifications } from '../../Reducers';
+import { updateNotifications } from '../../Reducers';
 import { bindActionCreators } from 'redux';
+import $ from 'jquery';
+
 const socket = io();
 
 const mapStateToProps = (state) => {
   return {
     notifications: state.notifications,
-    state: state
+    user: state.user
   };
 };
 
@@ -30,8 +32,16 @@ class NotificationsPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updatedNotifications();
     var self = this;
+
+    $.ajax({
+      url: `/notifications?userId=${this.props.user.id}`,
+      method: 'GET',
+      success: function(data) {
+        self.props.updateNotifications(data);    
+      }
+    });
+
     socket.on('update', function(notification) {
       console.log('BULBASAUR!');
       /*var updatedNotifications = this.state.notifications.slice();
@@ -77,4 +87,4 @@ class NotificationsPanel extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(NotificationsPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsPanel);
