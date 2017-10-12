@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Muli|Roboto|Open+Sans');
 
+/* ---------------------------
+  this is the main CSS relevant to the entire page
+--------------------------- */
 body {
   background-color: #EAEDEF;
   font-family: Muli, Roboto, Open Sans, sans-serif
@@ -12,6 +15,10 @@ body {
 .text-primary {
   color: #661C70 !important;
 }
+
+/* ---------------------------
+  login page styles
+--------------------------- */
 
 .fa.fa-fw.fa-plane.logo {
   margin-right: 5px;
@@ -64,3 +71,7 @@ body {
     display: none;
   }
 }
+
+/*
+  new component style following this line
+*/

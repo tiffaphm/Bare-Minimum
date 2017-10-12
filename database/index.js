@@ -86,28 +86,28 @@ const Sessions = db.define('Sessions', {
 
 //Photo Schema
 const Photos = db.define('photo', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-
+  // id: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true,
+  //   autoIncrement: true,
+  //   allowNull: false
+  // },
+  name: Sequelize.STRING,
   path: {
     type: Sequelize.STRING,
     unique: true
-  }
+  },
+  tripId: Sequelize.INTEGER,
+  userId: Sequelize.INTEGER
 });
 
 // Notifi Schema
-
 const Notifications = db.define('notification', {
   tripId: Sequelize.INTEGER,
   type: Sequelize.STRING,
   contentId: Sequelize.INTEGER
 });
 
-// Trips.hasMany(Photos);
-// Photos.belongsTo(Trips);
 
 //---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
 Users.sync();
@@ -157,9 +157,6 @@ Expenses.belongsTo(Trips, {foreignkey: 'tripId'});
 
 Users.hasOne(Sessions, {foreignKey: 'userId'});
 Sessions.hasOne(Users, {foreignKey: 'sessionId'});
-
-// Trips.hasMany(Photos);
-// Photos.belongsTo(Trips);
 
 
 module.exports = {

@@ -281,6 +281,31 @@ const findAllPhotos = () => {
   return db.Photos.findAll();
 };
 
+const addPhotos = (images) => {
+  console.log('here with images', images);
+  return db.Photos.bulkCreate(images)
+    .then(() => db.Photos.findAll({where: {tripId: images[0].tripId}}));
+};
+
+// Notifications
+const getNotificationForTrip = (tripId) => {
+  return new Promise((resolve, reject) => {
+    db.Notifications.findAll({ where: { tripId: tripId } })
+      .then((result) => resolve(result))
+      .catch((err) => reject(err));
+  });
+};
+
+const generateNotification = (tripId, type, contentId) => {
+  return new Promise((resolve, reject) => {
+    db.Notifications.create({ tripId: tripId, type: type, contentId: contentId })
+      .then((result) => resolve(result))
+      .catch((err) => console.log(`error occur when generating notification: ${err}`));
+  });
+};
+
+
+
 module.exports = {
   addUser: addUser,
   findUser: findUser,
@@ -297,5 +322,6 @@ module.exports = {
   getUserTripDetails: getUserTripDetails,
   updateUserTripDetails: updateUserTripDetails,
   findAllPhotos: findAllPhotos,
-  getNotificationForTrip: getNotificationForTrip
+  getNotificationForTrip: getNotificationForTrip,
+  addPhotos: addPhotos
 };
