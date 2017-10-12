@@ -1,9 +1,25 @@
-import React from 'react';
+import React from "react";
+import GoogleApiKey from './GoogleApiKey.jsx';
+import TripMap from './TripMap.jsx';
 
-const PlacesOfInterest = () => (
-  <div className="map-container">
-    <p>the map will go here</p>
-  </div>
-)
+export class PlacesOfInterest extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default PlacesOfInterest;
+  render() {
+    if (!this.props.loaded) {
+      return <div>Loading...</div>
+    }
+
+    return (
+      <div className="map-container">
+        <TripMap google={this.props.google} />
+      </div>
+    )
+  }
+}
+
+export default GoogleApiComponent({
+  apiKey: GoogleApiKey
+})(PlacesOfInterest);
