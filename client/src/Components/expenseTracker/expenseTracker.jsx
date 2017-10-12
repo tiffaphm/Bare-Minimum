@@ -81,10 +81,23 @@ class ExpenseTracker extends React.Component {
             <ExpenseInput usersOnTrip={this.state.usersOnTrip} fetchExpenses={this.fetchExpenses.bind(this)} />
             <hr />
             <div>
-              <h3>Current Expenses</h3>
-              {this.state.expenses.map((item) => {
-                return <ExpenseEntry expense={item} key={item.id} payer={this.findUser(item.userId)}/>;
-              })}
+              <h4>All Expenses</h4>
+                <section>
+                  <div className="tbl-header">
+                    <table cellPadding="0" cellSpacing="0" border="0">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Amount</th>
+                          <th>Description</th>
+                          <th>Shared By</th>
+                          <th>Paid By</th>
+                        </tr>
+                      </thead>
+                    </table>
+                    <ExpenseEntry />
+                </div>
+                </section>
               <h3>Total Cost</h3>
               <div className="ExpenseEntry">${this.state.totalExpense}</div>
             </div>
@@ -100,3 +113,8 @@ let mapStateToProps = ({ trip, user }) => {
 };
 
 export default connect(mapStateToProps)(ExpenseTracker);
+
+
+// {this.state.expenses.map((item) => {
+//                 return <ExpenseEntry expense={item} key={item.id} payer={this.findUser(item.userId)}/>;
+//               })}
