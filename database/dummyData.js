@@ -1,33 +1,31 @@
 const db = require('./index.js');
 
-const photos = [];
+const photos = [
+  {name: 'np1.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/t1e319xpjoypglffj89x.jpg', tripId: 1, userId: 1},
+  {name: 'np2.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/jvn8lnjavwwlnktxqrng.jpg', tripId: 1, userId: 1},
+  {name: 'np3.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/btjf28tjumy4nhw4udyb.jpg', tripId: 1, userId: 1},
+  {name: 'np4.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/nz7ouq1gixilrkgphkof.jpg', tripId: 1, userId: 1},
+  {name: 'np5.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/hdv1ktdyy9w4g50cge6c.jpg', tripId: 2, userId: 1},
+  {name: 'np6.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/dioodkqeos4k7rlmtnpv.jpg', tripId: 2, userId: 1},
+  {name: 'np7.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/kb1guzptx3v22yu8icxm.jpg', tripId: 2, userId: 1},
+  {name: 'np8.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771827/m1u9zjb38xwdsg3jvh34.jpg', tripId: 3, userId: 1},
+  {name: 'np9.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/dc6zyd625ksh4rhalzgz.jpg', tripId: 3, userId: 1},
+  {name: 'np10.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/bkcadfbeotsuske7w5tl.jpg', tripId: 3, userId: 1}
+];
+
+const sharedTrips = [
+  {flightItinerary: 'AA567', phone: '867-5309', TripId: 1, UserId: 1},
+  {flightItinerary: 'AA395', phone: '555-5566', TripId: 1, UserId: 2},
+  {flightItinerary: 'WOW1755', phone: '867-1234', TripId: 3, UserId: 1},
+  {flightItinerary: 'WOW5766', phone: '444-5566', TripId: 3, UserId: 3},
+
+]; 
 
 const addUsers = () => {
   return db.Users.findOrCreate({where: {name: 'Neha Chaudhary', email: 'neha@gmail.com', password: 'blob', salt: 'neha'}})
     .then(() => db.Users.findOrCreate({where: {name: 'Eugene Soo', email: 'eugene@gmail.com', password: 'blob', salt: 'eugene'}}))
     .then(() => db.Users.findOrCreate({where: {name: 'Johnny Li', email: 'johnny@gmail.com', password: 'blob', salt: 'johnny'}}))
     .then(() => db.Users.findOrCreate({where: {name: 'Tiffany Pham', email: 'tiffany@gmail.com', password: 'blob', salt: 'tiffany'}}));
-};
-
-const addPhotos = () => {
-  return db.Photos.findOrCreate({where: {name: 'np1.jpg', path: '/Trip-Images/HR-1/np1.jpg', tripId: 3}})
-    .then(() => db.Photos.findOrCreate({where: {name: 'np2.jpg', path: '/Trip-Images/HR-1/np2.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np3.jpg', path: '/Trip-Images/HR-1/np3.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np4.jpg', path: '/Trip-Images/HR-1/np4.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np5.jpg', path: '/Trip-Images/HR-1/np5.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np6.jpg', path: '/Trip-Images/HR-1/np6.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np7.jpg', path: '/Trip-Images/HR-1/np7.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np8.jpg', path: '/Trip-Images/HR-1/np8.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np9.jpg', path: '/Trip-Images/HR-1/np9.jpg', tripId: 3}}))
-    .then(() => db.Photos.findOrCreate({where: {name: 'np10.jpg', path: '/Trip-Images/HR-1/np10.jpg', tripId: 3}}));
-};
-
-const addExpenses = () => {
-
-};
-
-const dropDB = () => {
-
 };
 
 const addTrips = () => {
@@ -37,28 +35,34 @@ const addTrips = () => {
 
 };
 
-const addUserTrips = () => {
+const addPhotos = () => {
+  return db.Photos.bulkCreate(photos);
+};
 
+const addExpenses = () => {
+
+};
+
+const addUserTrips = () => {
+  return db.UserTrip.bulkCreate(sharedTrips);
+};
+
+const addData = () => {
+  return addUsers()
+    .then(() => addTrips())
+    .then(() => addPhotos())
+    .then(() => addUserTrips());
 };
 
 module.exports = {
-  addUsers: addUsers,
-  addPhotos: addPhotos,
-  addExpenses: addExpenses,
-  addTrips: addTrips,
-  dropDB: dropDB,
-  addUserTrips: addUserTrips
+  addData: addData,
 };
-
-// INSERT INTO Users (name, email, password, salt, createdAt, updatedAt) VALUES ('Death', 'deadnotsleeping@gmail.com', 'DeathP', '1234', CURDATE(), CURDATE());
-// INSERT INTO Users (name, email, password, salt, createdAt, updatedAt) VALUES ('Pestilence', 'admin@angularjs.com', 'PestilenceP', '5678', CURDATE(), CURDATE());
-// INSERT INTO Users (name, email, password, salt, createdAt, updatedAt) VALUES ('War', 'fitemeirl@hotmail.com', 'WarP', '91011', CURDATE(), CURDATE());
-// INSERT INTO Users (name, email, password, salt, createdAt, updatedAt) VALUES ('Famine', '2hungry4u@yahoo.com', 'FamineP', '121314', CURDATE(), CURDATE());
-
-// INSERT INTO Trips (name, location, startDate, endDate, lodging, accessCode, isopen, createdAt, updatedAt) VALUES ('Amsterdames', 'Amsterdam', '2017-11-15', '2017-11-21', 'The Lawdge', 'A5678', true, CURDATE(), CURDATE());
-// INSERT INTO Trips (name, location, startDate, endDate, lodging, accessCode, isopen, createdAt, updatedAt) VALUES ('Oktobeerfest', 'Munich', '2017-10-20', '2017-10-30', 'Mein Haus', 'A1234', true, CURDATE(), CURDATE());
 
 // INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('AA567', '867-5309', 1, 1, CURDATE(), CURDATE());
 // INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('AA395', '555-5566', 1, 2, CURDATE(), CURDATE());
 // INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('WOW1755', '867-1234', 2, 3, CURDATE(), CURDATE());
 // INSERT INTO UserTrips (flightItinerary, phone, TripId, UserId, createdAt, updatedAt) VALUES ('WOW5766', '444-5566', 2, 4, CURDATE(), CURDATE());
+
+
+
+

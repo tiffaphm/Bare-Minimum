@@ -244,9 +244,7 @@ app.post('/popup', (req, res) => {
 
 
 app.post('/dummydata', (req, res) => {
-  dummyData.addUsers()
-    .then(() => dummyData.addTrips())
-    .then(() => dummyData.addPhotos())
+  dummyData.addData()
     .then(() => res.send(200))
     .catch(err => {
       console.log('error adding dummy data', err);
