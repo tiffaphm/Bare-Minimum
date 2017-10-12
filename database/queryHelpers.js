@@ -136,10 +136,9 @@ const getNotificationForTrip = (tripId) => {
 };
 
 const getNotificationForUser = (userId) => {
-  findTripsForUser(userId)
+  return findTripsForUser(userId)
     .then((results) => {
       let promises = [];
-      console.log(results);
       for (let result of results) {
         promises.push(getNotificationForTrip(result.dataValues.id));
       }
