@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import '../dist/vendor/bootstrap/css/bootstrap.css';
-import '../dist/style.css';
+import '../dist/stylesheet.css';
 import '../dist/sb-admin.css';
 
 import { Provider } from 'react-redux';
@@ -20,7 +20,7 @@ import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
 import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
-// import Landmarks from './components/landmarks/landmarks.jsx';
+import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsModal from './components/notifications/NotificationsModal.jsx';
 import PhotoList from './components/photos/photoList.jsx';
 
@@ -73,8 +73,8 @@ class Dashboard extends React.Component {
   		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
   	} else if (store.getState().view === 'ExpenseTracker') {
   		return <ExpenseTracker />;
-  	// } else if (store.getState().view === 'Landmarks') {
-  	// 	return <Landmarks />;
+  	} else if (store.getState().view === 'PlacesOfInterest') {
+  		return <PlacesOfInterest />;
   	} else if (store.getState().view === 'Photos') {
   		return <PhotoList />;
   	} else {
@@ -102,7 +102,7 @@ class Dashboard extends React.Component {
         <footer className="sticky-footer">
           <div className="container">
             <div className="text-center">
-              <small>made with love by the eggs, coffee & toast team.</small>
+              <small>made with love by the eggs, coffee & toast team</small>
             </div>
           </div>
         </footer>
