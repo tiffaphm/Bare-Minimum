@@ -118,6 +118,7 @@ Landmarks.sync();
 Expenses.sync();
 Sessions.sync();
 Photos.sync();
+Notifications.sync();
 
 
 //Promises do not work!!!!
@@ -170,5 +171,6 @@ module.exports = {
   Landmarks: Landmarks,
   Expenses: Expenses,
   Sessions: Sessions,
-  Photos: Photos
+  Photos: Photos,
+  Notifications: Notifications
 };

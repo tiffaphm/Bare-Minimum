@@ -271,8 +271,7 @@ app.get('/notifications', (req, res) => {
   if (req.query.tripId) {
     query.getNotificationForTrip(req.query.tripId)
       .then((result) => {
-        console.log(result);
-        res.status(200).end();
+        res.status(200).json(result);
       })
       .catch((err) => {
         res.status(500).end();
