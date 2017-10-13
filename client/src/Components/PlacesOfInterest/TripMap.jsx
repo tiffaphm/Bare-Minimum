@@ -17,7 +17,7 @@ import GeneralMarker from "./Markers/GeneralMarker.jsx";
 class TripMap extends React.Component {
   constructor(props) {
     super(props);
-    this.getLatLng = this.getLatLng.bind(this);
+    this.addMarker = this.addMarker.bind(this);
 
     this.state = {
       markers: [this.props.tripCoords]
@@ -35,26 +35,25 @@ class TripMap extends React.Component {
     // }
   }
 
-  getLatLng(obj) {
+  addMarker(obj) {
     let lat = obj.lat;
     let lng = obj.lng;
     let coords = {
       'lat': lat,
       'lng': lng
     }
+
+    let newCoords = this.state.markers.slice();
+    newCoords.push(coords);
+    this.setState({
+      markers: newCoords
+    })
   }
 
-//   renderMarker(map, maps, coords) {
-// renderMarkers(map, maps) {
-//   let marker = new maps.Marker({
-//     position: myLatLng,
-//     map,
-//     title: 'Hello World!'
-//   });
-// }
-//   }
-
   render() {
+    let markers = this.state.markers.map((item, key) => (
+      <GeneralMarker key={key} lat={item.lat} lng={item.lng} onClick={this.removeMarker}/>
+    ))
     return (
       <div className="trip-map-container">
         <GoogleMap
@@ -62,9 +61,8 @@ class TripMap extends React.Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           onClick={this.getLatLng}
-          onGooglApiLoaded={({map, maps}) => console.log(map, maps)}
         >
-            <GeneralMarker lat={this.props.tripCoords.lat} lng={this.props.tripCoords.lng} />
+          {markers}
         </GoogleMap>
       </div>
     );

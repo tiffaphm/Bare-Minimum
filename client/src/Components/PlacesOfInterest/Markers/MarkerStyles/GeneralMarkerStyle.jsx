@@ -4,6 +4,8 @@ const GeneralMarkerStyle = {
   height: 20,
   left: -10,
   top: -10,
+  marginLeft: -1,
+  border: '1px solid white',
 
   backgroundColor: 'red'
 }
