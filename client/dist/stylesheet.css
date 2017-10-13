@@ -73,9 +73,18 @@ body {
 }
 
 /*
-  new component style following this line
+  places of interest styles
 */
 
+.points-of-interest-container {
+  width: 100%;
+  height: 100%;
+}
+
+.trip-map-container {
+  height: 400px;
+  width: 600px;
+}
 
 /* PHOTOS */
 
@@ -231,7 +240,7 @@ footer a,footer a:hover{
   text-align: center;
   margin: auto;
 }
-=======
+
 /* TABLE */
 
 section{
@@ -274,7 +283,6 @@ td {
   color: black;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
-
 
 ::-webkit-scrollbar {
     width: 6px;

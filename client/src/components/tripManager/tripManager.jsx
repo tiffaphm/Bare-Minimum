@@ -3,6 +3,7 @@ import Popup from 'react-popup';
 import TripPopup from './tripPopup.jsx';
 import TripEntry from './tripEntry.jsx';
 import TripList from './TripList.jsx';
+import NotificationsModal from '../notifications/NotificationsModal.jsx';
 import reducer from '../../Reducers';
 
 import { connect } from 'react-redux';
@@ -68,9 +69,15 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-
-        <TripList />
-
+        <div className="row">
+          <div className="col-lg-8">
+          <h3>welcome back, {this.props.user.name}</h3>
+            <TripList />
+          </div>
+          <div className="col-lg-4">
+            <NotificationsModal />
+          </div>
+        </div>
       
         <div className="row create manager-main">
           <div className="col-md-6">

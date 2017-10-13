@@ -37,3 +37,5 @@ bower_components/
 *.bundle.js
 package-lock.json
 
+# API Keys
+client/Components/PlacesOfInterest/GoogleApiKey.jsx
