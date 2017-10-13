@@ -4,7 +4,8 @@ import TripEntry from './tripEntry.jsx';
 const TripList = (props) => (
   <div className="trip-list-container">
     <div className="mb-0 mt-4">
-      <i className="fa fa-newspaper-o"></i> Travel makes the heart fonder
+      <i className="glyphicon-star-empty"></i>
+      <h5>Good times come and go, but the memories last forever...</h5>
     </div>
     <hr className="mt-2" />
     <div className="card-columns">

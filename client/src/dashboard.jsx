@@ -26,7 +26,8 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
-import TripPopUp1 from './Components/NavBarComponents/tripPopUp1.jsx';
+import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
+import JoinTrip from './Components/NavBarComponents/joinTrip.jsx'
 
 const SERVER_URL = HOSTNAME;
 
@@ -63,13 +64,6 @@ class Dashboard extends React.Component {
       });
   }
 
-  togglePopup() {
-    this.setState({
-      showPopup: !this.state.showPopup
-    });
-    console.log('herereerereree');
-  }
-
   handleLogout() {
     $.post(SERVER_URL + '/logout')
       .then(reply => {
@@ -81,13 +75,11 @@ class Dashboard extends React.Component {
   }
 
   fetchLists() {
-    let options = { userId: store.getState().user.id };
-    let self = this;
     $.ajax({
       url: SERVER_URL + '/fetchtrips',
-      data: options,
-      success: function(res) {
-        self.setState({ trips: res });
+      data: { userId: store.getState().user.id },
+      success: (res) => {
+        this.setState({ trips: res });
       }
     });
   }
@@ -106,6 +98,21 @@ class Dashboard extends React.Component {
     }
   }
 
+  joinTrip(trip, updateBoard) {
+    console.log('here with join trip info', trip);
+    $.ajax({
+      url: SERVER_URL + '/jointrip',
+      method: 'POST',
+      data: trip,
+      success: (body) => {
+        this.fetchLists();
+      },
+      error: function(err) {
+        console.error(err);
+      }
+    });
+  }
+
   createTrip(trip, updateBoard) {
     $.ajax({
       url: HOSTNAME + '/popup',
@@ -114,19 +121,19 @@ class Dashboard extends React.Component {
       success: (trip) => {
         this.fetchLists();
         updateBoard(trip);
-        console.log('POST for adding TRIP was a success', trip);
+        // console.log('POST for adding TRIP was a success', trip);
       },
       error: (err) => {
         console.log('error with POST when adding trip', err);
       }
     });
-    // console.log('here with info for submit', trip);
   }
 
   render() {
     return (
       <div>
-        <TripPopUp1 className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
+        <JoinTrip joinTrip={this.joinTrip.bind(this)}/>
+        <CreateTrip className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
         <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>
@@ -134,8 +141,6 @@ class Dashboard extends React.Component {
               {this.getViewComponent()}
             </div>
           </div>
-        </div>
-        <div>
         </div>
         <footer className='sticky-footer'>
           <div className='container'>
@@ -158,8 +163,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
-
-
-// {this.state.showPopup ?
-//             <TripPopUp1 closePopup={this.togglePopup} fetchLists={this.props.fetchLists} selectTrip={this.selectTrip}/>
-//             : null}

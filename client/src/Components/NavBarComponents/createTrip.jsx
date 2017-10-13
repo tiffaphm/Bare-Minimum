@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import { connect } from 'react-redux';
 import reducer from '../../Reducers';
 
@@ -7,7 +6,7 @@ let mapStateToProps = ({user, trip}) => {
   return {user, trip};
 };
 
-class TripPopUp1 extends React.Component {
+class CreateTrip extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +24,7 @@ class TripPopUp1 extends React.Component {
 
   createTripDashboard(trip) {
     this.props.dispatch(reducer.changeTrip(trip));
-    // this.props.dispatch(reducer.changeView('TripDashboard'));
+    this.props.dispatch(reducer.changeView('TripManager'));
   }
 
   getName(e) {
@@ -97,4 +96,4 @@ class TripPopUp1 extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(TripPopUp1);
+export default connect(mapStateToProps)(CreateTrip);
