@@ -5,6 +5,7 @@ import TripNavBar from '../tripDashboard/tripNavBar.jsx';
 import dummyData from '../tripDashboard/dummyData.js';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import PhotoEntry from './PhotoEntry.jsx';
 import $ from 'jquery';
 import { BindActionCreaters } from 'redux';
 const CLOUDINARY_UPLOAD_PRESET = 'lfnra5zh';
@@ -37,6 +38,7 @@ class PhotoUpload extends React.Component {
   }
 
   onImageDrop(files) {
+    console.log('files', files);
     this.setState({images: files});
     this.addAllImagesToCloud(files);
   }
@@ -92,15 +94,18 @@ class PhotoUpload extends React.Component {
   render() {
     return (
       <div>
-        <Dropzone
-          multiple={true}
-          accept="image/*"
-          onDrop={this.onImageDrop}>
-          <p>Add image</p>
-        </Dropzone>
-        <div className="uploaded-images">
-          {this.state.images.map((photo, i) => <img src={photo.preview} key={i}/>)}
+        <div className="row">
+          <Dropzone
+            multiple={true}
+            accept="image/*"
+            onDrop={this.onImageDrop}
+            className="upload-image">
+            <p>  Drag and drop images here  </p>
+            <button className="btn upload-button">Upload Image</button>
+            <p></p>
+          </Dropzone>
         </div>
+        {this.state.images.map((photo, i) => <PhotoEntry photo={photo} size={this.props.photoSize()} key={i}/>)}
       </div>
     );
   }
