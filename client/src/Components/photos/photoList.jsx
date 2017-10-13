@@ -27,7 +27,8 @@ class PhotoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: []
+      photos: [],
+      photoSize: 0
     };
 
     this.getPhotos = this.getPhotos.bind(this);
@@ -53,12 +54,25 @@ class PhotoList extends React.Component {
     });
   }
 
+  photoSize() {
+    if (this.state.photoSize === 0) {
+      this.state.photoSize++;
+      return 'col-md-8 col-sm-12 col-xs-12 gal-item';
+    } else if (this.state.photoSize === 8) {
+      this.state.photoSize = 0;
+      return 'col-md-4 col-sm-6 co-xs-12 gal-item';
+    } else {
+      this.state.photoSize++;
+      return 'col-md-4 col-sm-6 co-xs-12 gal-item';
+    }
+  }
+
   render() {
     return (
       <div className="row">
         <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
-        <PhotoUpload />
-        {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} key={i}/>)}
+        <PhotoUpload photoSize={this.photoSize.bind(this)}/>
+        {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} id={i} key={photo.name} size={this.photoSize()}/>)}
       </div>
     );
   }

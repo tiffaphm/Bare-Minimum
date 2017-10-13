@@ -266,9 +266,13 @@ const findPhotos = (tripId) => {
 };
 
 const addPhotos = (images) => {
-  console.log('here with images', images);
-  return db.Photos.bulkCreate(images)
-    .then(() => db.Photos.findAll({where: {tripId: images[0].tripId}}));
+  let promises = [];
+  for (let image of images) {
+    promises.push(db.Photos.create(image));
+  }
+  return Promise.all(promises);
+  // return db.Photos.bulkCreate(images)
+  //   .then(bulkResult => db.Photos.findAll({where: {tripId: images[0].tripId}}))
 };
 
 module.exports = {
