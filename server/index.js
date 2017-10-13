@@ -167,6 +167,7 @@ app.post('/expense', (req, res) => {
   query.createExpense(req.body)
     .then((notification) => {
       // send notification through socket;
+      socket.io.emit('hello', notification);
       res.status(200).end();
     })
     .catch((err) => {
