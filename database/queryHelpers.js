@@ -1,5 +1,5 @@
 const db = require('./index.js');
-const Promise = require('bluebird');
+// const Promise = require('bluebird');
 
 // ==== USERS ====
 
@@ -114,17 +114,9 @@ const getDetailedNotification = (notification) => {
   if (notification.type === 'expense') {
     return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, expenses.amount, expenses.description, trips.name as tripsName, expenses.userId, users.name FROM notifications, expenses, trips, users WHERE notifications.contentId = expenses.id AND notifications.tripId = trips.id AND users.id = expenses.userId AND notifications.id = ${notification.id};`)
       .then(result => result[0][0]);// WHY?
-    // return db.Expenses.findOne({ where: { id: notification.contentId }})
-    //   .then((content) => {
-    //     notification.content = content.dataValues;
-    //     return notification;
-    //   });
   } else if (notification.type === 'photo') {
-    return db.Photos.findOne({ where: { id: notification.contentId } })
-      .then((content) => {
-        notification.content = content.dataValues;
-        return notification;
-      });
+    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, photos.path, trips.name as tripsName, photos.userId, users.name FROM notifications, photos, trips, users WHERE notifications.contentId = photos.id AND notifications.tripId = trips.id AND users.id = photos.userId AND notifications.id = ${notification.id};`)
+      .then(result => result[0][0]);// WHY AGAIN?
   }
 };
 
@@ -275,9 +267,19 @@ const findPhotos = (tripId) => {
 const addPhotos = (images) => {
   let promises = [];
   for (let image of images) {
-    promises.push(db.Photos.create(image));
+    promises.push(
+      db.Photos.create(image)
+        .then((result) => {
+          // generate a notification
+          return generateNotification(images[0].tripId, 'photo', result.dataValues.id);
+        })
+        .then((notiResult) => {
+          return getDetailedNotification(notiResult.dataValues);
+        })
+    );
   }
   return Promise.all(promises);
+  
   // return db.Photos.bulkCreate(images)
   //   .then(bulkResult => db.Photos.findAll({where: {tripId: images[0].tripId}}))
 
