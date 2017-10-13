@@ -3,7 +3,7 @@ import Popup from 'react-popup';
 import TripPopup from './tripPopup.jsx';
 import TripEntry from './tripEntry.jsx';
 import TripList from './TripList.jsx';
-import NotificationsModal from '../notifications/NotificationsPanel.jsx';
+import NotificationsPanel from '../notifications/NotificationsPanel.jsx';
 import reducer from '../../Reducers';
 
 import { connect } from 'react-redux';
