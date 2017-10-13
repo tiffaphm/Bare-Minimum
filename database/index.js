@@ -108,6 +108,12 @@ const Notifications = db.define('notification', {
   contentId: Sequelize.INTEGER
 });
 
+const PlacesOfInterest = db.define('placesofinterest', {
+  tripId: Sequelize.INTEGER,
+  userId: Sequelize.INTEGER,
+  lat: Sequelize.INTEGER,
+  lng: Sequelize.INTEGER
+})
 
 //---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
 Users.sync();
@@ -119,6 +125,7 @@ Expenses.sync();
 Sessions.sync();
 Photos.sync();
 Notifications.sync();
+PlacesOfInterest.sync();
 
 
 //Promises do not work!!!!

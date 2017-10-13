@@ -5,17 +5,18 @@ class GeneralMarker extends React.Component {
   render() {
     const GeneralMarkerStyle = {
       position: 'absolute',
-      width: 20,
-      height: 20,
+      width: 25,
+      height: 25,
       left: -10,
       top: -10,
 
       backgroundColor: 'red',
       textAlign: 'center',
-      fontSize: 14,
+      fontSize: 16,
       color: '#fff',
       paddingTop: 2,
-      borderRadius: 50
+      borderRadius: '50%',
+      border: '1px solid white'
     };
 
     return (
