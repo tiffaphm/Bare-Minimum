@@ -280,6 +280,7 @@ const addPhotos = (images) => {
   return Promise.all(promises);
   // return db.Photos.bulkCreate(images)
   //   .then(bulkResult => db.Photos.findAll({where: {tripId: images[0].tripId}}))
+
 };
 
 module.exports = {

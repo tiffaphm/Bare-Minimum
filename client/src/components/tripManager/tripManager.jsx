@@ -98,15 +98,15 @@ class Dashboard extends React.Component {
         
         <div className="row trip-history manager-main">
           <div className="col-md-8">
-            <h3>Trip History</h3>
+            <h5>Trip History</h5>
             <table className="table historytable table-bordered">
               <thead className="thead-inverse">
                 <tr>
-                  <th> <h4 className="bold">Trip Name</h4> </th>
-                  <th> <h4 className="bold">Trip Location</h4> </th>
-                  <th> <h4 className="bold">Start Date</h4> </th>
-                  <th> <h4 className="bold">End Date</h4> </th>
-                  <th> <h4 className="bold">Access Code</h4> </th>
+                  <th>Trip Name</th>
+                  <th>Trip Location</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Access Code</th>
                 </tr>
               </thead>
               <tbody>
