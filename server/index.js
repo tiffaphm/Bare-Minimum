@@ -115,6 +115,7 @@ app.get('/fetchtrips', (req, res) => {
       let finalResult = result.map((ele) => ele.dataValues);
       // console.log('Trips for user:', finalResult);
       res.status(200).send(finalResult);
+      return null;
     })
     .catch((err) => {
       res.status(500).end();
@@ -166,8 +167,9 @@ app.get('/landmarks', (req, res) => {
 app.post('/expense', (req, res) => {
   query.createExpense(req.body)
     .then((notification) => {
-      // send notification through socket;
+      // TODO: send notification through socket;
       res.status(200).end();
+      return null;
     })
     .catch((err) => {
       console.error(err);
@@ -263,6 +265,7 @@ app.get('/photos', (req, res) => {
   query.findPhotos(req.query)
     .then(result => {
       res.send(result);
+      return null;
     })
     .catch(err => {
       console.log('error finding photo', err);
@@ -270,13 +273,14 @@ app.get('/photos', (req, res) => {
     });
 });
 
-
 //add trip photos to database
 app.post('/photos', (req, res) => {
   query.addPhotos(req.body.images)
     .then(result => {
       console.log('added all photos to database', result);
-      res.send(result);
+      // TODO: send notification through socket;
+      res.status(201).end();
+      return null;
     })
     .catch(err => {
       console.log('error adding all images to database', err);
@@ -297,6 +301,7 @@ app.get('/notifications', (req, res) => {
     query.getNotificationForUser(req.query.userId)
       .then((result) => {
         res.status(200).json(result);
+        return null;
       })
       .catch((err) => {
         res.status(500).end();
