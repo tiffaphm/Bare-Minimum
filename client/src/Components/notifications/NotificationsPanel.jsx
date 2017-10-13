@@ -31,27 +31,6 @@ class NotificationsPanel extends React.Component {
     this.onFilterChange = this.onFilterChange.bind(this);
   }
 
-  componentDidMount() {
-    var self = this;
-
-    $.ajax({
-      url: `/notifications?userId=${this.props.user.id}`,
-      method: 'GET',
-      success: function(data) {
-        self.props.updateNotifications(data);    
-      }
-    });
-
-    socket.on('update', function(notification) {
-      console.log('BULBASAUR!');
-      /*var updatedNotifications = this.state.notifications.slice();
-      updatedNotifications.push(notification);
-      self.setState({
-        notifications: updatedNotifications
-      });*/
-    });
-  }
-
   onFilterChange() {
     this.setState({
       filtered: false
@@ -60,10 +39,7 @@ class NotificationsPanel extends React.Component {
   }
 
   render() {
-    
-    console.log(this.props.notifications);
-    const timeString = moment().calendar().toLowerCase();
-
+    const timeString = moment().calendar().toLowerCase();    
     return (
       <div className="card mb-3">
         <div className="card-header">

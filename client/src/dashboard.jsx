@@ -49,6 +49,12 @@ class Dashboard extends React.Component {
         store.dispatch(reducer.changeUser(data[0]));
         this.fetchLists();
       })
+      .then(() => {
+        return $.get(SERVER_URL + `/notifications?userId=${store.getState().user.id}`);
+      })
+      .then((data) => {
+        store.dispatch(reducer.updateNotifications(data[0].reverse()));
+      })
       .catch(err => {
         console.error('Error getting login user', err);
       });
@@ -77,7 +83,6 @@ class Dashboard extends React.Component {
   }
 
   getViewComponent () {
-    console.log(store.getState());
   	if (store.getState().view === 'TripManager') {
   		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
   	} else if (store.getState().view === 'ExpenseTracker') {
