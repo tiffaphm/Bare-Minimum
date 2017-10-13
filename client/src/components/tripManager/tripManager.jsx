@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-8">
-          <h3>welcome back, {this.props.user.name}</h3>
+          <h3>Welcome back, {this.props.user.name}</h3>
             <TripList />
           </div>
           <div className="col-lg-4">
@@ -98,23 +98,8 @@ class Dashboard extends React.Component {
         
         <div className="row trip-history manager-main">
           <div className="col-md-8">
-            <h5>Trip History</h5>
-            <table className="table historytable table-bordered">
-              <thead className="thead-inverse">
-                <tr>
-                  <th>Trip Name</th>
-                  <th>Trip Location</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Access Code</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(this.props.trips) ? this.props.trips.map((ele) => {
-                  return <TripEntry trip={ele} key={ele.id} onClick={() => this.selectTrip(ele)}/>;
-                }) : null}
-              </tbody>
-            </table>
+            <h5>All Trips</h5>
+            <TripList trips={this.props.trips} click={this.selectTrip} />
           </div>
         </div>
 
@@ -132,3 +117,21 @@ class Dashboard extends React.Component {
 }
 
 export default connect(mapStateToProps)(Dashboard);
+
+
+// <table className="table historytable table-bordered">
+//               <thead className="thead-inverse">
+//                 <tr>
+//                   <th>Trip Name</th>
+//                   <th>Trip Location</th>
+//                   <th>Start Date</th>
+//                   <th>End Date</th>
+//                   <th>Access Code</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {Array.isArray(this.props.trips) ? this.props.trips.map((ele) => {
+//                   return <TripEntry trip={ele} key={ele.id} onClick={() => this.selectTrip(ele)}/>;
+//                 }) : null}
+//               </tbody>
+//             </table>
