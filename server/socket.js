@@ -5,6 +5,11 @@ let clientMap = {};
 io.on('connection', (socket) => {
   console.log(`${socket.id} connected`);
 
+  socket.on('disconnect', () => {
+    console.log(`${socket.id} disconnected`);
+
+  });
+
   socket.on('report', (info) => {
     console.log(`user: ${info.userId} in trip: ${info.tripId} report with socket: ${socket.id}`);
     if (clientMap[tripId]) {
@@ -14,7 +19,6 @@ io.on('connection', (socket) => {
     }
   });
 
-
 });
 
 const sendNotification = (notification) => {
@@ -22,7 +26,7 @@ const sendNotification = (notification) => {
     for (let userId of clientMap[notification.tripId]) {
       
     }
-    io.to(queueMap[queueId]).emit('noti', 'your table is ready!');
+    io.to(queueMap[queueId]).emit('new notification', JSON.stringify(notification));
   }
 };
 

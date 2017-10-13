@@ -287,7 +287,7 @@ app.get('/notifications', (req, res) => {
         res.status(200).json(result);
       })
       .catch((err) => {
-        res.status(500).end();
+        res.status(500).end(err.toString());
       });
   } else if (req.query.userId) {
     query.getNotificationForUser(req.query.userId)
