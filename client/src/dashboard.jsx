@@ -36,10 +36,10 @@ class Dashboard extends React.Component {
       this.setState({ reload: false });
     });
     this.state = {
-      trips: []
+      trips: [],
+      socket: io()
     };
     this.fetchLists = this.fetchLists.bind(this);
-    this.socket = io();
   }
 
   componentWillMount() {
@@ -85,17 +85,17 @@ class Dashboard extends React.Component {
   }
 
   getViewComponent () {
-  	if (store.getState().view === 'TripManager') {
-  		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
-  	} else if (store.getState().view === 'ExpenseTracker') {
-  		return <ExpenseTracker />;
-  	} else if (store.getState().view === 'PlacesOfInterest') {
-  		return <PlacesOfInterest />;
-  	} else if (store.getState().view === 'Photos') {
-  		return <PhotoList />;
-  	} else {
-  		return <TripDashboard user={store.getState().user}/>;
-  	}
+    if (store.getState().view === 'TripManager') {
+      return <TripManager socket={this.state.socket} trips={this.state.trips} fetchLists={this.fetchLists}/>;
+    } else if (store.getState().view === 'ExpenseTracker') {
+      return <ExpenseTracker />;
+    } else if (store.getState().view === 'PlacesOfInterest') {
+      return <PlacesOfInterest />;
+    } else if (store.getState().view === 'Photos') {
+      return <PhotoList />;
+    } else {
+      return <TripDashboard user={store.getState().user}/>;
+    }
   }
 
   render() {

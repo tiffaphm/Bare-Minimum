@@ -5,7 +5,7 @@ let clientMap = {};
 io.on('connection', (socket) => {
 
   console.log(`${socket.id} connected`);
-
+  io.emit('testmessage', 'test');
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
 
