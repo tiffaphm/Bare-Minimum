@@ -18,7 +18,6 @@ const store = createStoreWithMiddleware(reducer.travelReducer);
 const { getState } = store;
 
 import NavSideBar from './NavSideBar.jsx';
-import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
 import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
@@ -27,7 +26,7 @@ import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
 import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
-import JoinTrip from './Components/NavBarComponents/joinTrip.jsx'
+import JoinTrip from './Components/NavBarComponents/joinTrip.jsx';
 
 const SERVER_URL = HOSTNAME;
 

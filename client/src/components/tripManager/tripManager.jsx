@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
               <TripList trips={this.props.trips} click={this.selectTrip} />
             </div>
             <div className="col-md-4 notifications-container">
-              <NotificationsModal socket={this.props.socket} />
+              <NotificationsPanel socket={this.props.socket} />
             </div>
           </div>
         </div>
