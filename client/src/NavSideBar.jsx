@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
   //   this.props.dispatch(reducer.changeView('TripDashboard'));
   // }
 
-  let mapStateToProps = ({ trip }) => {
-    return { trip };
-  };
+let mapStateToProps = ({ trip }) => {
+  return { trip };
+};
+
 const NavSideBar = (props) => {
 
   let getMap = () => {
