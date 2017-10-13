@@ -99,19 +99,12 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
         <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>
               {this.getViewComponent()}
             </div>
-=======
-        <NavSideBar handleLogout={this.handleLogout.bind(this)} />
-        <div className="content-wrapper">
-          <div className="container-fluid">
-            <div className="row btn-row">{this.getViewComponent()}</div>
->>>>>>> fix conflicts
           </div>
         </div>
         <footer className="sticky-footer">

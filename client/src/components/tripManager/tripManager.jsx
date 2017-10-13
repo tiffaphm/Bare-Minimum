@@ -79,7 +79,7 @@ class Dashboard extends React.Component {
               <TripList trips={this.props.trips} click={this.selectTrip} />
             </div>
             <div className="col-lg-4">
-              <NotificationsModal />
+              <NotificationsPanel />
             </div>
           </div>
         </div>
