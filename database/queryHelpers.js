@@ -108,12 +108,19 @@ const addSession = function(sessionId, email) {
   console.log('this is db helper ', sessionId, email);
 };
 
-
 // Notifications
 
 const getDetailedNotification = (notification) => {
   if (notification.type === 'expense') {
-    return db.Expenses.findOne({ where: { id: notification.contentId }})
+    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, expenses.amount, expenses.description, trips.name as tripsName, expenses.userId, users.name FROM notifications, expenses, trips, users WHERE notifications.contentId = expenses.id AND notifications.tripId = trips.id AND users.id = expenses.userId AND notifications.id = ${notification.id};`)
+      .then(result => result[0][0]);// WHY?
+    // return db.Expenses.findOne({ where: { id: notification.contentId }})
+    //   .then((content) => {
+    //     notification.content = content.dataValues;
+    //     return notification;
+    //   });
+  } else if (notification.type === 'photo') {
+    return db.Photos.findOne({ where: { id: notification.contentId } })
       .then((content) => {
         notification.content = content.dataValues;
         return notification;
