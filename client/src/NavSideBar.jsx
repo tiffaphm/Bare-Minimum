@@ -2,6 +2,7 @@ import React from 'react';
 import StatusDropDown from './Components/status/StatusDropDown.jsx';
 
 import reducer from './Reducers';
+import TripPopUp1 from './Components/NavBarComponents/tripPopUp1.jsx';
 import { connect } from 'react-redux';
 
   // selectTrip(trip) {
@@ -32,16 +33,17 @@ const NavSideBar = (props) => {
                 <span className="nav-link-text"> Map</span>
               </a>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="photos">
               <a className="nav-link" href="charts.html">
                 <i className="fa fa-fw fa-photo"></i>
                 <span className="nav-link-text"> Photos</span>
               </a>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-              <a className="nav-link" href="tables.html">
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="create-trip">
+              <a className="nav-link">
                 <i className="fa fa-fw fa-table"></i>
-                <span className="nav-link-text" onClick={props.createTrip}>Create New Trip</span>
+                <span data-toggle="modal" data-target="#add-trip" href="/something"> Create Trip</span>
+                <TripPopUp1 className="nav-link-text" createTrip={props.createTrip}/>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">

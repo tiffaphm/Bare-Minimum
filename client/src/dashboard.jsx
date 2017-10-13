@@ -18,9 +18,7 @@ const store = createStoreWithMiddleware(reducer.travelReducer);
 const { getState } = store;
 
 import NavSideBar from './NavSideBar.jsx';
-
 import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
-
 import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
@@ -28,6 +26,7 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
+import TripPopUp1 from './Components/NavBarComponents/tripPopUp1.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -107,10 +106,28 @@ class Dashboard extends React.Component {
     }
   }
 
+  createTrip(trip, updateBoard) {
+    $.ajax({
+      url: HOSTNAME + '/popup',
+      method: 'POST',
+      data: trip,
+      success: (trip) => {
+        this.fetchLists();
+        updateBoard(trip);
+        console.log('POST for adding TRIP was a success', trip);
+      },
+      error: (err) => {
+        console.log('error with POST when adding trip', err);
+      }
+    });
+    // console.log('here with info for submit', trip);
+  }
+
   render() {
     return (
       <div>
-        <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
+        <TripPopUp1 className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
+        <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>
@@ -119,9 +136,6 @@ class Dashboard extends React.Component {
           </div>
         </div>
         <div>
-          {this.state.showPopup ?
-            <TripPopUp1 closePopup={this.togglePopup} fetchLists={this.props.fetchLists} selectTrip={this.selectTrip}/>
-            : null}
         </div>
         <footer className='sticky-footer'>
           <div className='container'>
@@ -144,3 +158,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+
+// {this.state.showPopup ?
+//             <TripPopUp1 closePopup={this.togglePopup} fetchLists={this.props.fetchLists} selectTrip={this.selectTrip}/>
+//             : null}
