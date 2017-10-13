@@ -12,8 +12,8 @@ import dummyData from './dummyData.js';
 import TripUserList from './tripUserList.jsx';
 import TripDetails from './tripDetails.jsx';
 
-let mapStateToProps = ({ trip }) => {
-  return { trip };
+let mapStateToProps = (state) => {
+  return { trip: state.trip };
 };
 
 class TripDashboard extends React.Component {
