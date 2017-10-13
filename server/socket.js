@@ -3,6 +3,7 @@ const io = require('socket.io')(http);
 let clientMap = {};
 
 io.on('connection', (socket) => {
+
   console.log(`${socket.id} connected`);
 
   socket.on('disconnect', () => {
@@ -17,6 +18,10 @@ io.on('connection', (socket) => {
     } else {
       clientMap[tripId] = [socket.id];
     }
+  });
+
+  socket.on('BULBASAUR', function(msg) {
+    console.log(msg);
   });
 
 });

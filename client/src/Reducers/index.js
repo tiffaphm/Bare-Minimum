@@ -68,6 +68,24 @@ const initialState = {
       name: 'Neha',
       event: 'add message',
       createdAt: '2017-10-10 19:06:27'
+    },
+    {
+      id: 4,
+      name: 'Tiff',
+      event: 'add photo',
+      createdAt: '2017-10-12 11:06:27'
+    },
+    {
+      id: 5,
+      name: 'Neha',
+      event: 'add message',
+      createdAt: '2017-10-10 19:06:27'
+    },
+    {
+      id: 6,
+      name: 'Neha',
+      event: 'add message',
+      createdAt: '2017-10-10 19:06:27'
     }
   ] 
 };
