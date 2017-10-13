@@ -19,12 +19,12 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPopup: false,
+      // showPopup: false,
       trips: [],
       joinTrip: ''
     };
 
-    this.togglePopup = this.togglePopup.bind(this);
+    // this.togglePopup = this.togglePopup.bind(this);
     this.joinTrip = this.joinTrip.bind(this);
     this.selectTrip = this.selectTrip.bind(this);
   }
@@ -32,11 +32,11 @@ class Dashboard extends React.Component {
   componentDidMount() {
   }
 
-  togglePopup() {
-    this.setState({
-      showPopup: !this.state.showPopup
-    });
-  }
+  // togglePopup() {
+  //   this.setState({
+  //     showPopup: !this.state.showPopup
+  //   });
+  // }
 
   selectTrip(trip) {
     this.props.dispatch(reducer.changeTrip(trip));

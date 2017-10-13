@@ -41,7 +41,7 @@ const NavSideBar = (props) => {
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
               <a className="nav-link" href="tables.html">
                 <i className="fa fa-fw fa-table"></i>
-                <span className="nav-link-text">Create New Trip</span>
+                <span className="nav-link-text" onClick={props.createTrip}>Create New Trip</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">

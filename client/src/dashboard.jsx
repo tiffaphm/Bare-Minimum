@@ -18,6 +18,9 @@ const store = createStoreWithMiddleware(reducer.travelReducer);
 const { getState } = store;
 
 import NavSideBar from './NavSideBar.jsx';
+
+import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
+
 import TripManager from './components/tripManager/tripManager.jsx';
 import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
 import MapboxViewer from './components/mapboxViewer.jsx';
@@ -59,6 +62,13 @@ class Dashboard extends React.Component {
       .catch(err => {
         console.error('Error getting login user', err);
       });
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+    console.log('herereerereree');
   }
 
   handleLogout() {
@@ -108,15 +118,20 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
-        <footer className="sticky-footer">
-          <div className="container">
-            <div className="text-center">
+        <div>
+          {this.state.showPopup ?
+            <TripPopUp1 closePopup={this.togglePopup} fetchLists={this.props.fetchLists} selectTrip={this.selectTrip}/>
+            : null}
+        </div>
+        <footer className='sticky-footer'>
+          <div className='container'>
+            <div className='text-center'>
               <small>made with love by the eggs, coffee & toast team</small>
             </div>
           </div>
         </footer>
-        <a className="scroll-to-top rounded" href="#page-top">
-          <i className="fa fa-angle-up" />
+        <a className='scroll-to-top rounded' href='#page-top'>
+          <i className='fa fa-angle-up' />
         </a>
       </div>
     );
