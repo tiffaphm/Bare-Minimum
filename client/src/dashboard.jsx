@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import $ from "jquery";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
-import "../dist/vendor/bootstrap/css/bootstrap.css";
-import "../dist/stylesheet.css";
-import "../dist/sb-admin.css";
+import '../dist/vendor/bootstrap/css/bootstrap.css';
+import '../dist/stylesheet.css';
+import '../dist/sb-admin.css';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -44,23 +44,23 @@ class Dashboard extends React.Component {
 
   componentWillMount() {
     //Get login user
-    $.get(SERVER_URL + "/loginuser")
+    $.get(SERVER_URL + '/loginuser')
       .then(data => {
         store.dispatch(reducer.changeUser(data[0]));
         this.fetchLists();
       })
       .catch(err => {
-        console.error("Error getting login user", err);
+        console.error('Error getting login user', err);
       });
   }
 
   handleLogout() {
-    $.post(SERVER_URL + "/logout")
+    $.post(SERVER_URL + '/logout')
       .then(reply => {
         location.reload();
       })
       .catch(err => {
-        console.error("Error!", err);
+        console.error('Error!', err);
       });
   }
 
@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
     let options = { userId: store.getState().user.id };
     let self = this;
     $.ajax({
-      url: SERVER_URL + "/fetchtrips",
+      url: SERVER_URL + '/fetchtrips',
       data: options,
       success: function(res) {
         self.setState({ trips: res });
@@ -98,13 +98,7 @@ class Dashboard extends React.Component {
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>
-              <div className='col-lg-8'>
-                <h3>welcome back, {store.getState().user.name}</h3>
-                {this.getViewComponent()}
-              </div>
-              <div className='col-lg-4'>
-                <NotificationsPanel />
-              </div>
+              {this.getViewComponent()}
             </div>
           </div>
         </div>
@@ -127,5 +121,5 @@ ReactDOM.render(
   <Provider store={store}>
     <Dashboard />
   </Provider>,
-  document.getElementById("app")
+  document.getElementById('app')
 );

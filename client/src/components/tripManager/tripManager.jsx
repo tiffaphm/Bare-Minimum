@@ -3,7 +3,7 @@ import Popup from 'react-popup';
 import TripPopup from './tripPopup.jsx';
 import TripEntry from './tripEntry.jsx';
 import TripList from './TripList.jsx';
-import NotificationsModal from '../notifications/NotificationsModal.jsx';
+import NotificationsModal from '../notifications/NotificationsPanel.jsx';
 import reducer from '../../Reducers';
 
 import { connect } from 'react-redux';
@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
       <div>
         <div className="row">
           <div className="col-lg-8">
-          <h3>Welcome back, {this.props.user.name}</h3>
+            <h3>Welcome back, {this.props.user.name}</h3>
           </div>
           <div className="row trip-history manager-main custom-trip-history">
             <div className="col-md-8">
@@ -106,15 +106,15 @@ class Dashboard extends React.Component {
 
 export default connect(mapStateToProps)(Dashboard);
 
-  //after line 101
-   // {this.state.showPopup ?
-   //        <TripPopup
-   //          closePopup={this.togglePopup}
-   //          fetchLists={this.props.fetchLists}
-   //          selectTrip={this.selectTrip}
-   //        />
-   //        : null
-   //      }
+//after line 101
+// {this.state.showPopup ?
+//        <TripPopup
+//          closePopup={this.togglePopup}
+//          fetchLists={this.props.fetchLists}
+//          selectTrip={this.selectTrip}
+//        />
+//        : null
+//      }
 
 // <table className="table historytable table-bordered">
 //               <thead className="thead-inverse">
