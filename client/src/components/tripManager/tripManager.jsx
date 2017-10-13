@@ -11,8 +11,8 @@ import $ from 'jquery';
 
 const SERVER_URL = HOSTNAME;
 
-let mapStateToProps = ({ user }) => {
-  return { user };
+let mapStateToProps = (state) => {
+  return { user: state.user };
 };
 
 class Dashboard extends React.Component {

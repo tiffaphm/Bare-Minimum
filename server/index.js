@@ -31,15 +31,19 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use('local-signin', new Strategy({ usernameField: 'email' },
-  function(email, password, done) {
-    db.Users.findOne({ where: {email: email} })
-      .then( (user) => {
-        if (!user) { return done(null, false); }
-        if (user.dataValues.password !== password) { return done(null, false); }
-        return done(null, user.dataValues);
-      });
-  }
+
+passport.use('local-signin', new Strategy({
+  usernameField: 'email'
+},
+
+function(email, password, done) {
+  db.Users.findOne({ where: {email: email} })
+    .then( (user) => {
+      if (!user) { return done(null, false); }
+      if (user.dataValues.password !== password) { return done(null, false); }
+      return done(null, user.dataValues);
+    });
+}
 ));
 
 //on every single get request, check for session and direct to appropriate page

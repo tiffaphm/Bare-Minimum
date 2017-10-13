@@ -6,23 +6,25 @@ import "../dist/vendor/bootstrap/css/bootstrap.css";
 import "../dist/stylesheet.css";
 import "../dist/sb-admin.css";
 
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducer from "./Reducers";
-import { connect } from "react-redux";
-import io from "socket.io-client";
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import reducer from './Reducers';
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
 
-const store = createStore(reducer.travelReducer);
+const createStoreWithMiddleware = applyMiddleware(reduxPromise)(createStore);
+const store = createStoreWithMiddleware(reducer.travelReducer);
 const { getState } = store;
 
-import NavSideBar from "./NavSideBar.jsx";
-import TripManager from "./components/tripManager/tripManager.jsx";
-import TripDashboard from "./components/tripDashboard/tripDashboard.jsx";
-import MapboxViewer from "./components/mapboxViewer.jsx";
-import ExpenseTracker from "./components/expenseTracker/expenseTracker.jsx";
-import PlacesOfInterest from "./components/PlacesOfInterest/PlacesOfInterest.jsx";
-import NotificationsModal from "./components/notifications/NotificationsModal.jsx";
-import PhotoList from "./components/photos/photoList.jsx";
+import NavSideBar from './NavSideBar.jsx';
+import TripManager from './components/tripManager/tripManager.jsx';
+import TripDashboard from './components/tripDashboard/tripDashboard.jsx';
+import MapboxViewer from './components/mapboxViewer.jsx';
+import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
+import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
+import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
+import PhotoList from './components/photos/photoList.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -74,29 +76,36 @@ class Dashboard extends React.Component {
     });
   }
 
-  getViewComponent() {
-    if (store.getState().view === "TripManager") {
-      return (
-        <TripManager trips={this.state.trips} fetchLists={this.fetchLists} />
-      );
-    } else if (store.getState().view === "ExpenseTracker") {
-      return <ExpenseTracker />;
-    } else if (store.getState().view === "PlacesOfInterest") {
-      return <PlacesOfInterest />;
-    } else if (store.getState().view === "Photos") {
-      return <PhotoList />;
-    } else {
-      return <TripDashboard user={store.getState().user} />;
-    }
+  getViewComponent () {
+    console.log(store.getState());
+  	if (store.getState().view === 'TripManager') {
+  		return <TripManager trips={this.state.trips} fetchLists={this.fetchLists}/>;
+  	} else if (store.getState().view === 'ExpenseTracker') {
+  		return <ExpenseTracker />;
+  	} else if (store.getState().view === 'PlacesOfInterest') {
+  		return <PlacesOfInterest />;
+  	} else if (store.getState().view === 'Photos') {
+  		return <PhotoList />;
+  	} else {
+  		return <TripDashboard user={store.getState().user}/>;
+  	}
   }
 
   render() {
     return (
       <div>
-        <NavSideBar handleLogout={this.handleLogout.bind(this)} />
-        <div className="content-wrapper">
-          <div className="container-fluid">
-            <div className="row btn-row">{this.getViewComponent()}</div>
+        <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
+        <div className='content-wrapper'>
+          <div className='container-fluid'>
+            <div className='row btn-row'>
+              <div className='col-lg-8'>
+                <h3>welcome back, {store.getState().user.name}</h3>
+                {this.getViewComponent()}
+              </div>
+              <div className='col-lg-4'>
+                <NotificationsPanel />
+              </div>
+            </div>
           </div>
         </div>
         <footer className="sticky-footer">

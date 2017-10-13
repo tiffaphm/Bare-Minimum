@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const APP_VIEWS = require('../appViewsList').APP_VIEWS;
 
 /*
@@ -8,9 +10,10 @@ const CHANGE_USER = 'CHANGE_USER';
 const CHANGE_TRIP = 'CHANGE_TRIP';
 const CHANGE_VIEW = 'CHANGE_VIEW';
 const CHANGE_PHOTOS = 'CHANGE_PHOTOS';
+const SHOW_MORE = 'SHOW_MORE';
 
 /*
-ACTIONS
+ACTION CREATORS
 */
 const changeUser = (user = '') => ({
   type: CHANGE_USER,
@@ -27,9 +30,15 @@ const changeView = (view = '') => ({
   view
 });
 
+
 const changePhotos = (photos = []) => ({
   type: CHANGE_PHOTOS,
   payload: photos
+});
+
+const showMore = (notificationsCount = 10) => ({
+  type: SHOW_MORE,
+  notificationsCount
 });
 
 /*
@@ -40,7 +49,27 @@ const initialState = {
   photos: [],
   user: '',
   trip: '',
-  view: 'TripManager'
+  view: 'TripManager',
+  notifications: [
+    {
+      id: 1,
+      name: 'Johnny',
+      event: 'add photo',
+      createdAt: '2017-10-10 19:06:27'
+    },
+    {
+      id: 2,
+      name: 'Tiff',
+      event: 'add photo',
+      createdAt: '2017-10-12 11:06:27'
+    },
+    {
+      id: 3,
+      name: 'Neha',
+      event: 'add message',
+      createdAt: '2017-10-10 19:06:27'
+    }
+  ] 
 };
 
 const travelReducer = (state = initialState, action) => {
