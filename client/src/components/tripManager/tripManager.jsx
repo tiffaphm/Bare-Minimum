@@ -72,13 +72,18 @@ class Dashboard extends React.Component {
         <div className="row">
           <div className="col-lg-8">
           <h3>Welcome back, {this.props.user.name}</h3>
-            <TripList />
           </div>
-          <div className="col-lg-4">
-            <NotificationsModal />
+          <div className="row trip-history manager-main custom-trip-history">
+            <div className="col-md-8">
+              <h5>All Trips</h5>
+              <TripList trips={this.props.trips} click={this.selectTrip} />
+            </div>
+            <div className="col-lg-4">
+              <NotificationsModal />
+            </div>
           </div>
         </div>
-      
+        
         <div className="row create manager-main">
           <div className="col-md-6">
             <button className="btn" id="createtripbutton" onClick={this.togglePopup}>Create New Trip</button>
@@ -94,23 +99,6 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
-
-        
-        <div className="row trip-history manager-main">
-          <div className="col-md-8">
-            <h5>All Trips</h5>
-            <TripList trips={this.props.trips} click={this.selectTrip} />
-          </div>
-        </div>
-
-        {this.state.showPopup ?
-          <TripPopup
-            closePopup={this.togglePopup}
-            fetchLists={this.props.fetchLists}
-            selectTrip={this.selectTrip}
-          />
-          : null
-        }
       </div>
     );
   }
@@ -118,6 +106,15 @@ class Dashboard extends React.Component {
 
 export default connect(mapStateToProps)(Dashboard);
 
+  //after line 101
+   // {this.state.showPopup ?
+   //        <TripPopup
+   //          closePopup={this.togglePopup}
+   //          fetchLists={this.props.fetchLists}
+   //          selectTrip={this.selectTrip}
+   //        />
+   //        : null
+   //      }
 
 // <table className="table historytable table-bordered">
 //               <thead className="thead-inverse">
