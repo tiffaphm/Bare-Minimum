@@ -5,14 +5,7 @@ import GoogleApiKey from "./GoogleApiKey.jsx";
 import GoogleMap from "google-map-react";
 
 import GeneralMarker from "./Markers/GeneralMarker.jsx";
-
-// const loadJS = (src) => {
-//     var ref = window.document.getElementsByTagName("script")[0];
-//     var script = window.document.createElement("script");
-//     script.src = src;
-//     script.async = true;
-//     ref.parentNode.insertBefore(script, ref);
-// }
+import { M_CIRCLE_WIDTH, M_CIRCLE_HEIGHT } from './Markers/GeneralMarker.jsx';
 
 class TripMap extends React.Component {
   constructor(props) {
@@ -51,6 +44,10 @@ class TripMap extends React.Component {
     })
   }
 
+  removeMarker() {
+    
+  }
+
   render() {
     let markers = this.state.markers.map((item, key) => (
       <GeneralMarker key={key} lat={item.lat} lng={item.lng} onClick={this.removeMarker}/>
@@ -61,7 +58,7 @@ class TripMap extends React.Component {
           bootstrapURLKeys={{ key: GoogleApiKey }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-          onClick={this.getLatLng}
+          onClick={this.addMarker}
         >
           {markers}
         </GoogleMap>
