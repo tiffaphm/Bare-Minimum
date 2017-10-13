@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 import GoogleApiKey from "./GoogleApiKey.jsx";
 import GoogleMap from "google-map-react";
+import controllable from 'react-controllables';
 
 import GeneralMarker from "./Markers/GeneralMarker.jsx";
 import { M_CIRCLE_WIDTH, M_CIRCLE_HEIGHT } from './Markers/GeneralMarker.jsx';
+import InputBoxForMap from './InputBoxForMap.jsx';
 
 class TripMap extends React.Component {
   constructor(props) {
@@ -19,14 +21,6 @@ class TripMap extends React.Component {
   }
 
   getLocationForTrip() {
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(position => {
-    //     let pos = {
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.lo
-    //     }
-    //   })
-    // }
   }
 
   addMarker(obj) {
@@ -42,16 +36,19 @@ class TripMap extends React.Component {
     this.setState({
       markers: newCoords
     })
+
+
   }
 
   removeMarker() {
-    
+
   }
 
   render() {
-    let markers = this.state.markers.map((item, key) => (
-      <GeneralMarker key={key} lat={item.lat} lng={item.lng} onClick={this.removeMarker}/>
+    let markers = this.state.markers.map((item, index) => (
+      <GeneralMarker key={index} lat={item.lat} lng={item.lng}/>
     ))
+
     return (
       <div className="trip-map-container">
         <GoogleMap

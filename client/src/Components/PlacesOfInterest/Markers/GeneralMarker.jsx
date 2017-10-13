@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 const M_CIRCLE_WIDTH = 25;
 const M_CIRCLE_HEIGHT = 25;
 
+import InputBoxForMap from '../InputBoxForMap.jsx';
+
 class GeneralMarker extends React.Component {
+  componentDidMount() {
+    let form = React.findDOMNode(this.refs.form);
+    this.inputBox = new google.maps.InfoWindow(form);
+  }
+  
   render() {
     const GeneralMarkerStyle = {
       position: 'absolute',
