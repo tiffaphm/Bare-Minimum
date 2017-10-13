@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+const M_CIRCLE_WIDTH = 25;
+const M_CIRCLE_HEIGHT = 25;
 
 class GeneralMarker extends React.Component {
   render() {
@@ -16,11 +18,17 @@ class GeneralMarker extends React.Component {
       color: '#fff',
       paddingTop: 2,
       borderRadius: '50%',
-      border: '1px solid white'
+      border: '1px solid white',
+      boxShadow: '0 0.5px 0.5px rgba(0, 0, 0, 0.8)',
+      zIndex: -1
+    };
+
+    const GeneralMarkerHoverStyle = {
+
     };
 
     return (
-      <div style={GeneralMarkerStyle}>
+      <div className="map-marker" style={GeneralMarkerStyle}>
         <i className="fa fa-map-marker"></i>
       </div>
     )
