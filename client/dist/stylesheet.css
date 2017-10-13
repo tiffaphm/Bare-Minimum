@@ -221,8 +221,6 @@ footer a,footer a:hover{
 }
 
 .upload-image {
-  position: relative;
-  width: 100%;
   border-style: dotted;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.5);

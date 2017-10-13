@@ -94,7 +94,7 @@ class PhotoUpload extends React.Component {
   render() {
     return (
       <div>
-        <div className="row">
+        <div>
           <Dropzone
             multiple={true}
             accept="image/*"
