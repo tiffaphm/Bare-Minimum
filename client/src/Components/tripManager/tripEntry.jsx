@@ -17,14 +17,13 @@ const TripEntry = (props) => {
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
   
   return (
-      <div className="card mb-3 custom-card" onClick={props.click}>
+      <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
         <a href="#">
           <img className="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" />
         </a>
         <div className="card-body">
-          <h6 className="card-title mb-1"><a href="#">{props.trip.name}</a></h6>
+          <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
           <p className="card-text small">
-            <a href="#">#surfsup</a>
           </p>
         </div>
         <hr className="my-0" />

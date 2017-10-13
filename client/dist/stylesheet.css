@@ -292,6 +292,10 @@ td {
   margin-left: 0px;
 }
 
+.custom-card-name {
+  text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 6px;
 } 

@@ -21,7 +21,7 @@ const NavSideBar = (props) => {
     <div className="universal-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
         <i className="fa fa-fw fa-plane logo"></i>
-        <a className="navbar-brand" href="index.html"> travels.</a>
+        <a className="navbar-brand" href="index.html"> travels by egt</a>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
@@ -39,13 +39,13 @@ const NavSideBar = (props) => {
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
               <a className="nav-link" href="tables.html">
                 <i className="fa fa-fw fa-table"></i>
-                <span className="nav-link-text">Tables</span>
+                <span className="nav-link-text">Create New Trip</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
               <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                 <i className="fa fa-fw fa-wrench"></i>
-                <span className="nav-link-text">Components</span>
+                <span className="nav-link-text">Join Trip</span>
               </a>
               <ul className="sidenav-second-level collapse" id="collapseComponents">
                 <li>
