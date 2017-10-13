@@ -50,11 +50,10 @@ class Dashboard extends React.Component {
         this.fetchLists();
       })
       .then(() => {
-        console.log('tis is the user id', store.getState().user.id);
+        this.state.socket.emit('report', { userId: store.getState().user.id.toString() });
         return $.get(SERVER_URL + `/notifications?userId=${store.getState().user.id}`);
       })
       .then((data) => {
-        console.log(data);
         store.dispatch(reducer.updateNotifications(data[0].reverse()));
       })
       .catch(err => {
