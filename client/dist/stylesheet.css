@@ -284,6 +284,18 @@ td {
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
+.custom-card {
+  float: left;
+}
+
+.custom-trip-history {
+  margin-left: 0px;
+}
+
+.custom-card-name {
+  text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 6px;
 } 
