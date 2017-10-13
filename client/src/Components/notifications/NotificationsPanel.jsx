@@ -2,12 +2,9 @@ import React from 'react';
 import NotificationsPanelEntry from './NotificationsPanelEntry.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import io from 'socket.io-client';
 import { updateNotifications } from '../../Reducers';
 import { bindActionCreators } from 'redux';
 import $ from 'jquery';
-
-const socket = io();
 
 const mapStateToProps = (state) => {
   return {
@@ -29,6 +26,13 @@ class NotificationsPanel extends React.Component {
       filtered: true
     };
     this.onFilterChange = this.onFilterChange.bind(this);
+    props.socket.on('connection', function() {
+      console.log('this is a successful connection to server');
+    });
+
+    props.socket.on('testmessage', function() {
+      console.log('this is a successful push from server');
+    });
   }
 
   onFilterChange() {
@@ -41,7 +45,7 @@ class NotificationsPanel extends React.Component {
   render() {
     const timeString = moment().calendar().toLowerCase();    
     return (
-      <div className="card mb-3">
+      <div className="card mb-3 notifications-panel">
         <div className="card-header">
           <i className="fa fa-bell-o"></i>travel updates</div>
         <div className="list-group list-group-flush small">
