@@ -1,58 +1,75 @@
 import React from 'react';
 
-// .parent{
-//   width: 150px;  
-// }
-// .parent, .text{
-//   overflow: hidden;  
-// }
-// .text{
-//   margin: 0;
-// }
-// .fa-example-icon{
-//  float: left;
-//   display: block;
-// }
 
-const PlacesOfInterestListEntry = (props) => {
-  let infoTextStyle = {
-    margin: '0 0 0 15px',
-    display: 'block',
-    overflowWrap: 'break-word'
+class PlacesOfInterestListEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      saved: false
+    }
   }
+  render() {
 
-  let iStyle = {
-    float: 'left',
-    marginTop: '3px'
-  }
+    let infoTextStyle = {
+      margin: '0 0 0 15px',
+      display: 'block',
+      overflowWrap: 'break-word'
+    }
 
-  let imgStyle = {
-    marginLeft: '-7px',
-    marginRight: '0.7rem !important'
-  }
+    let iStyle = {
+      float: 'left',
+      marginTop: '3px'
+    }
 
-  let titleStyle = {
-    fontSize: '16px'
-  }
+    let imgStyle = {
+      marginLeft: '-7px',
+      marginRight: '0.7rem !important'
+    }
+
+    let titleStyle = {
+      fontSize: '16px'
+    }
+
+    let savedStyle = {
+      float: 'right',
+      fontSize: '14px',
+      color: '#ccc',
+      display: 'inline-block',
+      padding: '2px 5px',
+      marginTop: '5px',
+      marginRight: '-20px'
+    }
+
+    let saveAndDisable = () => {
+      this.props.savePlaceInfo();
+      this.setState({
+        saved: !this.state.saved
+      })
+    }
+
+
+    let saveButton = this.state.saved ? <span className="fa fa-plus-circle" style={savedStyle} id={this.props.place.place_id}></span> : <span className="save-entry fa fa-plus-circle" id={this.props.place.place_id} onClick={saveAndDisable}></span>;
 
     return (
       <div className="list-group list-group-flush small">
-        <span className="list-group-item list-group-item-action" href="#">
-        <span className="close-entry" onClick={props.removePlaceFromList} id={props.place.place_id}>x</span>
+        <div className="list-group-item">
+          <span className="close-entry fa fa-times-circle" onClick={this.props.removePlaceFromList} id={this.props.place.place_id}></span>
+          {saveButton}
           <div className="media">
             <img className="d-flex mr-3 rounded-circle" style={imgStyle} src="http://placehold.it/45x45" alt=""/>
             <div className="media-body">
-              <strong style={titleStyle}>{props.place.name}</strong><br/>
+              <strong style={titleStyle}>{this.props.place.name}</strong><br/>
               <div className="text-muted smaller">
-                <i className="fa fa-map-marker" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{props.place.formatted_address}</span>
-                <i className="fa fa-phone" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{props.place.formatted_phone_number}</span>
-                <i className="fa fa-external-link" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}><a href={props.place.website}>{props.place.website}</a></span>
+                <i className="fa fa-map-marker" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{this.props.place.formatted_address}</span>
+                <i className="fa fa-phone" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{this.props.place.formatted_phone_number}</span>
+                <i className="fa fa-external-link" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}><a href={this.props.place.website}>{this.props.place.website}</a></span>
               </div>
             </div>
           </div>
-        </span>
+        </div>
       </div>
     )
+  }
 };
 
 // PlacesOfInterestListEntry.proptypes = {

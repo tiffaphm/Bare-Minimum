@@ -20,6 +20,7 @@ class TripMap extends React.Component {
     this.getPlaceInfo = this.getPlaceInfo.bind(this);
     this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
     this.removePlaceFromList = this.removePlaceFromList.bind(this);
+    this.savePlaceInfo = this.savePlaceInfo.bind(this);
     this.state = {
       markers: [this.props.tripCoords],
       newMarker: false,
@@ -123,12 +124,10 @@ class TripMap extends React.Component {
         })
       }
     }
-
-
   }
 
   savePlaceInfo() {
-    //post request to db
+    console.log('saved!');
   }
 
 
@@ -145,7 +144,7 @@ class TripMap extends React.Component {
             id="pac-input"
             className="controls"
             type="text"
-            placeholder="Search..."
+            placeholder="Add places to your list..."
           />
           <div ref="map" className="g-map"/>
           <div ref="savedinfowindow">
@@ -158,7 +157,7 @@ class TripMap extends React.Component {
             <span id="place-website" className="place-website" /><br />
           </div>
         </div>
-          <PlacesOfInterestList places={this.state.places} removePlaceFromList={this.removePlaceFromList}/>
+          <PlacesOfInterestList places={this.state.places} removePlaceFromList={this.removePlaceFromList} savePlaceInfo={this.savePlaceInfo}/>
       </div>
     );
   }
