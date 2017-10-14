@@ -4,8 +4,8 @@ import UserInfo from './userInfo.jsx';
 const TripUserList = (props) => {
   return (
     <div>
+      <h4>Member</h4>
       <hr/>
-      <h4>Who is coming:</h4>
       {Array.isArray(props.users) ? props.users.map((user, index) => {
         return (
           <div className="user-entry" key={index} className="tripdata" onClick={() => { props.showUserInfo(user.id); }}>
