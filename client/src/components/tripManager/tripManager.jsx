@@ -35,20 +35,16 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-md-8">
+      <div className="trip-manager-container">
+          <div className="welcome-message col-md-8">
             <h3>Welcome back, {this.props.user.name}</h3>
-          </div>
-          <div className="row trip-history manager-main custom-trip-history">
-            <div className="col-md-8">
+            <div className="trip-history manager-main custom-trip-history">
               <TripList trips={this.props.trips} click={this.selectTrip} />
             </div>
-            <div className="col-md-4 notifications-container">
-              <NotificationsPanel socket={this.props.socket} />
-            </div>
           </div>
-        </div>
+          <div className="col-md-4 notifications-container">
+            <NotificationsPanel socket={this.props.socket} />
+          </div>
       </div>
     );
   }
