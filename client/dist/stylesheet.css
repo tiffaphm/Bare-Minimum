@@ -5,7 +5,7 @@
 --------------------------- */
 body {
   background-color: #EAEDEF;
-  font-family: Muli, Roboto, Open Sans, sans-serif
+  font-family: Muli, Roboto, Open Sans, sans-serif !important;
 }
 
 .btn-row {
@@ -16,6 +16,13 @@ body {
   color: #661C70 !important;
 }
 
+.welcome-message {
+  display: inline-block !important;
+}
+
+.trip-manager-container {
+  width: 100%;
+}
 /* ---------------------------
   login page styles
 --------------------------- */
@@ -152,9 +159,9 @@ body {
 /* PHOTOS */
 
 @import url(https://fonts.googleapis.com/css?family=Quicksand:400,300);
-body{
+/*body{
     font-family: 'Quicksand', sans-serif;
-}
+}*/
 .gal-container{
   padding: 12px;
 }
@@ -373,11 +380,18 @@ td {
   notification panel styles
 --------------------------- */
 
-.notifications-panel {
-  margin-left: 0px;
-  margin-right: 15px;
+@media screen and (min-width: 751px) {
+  .notifications-panel {
+    margin-left: 0px;
+    margin-right: 15px;
+  }
+
+  .notifications-container {
+    padding-left: 0px;
+    display: inline-block !important;
+  }
 }
 
 .notifications-container {
-  padding-left: 0px;
+  display: none;
 }
