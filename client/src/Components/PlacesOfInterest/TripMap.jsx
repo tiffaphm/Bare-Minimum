@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import GoogleApiKey from "./GoogleApiKey.jsx";
 import scriptLoader from "react-async-script-loader";
+import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 
 // import GeneralMarker from "./Markers/GeneralMarker.jsx";
 // import {
@@ -125,8 +126,8 @@ class TripMap extends React.Component {
     // ))
 
     return (
-      <div className="trip-container">
-        <div className="trip-map-container col-md-10 col-sm-8">
+      <div className="trip-container row">
+        <div className="trip-map-container col-md-8 col-sm-8">
           <input
             ref="searchbox"
             id="pac-input"
@@ -134,24 +135,18 @@ class TripMap extends React.Component {
             type="text"
             placeholder="Search..."
           />
-          <div ref="map" />
+          <div ref="map" className="g-map"/>
           <div ref="savedinfowindow">
             <span id="place-name" className="title" />
           </div>
           <div ref="infowindow">
-            <span id="place-name" className="title" />
-            <br />
-            <span id="place-address" className="place-address" />
-            <br />
-            <span id="place-phone" className="place-phone" />
-            <br />
-            <span id="place-website" className="place-website" />
-            <br />
-            <input type="button" value='save' onClick={this.savePlaceInfo} className="save-place-button" />
+            <span id="place-name" className="title" /><br />
+            <span id="place-address" className="place-address" /><br />
+            <span id="place-phone" className="place-phone" /><br />
+            <span id="place-website" className="place-website" /><br />
           </div>
         </div>
-        <div className="trip-places-list-container">
-        </div>
+          <PlacesOfInterestList />
       </div>
     );
   }

@@ -8,7 +8,7 @@ export class PlacesOfInterest extends React.Component {
 
   render() {
     return (
-      <div className="points-of-interest-container">
+      <div className="places-of-interest-container">
         <TripMap />
       </div>
     )
