@@ -10,6 +10,7 @@ import UserInfo from './userInfo.jsx';
 import reducer from '../../Reducers';
 import dummyData from './dummyData.js';
 import TripUserList from './tripUserList.jsx';
+import ChatPanel from '../chat/chatPanel.jsx';
 import TripDetails from './tripDetails.jsx';
 import NotificationsPanel from '../notifications/NotificationsPanel.jsx';
 
@@ -99,6 +100,9 @@ class TripDashboard extends React.Component {
         </div>
         <div className="col-md-3 notifications-container">
           <NotificationsPanel socket={this.props.socket} />
+        </div>
+        <div className="col-md-4 chat-container">
+        <ChatPanel socket={this.props.socket} />
         </div>
       </div>
     );

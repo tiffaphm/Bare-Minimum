@@ -25,8 +25,8 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
-import CreateTripModal from './Components/NavBarComponents/CreateTripModal.jsx';
-import JoinTripModal from './Components/NavBarComponents/JoinTripModal.jsx';
+import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
+import JoinTrip from './Components/NavBarComponents/joinTrip.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
     } else if (store.getState().view === 'Photos') {
       return <PhotoList />;
     } else {
-      return <TripDashboard user={store.getState().user} socket={this.state.socket}/>;
+      return <TripDashboard socket={this.state.socket} user={store.getState().user}/>;
     }
   }
 
@@ -138,12 +138,14 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        {<JoinTripModal joinTrip={this.joinTrip.bind(this)}/>}
-        {<CreateTripModal className="nav-link-text" createTrip={this.createTrip.bind(this)}/>}
+        <JoinTrip joinTrip={this.joinTrip.bind(this)}/>
+        <CreateTrip className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
         <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>
-            {this.getViewComponent()}
+            <div className='row btn-row'>
+              {this.getViewComponent()}
+            </div>
           </div>
         </div>
         <footer className='sticky-footer'>

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+
 const NotificationsPanelEntry = (props) => {
   var eventText;
   if (props.notification.type === 'photo') {

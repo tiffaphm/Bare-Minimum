@@ -285,6 +285,14 @@ const addPhotos = (images) => {
 
 };
 
+const addChatMessage = (chatInfo) => {
+  return db.Chat.create(chatInfo);
+};
+
+const getChatsForTrip = (id) => {
+  return db.Chat.findAll({where: {tripId: id}});
+};
+
 module.exports = {
   addUser: addUser,
   findUser: findUser,
@@ -303,5 +311,14 @@ module.exports = {
   findPhotos: findPhotos,
   getNotificationForTrip: getNotificationForTrip,
   addPhotos: addPhotos,
-  getNotificationForUser: getNotificationForUser
+  getNotificationForUser: getNotificationForUser,
+  addChatMessage: addChatMessage,
+  getChatsForTrip: getChatsForTrip
 };
+
+
+  // queryHelpers.getChats()
+  //   .then(chats => {
+  //     console.log('received chats from database on load', chats);
+  //     socket.emit('chat message', chats);
+  //   });

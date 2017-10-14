@@ -35,6 +35,13 @@ const addTrips = () => {
 
 };
 
+const addChats = () => {
+  return db.Chat.findOrCreate({where: {username: 'Neha', message: 'hello', userId: '1', tripId: '1' }})
+    .then(() => db.Chat.findOrCreate({where: {username: 'Neha', message: 'hello', userId: '1', tripId: '3' }}))
+    .then(() => db.Chat.findOrCreate({where: {username: 'Eugene', message: 'heyyyy', userId: '2', tripId: '1' }}))
+    .then(() => db.Chat.findOrCreate({where: {username: 'Tiffany', message: 'heyyyy', userId: '4', tripId: '3' }}));
+};
+
 const addPhotos = () => {
   return db.Photos.bulkCreate(photos);
 };
@@ -51,7 +58,8 @@ const addData = () => {
   return addUsers()
     .then(() => addTrips())
     .then(() => addPhotos())
-    .then(() => addUserTrips());
+    .then(() => addUserTrips())
+    .then(() => addChats());
 };
 
 module.exports = {

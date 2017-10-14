@@ -86,12 +86,6 @@ const Sessions = db.define('Sessions', {
 
 //Photo Schema
 const Photos = db.define('photo', {
-  // id: {
-  //   type: Sequelize.INTEGER,
-  //   primaryKey: true,
-  //   autoIncrement: true,
-  //   allowNull: false
-  // },
   name: Sequelize.STRING,
   path: {
     type: Sequelize.STRING,
@@ -113,7 +107,16 @@ const PlacesOfInterest = db.define('placesofinterest', {
   userId: Sequelize.INTEGER,
   lat: Sequelize.INTEGER,
   lng: Sequelize.INTEGER
-})
+});
+
+//Chat Schema
+const Chat = db.define('chat', {
+  userId: Sequelize.INTEGER,
+  tripId: Sequelize.INTEGER,
+  message: Sequelize.TEXT,
+  username: Sequelize.TEXT
+});
+
 
 //---------SEQUELIZE REQUIRES SYNC ON ALL TABLES------------
 Users.sync();
@@ -126,6 +129,7 @@ Sessions.sync();
 Photos.sync();
 Notifications.sync();
 PlacesOfInterest.sync();
+Chat.sync();
 
 
 //Promises do not work!!!!
@@ -176,5 +180,6 @@ module.exports = {
   Expenses: Expenses,
   Sessions: Sessions,
   Photos: Photos,
-  Notifications: Notifications
+  Notifications: Notifications,
+  Chat: Chat
 };
