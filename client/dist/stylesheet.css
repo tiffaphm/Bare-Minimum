@@ -82,9 +82,15 @@ body {
 }
 
 .trip-map-container {
-  height: 400px;
-  width: 600px;
+  height: 600px;
+  width: 700px;
 }
+
+.trip-map-container > div {
+  height: 100%;
+  width: 100%;
+}
+
 
 /* PHOTOS */
 

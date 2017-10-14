@@ -2,25 +2,36 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import GoogleApiKey from "./GoogleApiKey.jsx";
-import GoogleMap from "google-map-react";
-import controllable from 'react-controllables';
+import scriptLoader from 'react-async-script-loader';
 
-import GeneralMarker from "./Markers/GeneralMarker.jsx";
-import { M_CIRCLE_WIDTH, M_CIRCLE_HEIGHT } from './Markers/GeneralMarker.jsx';
+import { GeneralMarkerStyle, GeneralMarkerHoverStyle } from "./Markers/GeneralMarker.jsx";
 import InputBoxForMap from './InputBoxForMap.jsx';
+
 
 class TripMap extends React.Component {
   constructor(props) {
     super(props);
     this.addMarker = this.addMarker.bind(this);
-    this.removeMarker = this.removeMarker.bind(this);
+    this.toggleInfoBox = this.toggleInfoBox.bind(this);
 
     this.state = {
-      markers: [this.props.tripCoords]
+      markers: [this.props.tripCoords],
+      newMarker: false
     }
   }
 
-  getLocationForTrip() {
+  componentWillReceiveProps({ isScriptLoadSucceed }) {
+    if (isScriptLoadSucceed) {
+      this.map = new google.maps.Map(this.refs.map, {
+        center: this.props.tripCoords,
+        zoom: this.props.zoom
+      });
+    let marker = new google.maps.Marker({
+      position: this.props.tripCoords,
+      icon: GeneralMarkerStyle,
+      map: this.map
+    })
+    }
   }
 
   addMarker(obj) {
@@ -36,44 +47,39 @@ class TripMap extends React.Component {
     this.setState({
       markers: newCoords
     })
-
-
   }
 
-  removeMarker() {
-
+  toggleInfoBox() {
+    this.setState({
+      newMarker: !this.state.newMarker
+    })
   }
 
   render() {
-    let markers = this.state.markers.map((item, index) => (
-      <GeneralMarker key={index} lat={item.lat} lng={item.lng}/>
-    ))
+    // let markers = this.state.markers.map((item, index) => (
+    //   <GeneralMarker key={index} lat={item.lat} lng={item.lng}/>
+    // ))
 
     return (
       <div className="trip-map-container">
-        <GoogleMap
-          bootstrapURLKeys={{ key: GoogleApiKey }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          onClick={this.addMarker}
-        >
-          {markers}
-        </GoogleMap>
+        <div ref="map">
+        Loading...
+        </div>
       </div>
     );
   }
 }
 
 TripMap.propTypes = {
-  center: PropTypes.array,
+  center: PropTypes.any,
   zoom: PropTypes.number,
   tripCoords: PropTypes.any
 };
 
 TripMap.defaultProps = {
-  center: [37.783667, -122.408885],
+  center: { lat: 37.783667, lng: -122.408885 },
   zoom: 15,
   tripCoords: { lat: 37.783667, lng: -122.408885 }
 };
 
-export default TripMap;
+export default scriptLoader([GoogleApiKey])(TripMap);
