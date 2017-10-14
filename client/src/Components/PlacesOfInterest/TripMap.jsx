@@ -33,20 +33,20 @@ class TripMap extends React.Component {
       let searchbox = this.refs.searchbox;
       let searchBox = new google.maps.places.SearchBox(searchbox);
       this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchbox);
-      console.log(this.state.searchbox);
 
-      // this.map.addListener('bounds_changed', function() {
-      //   searchBox.setBounds(self.map.getBounds());
-      // })
+      this.map.addListener('bounds_changed', () => {
+        searchBox.setBounds(this.map.getBounds());
+      })
 
-      // let markers = [];
+      let markers = [];
 
-      // searchBox.addListener('places_changed', function() {
-      //   let places = searchBox.getPlaces();
+      searchBox.addListener('places_changed', () => {
+        let places = searchBox.getPlaces();
 
-      //   if (places.length === 0) {
-      //     return;
-      //   }
+        if (places.length === 0) {
+          return;
+        }
+      })
 
       //   markers.forEach(marker => {
       //     marker.setMap(null);
