@@ -1,7 +1,7 @@
 import React from 'react';
 import reducer, { changePhotos } from '../../Reducers';
 import PhotoEntry from './photoEntry.jsx';
-import PhotoUpload from './photoUpload.jsX';
+import PhotoUpload from './photoUpload.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreaters } from 'redux';
 import $ from 'jquery';

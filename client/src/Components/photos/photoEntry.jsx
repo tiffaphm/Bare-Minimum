@@ -1,8 +1,6 @@
 import React from 'react';
 import reducer from '../../Reducers';
 import { connect } from 'react-redux';
-// import TripNavBar from '../tripDashboard/tripNavBar.jsx';
-// import dummyData from '../tripDashboard/dummyData.js';
 
 const PhotoEntry = (props) => (
   <div className={props.size}>
