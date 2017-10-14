@@ -24,7 +24,10 @@ const NavSideBar = (props) => {
     <div className="universal-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
         <i className="fa fa-fw fa-plane logo"></i>
-        <a className="navbar-brand" href="index.html"> travels by egt</a>
+        <a className="navbar-brand" href="index.html"> travels.</a>
+        <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
@@ -42,13 +45,13 @@ const NavSideBar = (props) => {
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="create-trip">
               <a className="nav-link">
                 <i className="fa fa-fw fa-plus"></i>
-                <span data-toggle="modal" data-target="#add-trip"> Create Trip</span>
+                <span className="nav-link-text" data-toggle="modal" data-target="#add-trip"> Create Trip</span>
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="join-trip">
               <a className="nav-link">
                 <i className="fa fa-fw fa-link"></i>
-                <span data-toggle="modal" data-target="#join-trip"> Join Trip</span>
+                <span className="nav-link-text" data-toggle="modal" data-target="#join-trip"> Join Trip</span>
               </a>
               <ul className="sidenav-second-level collapse" id="collapseComponents">
                 <li>
