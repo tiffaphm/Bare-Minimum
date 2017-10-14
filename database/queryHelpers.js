@@ -289,8 +289,8 @@ const addChatMessage = (chatInfo) => {
   return db.Chat.create(chatInfo);
 };
 
-const getChats = () => {
-  return db.Chat.findAll();
+const getChatsForTrip = (id) => {
+  return db.Chat.findAll({where: {tripId: id}});
 };
 
 module.exports = {
@@ -313,7 +313,7 @@ module.exports = {
   addPhotos: addPhotos,
   getNotificationForUser: getNotificationForUser,
   addChatMessage: addChatMessage,
-  getChats: getChats
+  getChatsForTrip: getChatsForTrip
 };
 
 

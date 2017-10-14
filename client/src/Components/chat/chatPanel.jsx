@@ -24,12 +24,13 @@ class ChatPanel extends React.Component {
       message: ''
     };
 
-    this.getChatMessage = this.getChatMessage.bind(this);
+    this.updateInput = this.updateInput.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
+    this.getChatMessages = this.getChatMessages.bind(this);
 
   }
 
-  getChatMessage(e) {
+  updateInput(e) {
     console.log('event', e.target.value);
     this.setState({message: e.target.value});
   }
@@ -48,50 +49,35 @@ class ChatPanel extends React.Component {
 
     console.log('chat entry', chatEntry);
     this.props.socket.emit('chat message', chatEntry);
+    this.resetValue();
+    this.getChatMessages();
 
   }
 
-  componentWillMount() {
-    this.props.socket.on('chat message', chats => {
-      console.log('received all chats from database', chats);
-      this.setState({chats: chats.filter(chat => chat.tripId === this.props.trip.id)});
+  componentDidMount() {
+    // console.log('tripId', this.props.trip.id);
+    this.getChatMessages();
+    
+  }
+
+  getChatMessages() {
+    this.props.socket.emit('get chats', this.props.trip.id);
+    this.props.socket.on('chats for trip', (chats) => {
+      this.setState({chats: chats});
+      console.log('received chats from server on load', chats);
     });
   }
-  // this.onFilterChange = this.onFilterChange.bind(this);
-  // props.socket.on('connection', function() {
-  //   console.log('this is a successful connection to server');
-  // });
-
-  // props.socket.on('testmessage', function() {
-  //   console.log('this is a successful push from server');
-  // });
-
-  // onFilterChange() {
-  //   this.setState({
-  //     filtered: false
-  //   });
-  //   socket.emit('BULBASAUR', 'test');
-  // }
-
+ 
   render() {
     const timeString = moment().calendar().toLowerCase();    
     return (
       <div className="card mb-3 chat-panel">
         <div className="card-header">
-          <i className="fa fa-bell-o"></i>Trip Talk</div>
+          <i className="fa fa-commets"></i> Trip Talk</div>
         <div className="list-group list-group-flush small">
-          {
-            this.state.filtered ?
-              this.props.notifications.slice(0, 3).map(notification => 
-                <ChatEntry key={notification.id} notification={notification}/>
-              )
-              :
-              this.props.notifications.map(notification => 
-                <ChatEntry key={notification.id} notification={notification}/>
-              )
-          }
+          {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
           <div className="chat-entry">
-            <input type="text" className="chat-input" value={this.state.message} onChange={this.getChatMessage}/>
+            <input type="text" className="chat-input" value={this.state.message} onChange={this.updateInput}/>
             <button onClick={this.handleMessage}>Send</button>
           </div>
         </div>
