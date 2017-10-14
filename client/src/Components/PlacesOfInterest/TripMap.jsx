@@ -17,13 +17,12 @@ let searchedPlace = {};
 class TripMap extends React.Component {
   constructor(props) {
     super(props);
-    this.addMarker = this.addMarker.bind(this);
-    // this.markerHover = this.markerHover.bind(this);
     this.getPlaceInfo = this.getPlaceInfo.bind(this);
-    this.toggleInfoBox = this.toggleInfoBox.bind(this);
+    this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
     this.state = {
       markers: [this.props.tripCoords],
-      newMarker: false
+      newMarker: false,
+      places: []
     };
   }
 
@@ -98,26 +97,21 @@ class TripMap extends React.Component {
     } // end of if statement
   } // end of componentwillreceiveprops
 
-  markerHover(marker) {
-    console.log("hi");
+  getPlaceInfo(place) {
+    searchedPlace = place;
+    this.addPlaceInfoToList(searchedPlace);
   }
 
-  getPlaceInfo(place) {
-    searchedPlace = place
+  addPlaceInfoToList(place) {
+    let copyOfPlaces = this.state.places.slice();
+    copyOfPlaces.push(place);
+    this.setState({
+      places: copyOfPlaces
+    })
   }
 
   savePlaceInfo() {
     //post request to db
-  }
-
-  addMarker(event) {
-    console.log(window.google);
-  }
-
-  toggleInfoBox() {
-    this.setState({
-      newMarker: !this.state.newMarker
-    });
   }
 
   render() {
@@ -146,14 +140,14 @@ class TripMap extends React.Component {
             <span id="place-website" className="place-website" /><br />
           </div>
         </div>
-          <PlacesOfInterestList />
+          <PlacesOfInterestList places={this.state.places} />
       </div>
     );
   }
 }
 
 TripMap.propTypes = {
-  center: PropTypes.any,
+  center: PropTypes.object,
   latLng: PropTypes.array,
   zoom: PropTypes.number,
   tripCoords: PropTypes.any
