@@ -6,7 +6,7 @@ let mapStateToProps = ({user, trip}) => {
   return {user, trip};
 };
 
-class JoinTrip extends React.Component {
+class JoinTripModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,4 +57,4 @@ class JoinTrip extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(JoinTrip);
+export default connect(mapStateToProps)(JoinTripModal);
