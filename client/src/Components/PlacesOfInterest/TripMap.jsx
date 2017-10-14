@@ -19,6 +19,7 @@ class TripMap extends React.Component {
     super(props);
     this.getPlaceInfo = this.getPlaceInfo.bind(this);
     this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
+    this.removePlaceFromList = this.removePlaceFromList.bind(this);
     this.state = {
       markers: [this.props.tripCoords],
       newMarker: false,

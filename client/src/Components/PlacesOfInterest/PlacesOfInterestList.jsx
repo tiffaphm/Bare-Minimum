@@ -17,7 +17,7 @@ class PlacesOfInterestList extends React.Component {
             list of places
           </div>
           {this.props.places.map((item, index) => 
-            <PlacesOfInterestListEntry place={item} key={index} />
+            <PlacesOfInterestListEntry place={item} key={index} removePlaceFromList={this.props.removePlaceFromList}/>
           )}
         </div>
       </div>
