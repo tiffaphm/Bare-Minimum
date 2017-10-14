@@ -111,9 +111,26 @@ class TripMap extends React.Component {
     })
   }
 
+  removePlaceFromList(event) {
+    let placeId = event.target.id;
+    let copyOfPlaces = this.state.places.slice();
+
+    for (let i = 0; i < copyOfPlaces.length; i++) {
+      if (this.state.places[i].place_id === placeId) {
+        copyOfPlaces.splice(i, 1);
+        this.setState({
+          places: copyOfPlaces
+        })
+      }
+    }
+
+
+  }
+
   savePlaceInfo() {
     //post request to db
   }
+
 
   render() {
     // let markers = this.state.markers.map((item, index) => (
@@ -141,7 +158,7 @@ class TripMap extends React.Component {
             <span id="place-website" className="place-website" /><br />
           </div>
         </div>
-          <PlacesOfInterestList places={this.state.places} />
+          <PlacesOfInterestList places={this.state.places} removePlaceFromList={this.removePlaceFromList}/>
       </div>
     );
   }

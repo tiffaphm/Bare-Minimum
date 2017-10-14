@@ -38,7 +38,7 @@ const PlacesOfInterestListEntry = (props) => {
     return (
       <div className="list-group list-group-flush small">
         <span className="list-group-item list-group-item-action" href="#">
-        <span id="close" onClick={props.removePlaceFromList}>x</span>
+        <span className="close-entry" onClick={props.removePlaceFromList} id={props.place.place_id}>x</span>
           <div className="media">
             <img className="d-flex mr-3 rounded-circle" style={imgStyle} src="http://placehold.it/45x45" alt=""/>
             <div className="media-body">

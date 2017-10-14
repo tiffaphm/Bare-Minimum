@@ -103,7 +103,7 @@ body {
   padding-bottom: 20px;
 }
 
-#close {
+.close-entry {
   float: right;
   font-size: 14px;
   color: #6f6f6f;
@@ -113,7 +113,7 @@ body {
   margin-right: -15px;
 }
 
-#close:hover {
+.close-entry:hover {
   color: #ccc;
 }
 
