@@ -5,11 +5,11 @@ import GoogleApiKey from "./GoogleApiKey.jsx";
 import scriptLoader from "react-async-script-loader";
 
 // import GeneralMarker from "./Markers/GeneralMarker.jsx";
-import {
-  GeneralMarkerStyle,
-  GeneralMarkerHoverStyle
-} from "./Markers/GeneralMarker.jsx";
-import InputBoxForMap from "./InputBoxForMap.jsx";
+// import {
+//   GeneralMarkerStyle,
+//   GeneralMarkerHoverStyle
+// } from "./Markers/GeneralMarker.jsx";
+// import InputBoxForMap from "./InputBoxForMap.jsx";
 
 let searchedPlace = {};
 
