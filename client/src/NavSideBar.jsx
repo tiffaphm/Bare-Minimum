@@ -2,6 +2,7 @@ import React from 'react';
 import StatusDropDown from './Components/status/StatusDropDown.jsx';
 
 import reducer from './Reducers';
+import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
 import { connect } from 'react-redux';
 
   // selectTrip(trip) {
@@ -32,22 +33,22 @@ const NavSideBar = (props) => {
                 <span className="nav-link-text"> Map</span>
               </a>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="photos">
               <a className="nav-link" href="charts.html">
                 <i className="fa fa-fw fa-photo"></i>
                 <span className="nav-link-text"> Photos</span>
               </a>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-              <a className="nav-link" href="tables.html">
-                <i className="fa fa-fw fa-table"></i>
-                <span className="nav-link-text">Create New Trip</span>
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="create-trip">
+              <a className="nav-link">
+                <i className="fa fa-fw fa-plus"></i>
+                <span data-toggle="modal" data-target="#add-trip"> Create Trip</span>
               </a>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-              <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                <i className="fa fa-fw fa-wrench"></i>
-                <span className="nav-link-text">Join Trip</span>
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="join-trip">
+              <a className="nav-link">
+                <i className="fa fa-fw fa-link"></i>
+                <span data-toggle="modal" data-target="#join-trip"> Join Trip</span>
               </a>
               <ul className="sidenav-second-level collapse" id="collapseComponents">
                 <li>

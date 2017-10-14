@@ -25,6 +25,8 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
+import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
+import JoinTrip from './Components/NavBarComponents/joinTrip.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -72,13 +74,11 @@ class Dashboard extends React.Component {
   }
 
   fetchLists() {
-    let options = { userId: store.getState().user.id };
-    let self = this;
     $.ajax({
       url: SERVER_URL + '/fetchtrips',
-      data: options,
-      success: function(res) {
-        self.setState({ trips: res });
+      data: { userId: store.getState().user.id },
+      success: (res) => {
+        this.setState({ trips: res });
       }
     });
   }
@@ -97,10 +97,43 @@ class Dashboard extends React.Component {
     }
   }
 
+  joinTrip(trip, updateBoard) {
+    console.log('here with join trip info', trip);
+    $.ajax({
+      url: SERVER_URL + '/jointrip',
+      method: 'POST',
+      data: trip,
+      success: (body) => {
+        this.fetchLists();
+      },
+      error: function(err) {
+        console.error(err);
+      }
+    });
+  }
+
+  createTrip(trip, updateBoard) {
+    $.ajax({
+      url: HOSTNAME + '/popup',
+      method: 'POST',
+      data: trip,
+      success: (trip) => {
+        this.fetchLists();
+        updateBoard(trip);
+        // console.log('POST for adding TRIP was a success', trip);
+      },
+      error: (err) => {
+        console.log('error with POST when adding trip', err);
+      }
+    });
+  }
+
   render() {
     return (
       <div>
-        <NavSideBar handleLogout={this.handleLogout.bind(this)}/>
+        <JoinTrip joinTrip={this.joinTrip.bind(this)}/>
+        <CreateTrip className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
+        <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>
             <div className='row btn-row'>
@@ -108,15 +141,15 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
-        <footer className="sticky-footer">
-          <div className="container">
-            <div className="text-center">
+        <footer className='sticky-footer'>
+          <div className='container'>
+            <div className='text-center'>
               <small>made with love by the eggs, coffee & toast team</small>
             </div>
           </div>
         </footer>
-        <a className="scroll-to-top rounded" href="#page-top">
-          <i className="fa fa-angle-up" />
+        <a className='scroll-to-top rounded' href='#page-top'>
+          <i className='fa fa-angle-up' />
         </a>
       </div>
     );

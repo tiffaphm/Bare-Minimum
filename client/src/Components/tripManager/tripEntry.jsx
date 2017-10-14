@@ -23,11 +23,12 @@ const TripEntry = (props) => {
         </a>
         <div className="card-body">
           <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
-          <p className="card-text small">
-          </p>
+           <hr className="mt-2" />
+          <div className="card-text small custom-dates">Travel Dates</div>
+          <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
         </div>
         <hr className="my-0" />
-        <div className="card-footer small text-muted">Posted 32 mins ago</div>
+        <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
       </div>
   );
 };
