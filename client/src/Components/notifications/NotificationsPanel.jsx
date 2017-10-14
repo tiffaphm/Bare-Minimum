@@ -2,8 +2,6 @@ import React from 'react';
 import NotificationsPanelEntry from './NotificationsPanelEntry.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { updateNotifications } from '../../Reducers';
-import { bindActionCreators } from 'redux';
 import $ from 'jquery';
 
 const mapStateToProps = (state) => {
@@ -13,12 +11,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-//anything returns from this function will end up as props
-const mapDispatchToProps = (dispatch) => {
-  //whenever updatedNotifications is called, result flows to all reducers
-  return bindActionCreators({updateNotifications: updateNotifications}, dispatch);
-};
-
 class NotificationsPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -26,20 +18,12 @@ class NotificationsPanel extends React.Component {
       filtered: true
     };
     this.onFilterChange = this.onFilterChange.bind(this);
-    props.socket.on('connection', function() {
-      console.log('this is a successful connection to server');
-    });
-
-    props.socket.on('testmessage', function() {
-      console.log('this is a successful push from server');
-    });
   }
 
   onFilterChange() {
     this.setState({
       filtered: false
     });
-    socket.emit('BULBASAUR', 'test');
   }
 
   render() {
@@ -67,4 +51,4 @@ class NotificationsPanel extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsPanel);
+export default connect(mapStateToProps)(NotificationsPanel);

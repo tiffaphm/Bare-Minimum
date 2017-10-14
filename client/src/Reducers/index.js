@@ -43,13 +43,10 @@ const showMore = (notificationsCount = 10) => ({
   notificationsCount
 });
 
-const updateNotifications = (updatedNotifications) => {
-  console.log('lolololol');
-  return {
-    type: UPDATE_NOTIFICATIONS,
-    payload: updatedNotifications
-  };
-};
+const updateNotifications = (updatedNotifications) => ({
+  type: UPDATE_NOTIFICATIONS,
+  payload: updatedNotifications
+});
 
 /*
 REDUCERS

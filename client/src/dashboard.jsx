@@ -42,6 +42,13 @@ class Dashboard extends React.Component {
       socket: io()
     };
     this.fetchLists = this.fetchLists.bind(this);
+    this.state.socket.on('new notification', function(JSONObj) {
+      var updatedNotifications = store.getState().notifications.slice();
+      updatedNotifications.unshift(JSON.parse(JSONObj));
+      console.log('this is the updated notifications', updatedNotifications);
+      store.dispatch(reducer.updateNotifications(updatedNotifications));
+      console.log('there is a new notification from the server', JSON.parse(JSONObj));
+    });
   }
 
   componentWillMount() {

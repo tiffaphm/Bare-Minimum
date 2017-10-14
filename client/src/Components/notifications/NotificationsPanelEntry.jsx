@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 const NotificationsPanelEntry = (props) => {
   var eventText;
-  console.log(props.notification);
   if (props.notification.type === 'photo') {
     eventText = 'added a new photo!';
   } else if (props.notification.type === 'expense') {
