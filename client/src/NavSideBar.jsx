@@ -25,6 +25,9 @@ const NavSideBar = (props) => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
         <i className="fa fa-fw fa-plane logo"></i>
         <a className="navbar-brand" href="index.html"> travels.</a>
+        <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
