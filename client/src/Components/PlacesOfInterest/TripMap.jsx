@@ -13,6 +13,9 @@ import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 // import InputBoxForMap from "./InputBoxForMap.jsx";
 
 let searchedPlace = {};
+let mapStateToProps = ({ trip, user }) => {
+  return { trip, user };
+};
 
 class TripMap extends React.Component {
   constructor(props) {
@@ -126,8 +129,20 @@ class TripMap extends React.Component {
     }
   }
 
-  savePlaceInfo() {
-    console.log('saved!');
+  savePlaceInfo(event) {
+    let placeId = event.target.id;
+    let copyOfPlaces = this.state.places.slice();
+    let placeToSave = {};
+
+    for (let i = 0; i < copyOfPlaces.length; i++) {
+      if (this.state.places[i].place_id === placeId) {
+        placeToSave = copyOfPlaces.splice(i, 1);
+      }
+    }
+
+    // $.ajax({
+    //   method: 
+    // })
   }
 
 
@@ -177,4 +192,4 @@ TripMap.defaultProps = {
   tripCoords: { lat: 37.783667, lng: -122.408885 }
 };
 
-export default scriptLoader([GoogleApiKey])(TripMap);
+export default connect(MapStateToProps)(scriptLoader([GoogleApiKey])(TripMap));

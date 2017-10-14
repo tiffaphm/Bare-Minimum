@@ -97,7 +97,7 @@ class Dashboard extends React.Component {
     } else if (store.getState().view === 'ExpenseTracker') {
       return <ExpenseTracker />;
     } else if (store.getState().view === 'PlacesOfInterest') {
-      return <PlacesOfInterest />;
+      return <PlacesOfInterest socket={this.state.socket}/>;
     } else if (store.getState().view === 'Photos') {
       return <PhotoList />;
     } else {
