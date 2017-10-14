@@ -5,19 +5,12 @@ let clientMap = {};
 io.on('connection', (socket) => {
 
   console.log(`${socket.id} connected`);
-  io.emit('testmessage', 'test');
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
-
   });
 
   socket.on('report', (info) => {
-    console.log(`user: ${info.userId} in trip: ${info.tripId} report with socket: ${socket.id}`);
-    if (clientMap[tripId]) {
-      clientMap[tripId].push(socket.id);
-    } else {
-      clientMap[tripId] = [socket.id];
-    }
+    console.log(`user: ${info.userId} report with socket: ${socket.id}`);
   });
 
   socket.on('BULBASAUR', function(msg) {
