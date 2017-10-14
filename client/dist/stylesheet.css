@@ -429,3 +429,26 @@ td {
 .notifications-container {
   display: none;
 }
+
+.chat-entry {
+  width: 100%;
+}
+
+/*.chat-panel-main {
+  margin-left: 10px;
+}
+
+@media (max-width: 767px) {
+  .chat-panel-main {
+    width: 100%;
+  }
+}*/
+
+.chat-container {
+  padding-left: 0px;
+}
+
+.chat-panel {
+  margin-left: 0px;
+  margin-right: 15px;
+}

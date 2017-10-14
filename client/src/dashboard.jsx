@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
     } else if (store.getState().view === 'Photos') {
       return <PhotoList />;
     } else {
-      return <TripDashboard user={store.getState().user}/>;
+      return <TripDashboard socket={this.state.socket} user={store.getState().user}/>;
     }
   }
 
