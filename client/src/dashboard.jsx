@@ -25,8 +25,8 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
-import CreateTrip from './Components/NavBarComponents/createTrip.jsx';
-import JoinTrip from './Components/NavBarComponents/joinTrip.jsx';
+import CreateTrip from './components/nav-bar/createTrip.jsx';
+import JoinTrip from './components/nav-bar/joinTrip.jsx';
 
 const SERVER_URL = HOSTNAME;
 
