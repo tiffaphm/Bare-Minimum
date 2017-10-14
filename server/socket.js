@@ -13,10 +13,6 @@ io.on('connection', (socket) => {
     console.log(`user: ${info.userId} report with socket: ${socket.id}`);
   });
 
-  socket.on('BULBASAUR', function(msg) {
-    console.log(msg);
-  });
-
 });
 
 const sendNotification = (notification) => {

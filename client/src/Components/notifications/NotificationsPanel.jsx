@@ -39,7 +39,6 @@ class NotificationsPanel extends React.Component {
     this.setState({
       filtered: false
     });
-    socket.emit('BULBASAUR', 'test');
   }
 
   render() {
