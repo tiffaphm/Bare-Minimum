@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
 });
 
 const sendNotification = (notification) => {
-  io.to(`${notification.id}`).emit('new notification', JSON.stringify(notification));
+  io.to(notification.tripId).emit('new notification', JSON.stringify(notification));
 };
 
 module.exports = {

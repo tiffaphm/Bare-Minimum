@@ -12,8 +12,7 @@ const http = require('http').Server(app);
 const dummyData = require('../database/dummyData.js');
 // export before require loop
 module.exports = http;
-const socket = require('./socket.js');
-
+const io = require('./socket.js');
 // Express Middleware
 
 app.use(bodyParser.json());
@@ -168,6 +167,7 @@ app.post('/expense', (req, res) => {
   query.createExpense(req.body)
     .then((notification) => {
       // TODO: send notification through socket;
+      io.sendNotification(notification);
       res.status(200).end();
       return null;
     })
