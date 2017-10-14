@@ -10,6 +10,7 @@ import UserInfo from './userInfo.jsx';
 import reducer from '../../Reducers';
 import dummyData from './dummyData.js';
 import TripUserList from './tripUserList.jsx';
+import ChatPanel from '../chat/chatPanel.jsx';
 import TripDetails from './tripDetails.jsx';
 
 let mapStateToProps = (state) => {
@@ -94,6 +95,9 @@ class TripDashboard extends React.Component {
             selectedUser={this.state.selectedUserInfo}
             showUserInfo={this.showUserInfo}
           />
+        </div>
+        <div className="col-md-4 chat-container">
+        <ChatPanel socket={this.props.socket} />
         </div>
       </div>
     );
