@@ -23,15 +23,12 @@ class ChatPanel extends React.Component {
       chats: [],
       message: ''
     };
-
     this.updateInput = this.updateInput.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.getChatMessages = this.getChatMessages.bind(this);
-
   }
 
   updateInput(e) {
-    console.log('event', e.target.value);
     this.setState({message: e.target.value});
   }
 
@@ -46,25 +43,19 @@ class ChatPanel extends React.Component {
       tripId: this.props.trip.id,
       username: this.props.user.name
     };
-
-    console.log('chat entry', chatEntry);
     this.props.socket.emit('chat message', chatEntry);
     this.resetValue();
     this.getChatMessages();
-
   }
 
   componentDidMount() {
-    // console.log('tripId', this.props.trip.id);
-    this.getChatMessages();
-    
+    this.getChatMessages(); 
   }
 
   getChatMessages() {
     this.props.socket.emit('get chats', this.props.trip.id);
     this.props.socket.on('chats for trip', (chats) => {
       this.setState({chats: chats});
-      console.log('received chats from server on load', chats);
     });
   }
  
@@ -89,4 +80,3 @@ class ChatPanel extends React.Component {
 
 export default connect(mapStateToProps)(ChatPanel);
 
-// <a className="list-group-item list-group-item-action" onClick={this.onFilterChange}>View all activity...</a>

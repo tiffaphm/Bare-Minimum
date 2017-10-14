@@ -1,23 +1,16 @@
 import React from 'react';
 import moment from 'moment';
 const ChatEntry = (props) => {
-  var eventText;
-  // console.log(props.notification);
-  if (props.notification.type === 'photo') {
-    eventText = 'added a new photo!';
-  } else if (props.notification.type === 'expense') {
-    eventText = `${props.notification.name} added a $${props.notification.amount.toFixed(2)} expense.`;
-  }
-
-  var timeText = moment(props.notification.createdAt).calendar();
-  var relativeTimeText = moment(props.notification.createdAt).fromNow();
-  
+  var timeText = moment(props.chat.createdAt).calendar().match(/(\d.+)/)[0];
+  var relativeTimeText = moment(props.chat.createdAt).fromNow();
   return (
     <a className="list-group-item list-group-item-action" href="#">
       <div className="media">
         <div className="media-body">
-          <strong>{props.notification.tripsName} trip: {props.notification.description}</strong><br /> {eventText}
-          <div className="text-muted smaller">{timeText} - {relativeTimeText}</div>
+          <div className="chat-author">{props.chat.username}:
+            <div className="chat-message">{props.chat.message}</div>
+            <div className="text-muted smaller chat-time">{timeText}</div>
+          </div>
         </div>
       </div>
     </a>
