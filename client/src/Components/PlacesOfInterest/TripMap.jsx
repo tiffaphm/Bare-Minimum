@@ -23,124 +23,58 @@ class TripMap extends React.Component {
   }
 
   componentWillReceiveProps({ isScriptLoadSucceed }) {
+    let self = this;
     if (isScriptLoadSucceed) {
       this.map = new google.maps.Map(this.refs.map, {
         center: this.props.tripCoords,
         zoom: this.props.zoom
       });
 
-      let infoBoxDiv = `<div className="input-location-information-container">
-          <div id="form">
-            <table><tbody>
-              <tr><td>name:</td><td><input type='text' id='name'/></td></tr>
-              <tr><td>address:</td><td><input type='text' id='address'/></td></tr>
-              <tr><td>type:</td><td><input type='text' id='type'/></td></tr>
-              <tr><td>notes:</td><td><input type='text' id='notes'/></td></tr>
-              <tr><td></td><td><input type='button' value='Save' onClick={this.saveDataForPlaceOfInterest}/></td></tr>
-            </tbody></table>
-          </div>
-        </div>`;
-      this.infowindow = new google.maps.InfoWindow({
-        content: infoBoxDiv
-        // pixelOffset: new google.maps.Size(200,0)
-      });
+      let searchbox = this.refs.searchbox;
+      let searchBox = new google.maps.places.SearchBox(searchbox);
+      // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchboxdiv);
+      console.log(this.state.searchbox);
 
-      class GeneralMarker extends google.maps.OverlayView {
-        constructor(latlng, map, args) {
-          super();
-          this.latlng = latlng;
-          this.args = args;
-          this.setMap(map);
-        }
+      // this.map.addListener('bounds_changed', function() {
+      //   searchBox.setBounds(self.map.getBounds());
+      // })
 
-        draw() {
-          let self = this;
-          let div = this.div;
-          if (!div) {
-            div = this.div = document.createElement('div');
-            div.innerHTML = '<i class="fa fa-map-marker"></i>'
-            div.className = 'general-marker';
+      // let markers = [];
 
-            div.style.position = 'absolute';
-            div.style.cursor = 'pointer';
-            div.style.width = '25px';
-            div.style.height = '25px';
-            div.style.backgroundColor = '#C70039';
-            div.style.textAlign = 'center';
-            div.style.fontSize = '16px';
-            div.style.color = '#fff';
-            div.style.paddingTop = '2px';
-            div.style.borderRadius = '50%';
-            div.style.border = '1px solid white';
-            div.style.boxShadow = '0 0.5px 0.5px rgba(0, 0, 0, 0.8)';
-            div.style.zIndex = '-1';
+      // searchBox.addListener('places_changed', function() {
+      //   let places = searchBox.getPlaces();
 
-            // if (typeof(self.args.marker_id) !== 'undefined') {
-            //   div.markers.marker_id = self.args.marker_id;
-            // }
+      //   if (places.length === 0) {
+      //     return;
+      //   }
 
-            // google.maps.event.addDomListener(div, 'click', () = {
-            //   infowindow.open(map, div);
-            // });
+      //   markers.forEach(marker => {
+      //     marker.setMap(null);
+      //   });
+      //   markers = [];
 
-            google.maps.event.addDomListener(div, 'click', () => {
-              google.maps.event.trigger(self, 'click');
-            });
+      //   this.bounds = new google.maps.LatLngBounds();
+      //   places.forEach(function(place) {
+      //     if (!place.geometry) {
+      //       console.log('returned place contains no geometry');
+      //       return;
+      //     }
 
-            google.maps.event.addDomListener(div, 'mouseover', () => {
-              div.style.position = 'absolute';
-              div.style.cursor = 'pointer';
-              div.style.width = '25px';
-              div.style.height = '25px';
-              div.style.backgroundColor = '#C70039';
-              div.style.textAlign = 'center';
-              div.style.fontSize = '16px';
-              div.style.color = '#fff';
-              div.style.paddingTop = '2px';
-              div.style.borderRadius = '50%';
-              div.style.border = '1px solid white';
-              div.style.boxShadow = '0 0.5px 0.5px rgba(0, 0, 0, 0.8), 0 0 0 9px rgba(255, 255, 255, 0.7)';
-              div.style.zIndex = '-1';
-            })
+      //     markers.push(new google.maps.Marker({
+      //       map: this.map,
+      //       title: place.name,
+      //       position: place.geometry.location
+      //     }));
 
-            google.maps.event.addDomListener(div, 'mouseout', () => {
-              div.style.position = 'absolute';
-              div.style.cursor = 'pointer';
-              div.style.width = '25px';
-              div.style.height = '25px';
-              div.style.backgroundColor = '#C70039';
-              div.style.textAlign = 'center';
-              div.style.fontSize = '16px';
-              div.style.color = '#fff';
-              div.style.paddingTop = '2px';
-              div.style.borderRadius = '50%';
-              div.style.border = '1px solid white';
-              div.style.boxShadow = '0 0.5px 0.5px rgba(0, 0, 0, 0.8)';
-              div.style.zIndex = '-1';
-            });
-
-            let panes = this.getPanes();
-            panes.overlayImage.appendChild(div);
-          };
-
-          let point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-
-          if (point) {
-            div.style.left = (point.x - 10) + 'px';
-            div.style.top = (point.y - 20) + 'px';
-          }
-        }
-      }
-
-      google.maps.event.addDomListener(this.map, "click", (event) => {
-        let marker = new GeneralMarker(event.latLng, this.map);
-            this.infowindow.setPosition(event.latLng);
-            this.infowindow.open(this.map, marker);
-            // console.log(marker.latlng.lat());
-        // });
-      });
-
-
+      //     if (place.geometry.viewport) {
+      //       bounds.union(place.geometry.viewport);
+      //     } else {
+      //       bounds.extend(place.geometry.location);
+      //     }
+      //   });
+      //   map.fitBounds(bounds);
+      // });
+      
 
     } // end of if statement
   } // end of componentwillreceiveprops
@@ -166,8 +100,8 @@ class TripMap extends React.Component {
 
     return (
       <div className="trip-map-container">
-        <div ref="map" onClick={this.addMarker}>
-        Loading...
+        <input id="pac-input" className="controls" type="text" placeholder="Search Box" ref="searchbox" />
+        <div ref="map">
         </div>
       </div>
     );
