@@ -146,9 +146,7 @@ class Dashboard extends React.Component {
         <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>
-            <div className='row btn-row'>
-              {this.getViewComponent()}
-            </div>
+            {this.getViewComponent()}
           </div>
         </div>
         <footer className='sticky-footer'>
