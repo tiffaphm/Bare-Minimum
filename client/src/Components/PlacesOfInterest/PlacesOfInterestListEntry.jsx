@@ -4,11 +4,23 @@ import React from 'react';
 class PlacesOfInterestListEntry extends React.Component {
   constructor(props) {
     super(props);
+    this.saveAndDisable = this.saveAndDisable.bind(this);
     this.state = {
       saved: false
     }
   }
+
+  saveAndDisable(event) {
+    this.props.savePlaceInfo(event);
+    this.setState({
+      saved: !this.state.saved
+    })
+  }
+
   render() {
+    let entryStyle = {
+      overflow: 'hidden'
+    }
 
     let infoTextStyle = {
       margin: '0 0 0 15px',
@@ -40,18 +52,10 @@ class PlacesOfInterestListEntry extends React.Component {
       marginRight: '-20px'
     }
 
-    let saveAndDisable = () => {
-      this.props.savePlaceInfo();
-      this.setState({
-        saved: !this.state.saved
-      })
-    }
-
-
-    let saveButton = this.state.saved ? <span className="fa fa-plus-circle" style={savedStyle} id={this.props.place.place_id}></span> : <span className="save-entry fa fa-plus-circle" id={this.props.place.place_id} onClick={saveAndDisable}></span>;
+    let saveButton = this.state.saved ? <span className="fa fa-plus-circle" style={savedStyle} id={this.props.place.place_id}></span> : <span className="save-entry fa fa-plus-circle" id={this.props.place.place_id} onClick={this.saveAndDisable}></span>;
 
     return (
-      <div className="list-group list-group-flush small">
+      <div className="list-group list-group-flush small" style={entryStyle}>
         <div className="list-group-item">
           <span className="close-entry fa fa-times-circle" onClick={this.props.removePlaceFromList} id={this.props.place.place_id}></span>
           {saveButton}

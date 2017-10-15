@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 
 import GoogleApiKey from "./GoogleApiKey.jsx";
 import scriptLoader from "react-async-script-loader";
@@ -131,14 +132,15 @@ class TripMap extends React.Component {
 
   savePlaceInfo(event) {
     let placeId = event.target.id;
+    console.log(placeId);
     let copyOfPlaces = this.state.places.slice();
-    let placeToSave = {};
+    // let placeToSave = {};
 
-    for (let i = 0; i < copyOfPlaces.length; i++) {
-      if (this.state.places[i].place_id === placeId) {
-        placeToSave = copyOfPlaces.splice(i, 1);
-      }
-    }
+    // for (let i = 0; i < copyOfPlaces.length; i++) {
+    //   if (this.state.places[i].place_id === placeId) {
+    //     placeToSave = copyOfPlaces.splice(i, 1);
+    //   }
+    // }
 
     // $.ajax({
     //   method: 
@@ -192,4 +194,4 @@ TripMap.defaultProps = {
   tripCoords: { lat: 37.783667, lng: -122.408885 }
 };
 
-export default connect(MapStateToProps)(scriptLoader([GoogleApiKey])(TripMap));
+export default connect(mapStateToProps)(scriptLoader([GoogleApiKey])(TripMap));
