@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const TripEntry = (props) => {
 
@@ -15,6 +16,7 @@ const TripEntry = (props) => {
   let endMonth = endNewDate.getMonth() + 1;
   let endDay = endNewDate.getDate();
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
+  // console.log('time format', moment(props.trip.createdAt).calender());
   
   return (
     <div className="card-container">
@@ -29,7 +31,7 @@ const TripEntry = (props) => {
           <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
         </div>
         <hr className="my-0" />
-        <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
+        <div className="card-footer small text-muted custom-dates">Posted sometime ago</div>
       </div>
   );
 };
