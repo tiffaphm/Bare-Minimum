@@ -49,26 +49,22 @@ class TripDashboard extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-9">
-          <TripNavBar
-            features={dummyData.features}
-            dispatch={this.props.dispatch}
-          />
-          <div className="row">
-            <div className="col-md-8">
-              <TripDetails trip={this.props.trip} />
-              <div className="chat-container">
-                <ChatPanel socket={this.props.socket} />
-              </div>
-            </div>
-            <div className="col-md-4">
-              <TripUserList users={this.state.users}/>
+      <div className="trip-dashboard-container">
+        <div className="row">
+          <div className="col-md-9">
+            <TripNavBar
+              features={dummyData.features}
+              dispatch={this.props.dispatch}
+            />
+            <TripDetails trip={this.props.trip} />
+            <TripUserList users={this.state.users}/>
+            <div className="chat-container">
+              <ChatPanel socket={this.props.socket} />
             </div>
           </div>
-        </div>
-        <div className="col-md-3 notifications-container">
-          <NotificationsPanel socket={this.props.socket} />
+          <div className="col-md-3 notifications-container">
+            <NotificationsPanel socket={this.props.socket} />
+          </div>
         </div>
       </div>
     );
