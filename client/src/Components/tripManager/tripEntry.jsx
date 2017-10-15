@@ -36,17 +36,3 @@ const TripEntry = (props) => {
 };
 
 export default TripEntry;
-
-
-
-
-
-
-
-// <tr> 
-//     <td onClick={props.onClick}><a href='#'>{props.trip.name}</a></td>
-//     <td>{props.trip.location}</td>
-//     <td>{startDateFormat}</td>
-//     <td>{endDateFormat}</td>
-//     <td>{props.trip.accessCode}</td>
-//   </tr>

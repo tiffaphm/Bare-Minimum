@@ -58,7 +58,9 @@ class TripDashboard extends React.Component {
             />
             <TripDetails trip={this.props.trip} />
             <TripUserList users={this.state.users}/>
-            <ChatPanel socket={this.props.socket} />
+            <div className="chat-container">
+              <ChatPanel socket={this.props.socket} />
+            </div>
           </div>
           <div className="col-md-3 notifications-container">
             <NotificationsPanel socket={this.props.socket} />
