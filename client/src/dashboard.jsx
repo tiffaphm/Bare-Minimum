@@ -25,6 +25,7 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
+
 import CreateTripModal from './Components/NavBarComponents/CreateTripModal.jsx';
 import JoinTripModal from './Components/NavBarComponents/JoinTripModal.jsx';
 

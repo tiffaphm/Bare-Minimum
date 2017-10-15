@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusDropDown from './Components/status/StatusDropDown.jsx';
+import StatusDropDown from './components/status/StatusDropDown.jsx';
 
 import reducer from './Reducers';
 import CreateTripModal from './Components/NavBarComponents/CreateTripModal.jsx';
