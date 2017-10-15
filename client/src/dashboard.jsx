@@ -25,8 +25,9 @@ import ExpenseTracker from './components/expenseTracker/expenseTracker.jsx';
 import PlacesOfInterest from './components/PlacesOfInterest/PlacesOfInterest.jsx';
 import NotificationsPanel from './components/notifications/NotificationsPanel.jsx';
 import PhotoList from './components/photos/photoList.jsx';
-import CreateTrip from './components/nav-bar/createTrip.jsx';
-import JoinTrip from './components/nav-bar/joinTrip.jsx';
+
+import CreateTripModal from './Components/NavBarComponents/CreateTripModal.jsx';
+import JoinTripModal from './Components/NavBarComponents/JoinTripModal.jsx';
 
 const SERVER_URL = HOSTNAME;
 
@@ -138,8 +139,8 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <JoinTrip joinTrip={this.joinTrip.bind(this)}/>
-        <CreateTrip className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
+        <JoinTripModal joinTrip={this.joinTrip.bind(this)}/>
+        <CreateTripModal className="nav-link-text" createTrip={this.createTrip.bind(this)}/>
         <NavSideBar handleLogout={this.handleLogout.bind(this)} />
         <div className='content-wrapper'>
           <div className='container-fluid'>

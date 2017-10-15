@@ -30,8 +30,8 @@ class StatusDropDown extends React.Component {
         <div className="dropdown-menu" aria-labelledby="alertsDropdown">
           <h6 className="dropdown-header">new travel updates:</h6>
           {
-            this.props.notifications.slice(0, 5).map(notification => 
-              <StatusDropDownEntry key={notification.id} notification={notification}/>
+            this.props.notifications.slice(0, 5).map((notification, index) => 
+              <StatusDropDownEntry key={index} notification={notification}/>
             )
           }
         </div>        

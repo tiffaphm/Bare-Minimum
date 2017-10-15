@@ -2,7 +2,7 @@ import React from 'react';
 import StatusDropDown from './components/status/StatusDropDown.jsx';
 
 import reducer from './Reducers';
-import CreateTrip from './components/nav-bar/createTrip.jsx';
+import CreateTripModal from './Components/NavBarComponents/CreateTripModal.jsx';
 import { connect } from 'react-redux';
 
   // selectTrip(trip) {

@@ -35,12 +35,12 @@ class NotificationsPanel extends React.Component {
         <div className="list-group list-group-flush small">
           {
             this.state.filtered ?
-              this.props.notifications.slice(0, 3).map(notification => 
-                <NotificationsPanelEntry key={notification.id} notification={notification}/>
+              this.props.notifications.slice(0, 5).map( (notification, index) => 
+                <NotificationsPanelEntry key={index} notification={notification}/>
               )
               :
               this.props.notifications.map(notification => 
-                <NotificationsPanelEntry key={notification.id} notification={notification}/>
+                <NotificationsPanelEntry key={index} notification={notification}/>
               )
           }
           <a className="list-group-item list-group-item-action" onClick={this.onFilterChange}>View all activity...</a>

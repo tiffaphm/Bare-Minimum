@@ -1,5 +1,5 @@
 const db = require('./index.js');
-// const Promise = require('bluebird');
+const Sequelize = require('sequelize');
 
 // ==== USERS ====
 
@@ -38,22 +38,10 @@ const findUserByEmail = function(user, callback) {
 
 // ==== USERS & TRIPS ====
 
-const findUsersOnTrip = function(tripId, callback) {
+const findUsersOnTrip = (tripId) => {
   // query equivalent to:
   // `SELECT Users.name, Users.id FROM UserTrips, Users WHERE Users.id = UserTrips.UserId AND UserTrips.tripId = ${tripId}`
-  db.Users.findAll({
-    include: [{
-      model: db.Trips,
-      where: { id: tripId }
-    }]
-  })
-    .then((result) => {
-      return callback(result);
-    })
-    .catch((err) => {
-      console.error('There was an error looking up users on trip', err);
-      return callback(err);
-    });
+  return db.db.query(`select usertrips.flightItinerary, usertrips.phone, users.name, users.id from usertrips inner join users where users.id = usertrips.UserId and usertrips.TripId = ${tripId}`, { type: Sequelize.QueryTypes.SELECT});
 };
 
 const findTripsForUser = (userId) => {
@@ -112,11 +100,9 @@ const addSession = function(sessionId, email) {
 
 const getDetailedNotification = (notification) => {
   if (notification.type === 'expense') {
-    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, expenses.amount, expenses.description, trips.name as tripsName, expenses.userId, users.name FROM notifications, expenses, trips, users WHERE notifications.contentId = expenses.id AND notifications.tripId = trips.id AND users.id = expenses.userId AND notifications.id = ${notification.id};`)
-      .then(result => result[0][0]);// WHY?
+    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, expenses.amount, expenses.description, trips.name as tripsName, expenses.userId, users.name FROM notifications, expenses, trips, users WHERE notifications.contentId = expenses.id AND notifications.tripId = trips.id AND users.id = expenses.userId AND notifications.id = ${notification.id};`, { type: Sequelize.QueryTypes.SELECT});
   } else if (notification.type === 'photo') {
-    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, photos.path, trips.name as tripsName, photos.userId, users.name FROM notifications, photos, trips, users WHERE notifications.contentId = photos.id AND notifications.tripId = trips.id AND users.id = photos.userId AND notifications.id = ${notification.id};`)
-      .then(result => result[0][0]);// WHY AGAIN?
+    return db.db.query(`select notifications.id, notifications.type, notifications.createdAt, notifications.tripId as tripId, photos.path, trips.name as tripsName, photos.userId, users.name FROM notifications, photos, trips, users WHERE notifications.contentId = photos.id AND notifications.tripId = trips.id AND users.id = photos.userId AND notifications.id = ${notification.id};`, { type: Sequelize.QueryTypes.SELECT});
   }
 };
 

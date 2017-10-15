@@ -192,13 +192,13 @@ app.get('/expense', (req, res) => {
 // GET userlist for trip
 app.get('/tripusers/:tripId', (req, res) => {
   const tripId = req.params.tripId;
-
-  query.findUsersOnTrip(tripId, (results) => {
-    return res.send(results);
-  });
+  query.findUsersOnTrip(tripId)
+    .then((results) => {
+      return res.status(200).json(results);
+    });
 });
 
-// GET trip specific user itinerary, phone
+// GET trip specific user itinerary, phone NO LONGER USED
 app.get('/userinfo/:userId/:tripId', (req, res) => {
   console.log('getting userinfo');
   const tripId = req.params.tripId;
