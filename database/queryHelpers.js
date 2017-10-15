@@ -284,7 +284,11 @@ const addPlaceOfInterest = (place) => {
 }
 
 const getPlacesOfInterest = (id) => {
-  return db.PlacesOfInterest.findAll({where: {tripId: id}});
+  return db.PlacesOfInterest.findAll({where: {tripId: id, status: 'saved'}});
+}
+
+const updatePlacesOfInterest = (placeid) => {
+  return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {placeId: placeid, status: 'saved'}})
 }
 
 module.exports = {
@@ -309,7 +313,8 @@ module.exports = {
   addChatMessage: addChatMessage,
   getChatsForTrip: getChatsForTrip,
   addPlaceOfInterest: addPlaceOfInterest,
-  getPlacesOfInterest: getPlacesOfInterest
+  getPlacesOfInterest: getPlacesOfInterest,
+  updatePlacesOfInterest: updatePlacesOfInterest
 };
 
 

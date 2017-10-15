@@ -327,12 +327,23 @@ app.get('/placesofinterest', (req, res) => {
   if (req.query.tripId) {
     query.getPlacesOfInterest(req.query.tripId)
       .then((result) => {
-        res.send(result)
+        res.send(result);
+        return null;
       })
       .catch((error) => {
         res.send(400);
       })
   }
+})
+
+app.put('/placesofinterest', (req, res) => {
+  query.updatePlacesOfInterest(req.query.placeId)
+    .then((result) => {
+      res.send('success')
+    })
+    .catch((error) => {
+      res.send(400);
+    })
 })
 
 const redirectUnmatched = (req, res) => {

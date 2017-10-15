@@ -10,6 +10,10 @@ class PlacesOfInterestListEntry extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log(this.props.place);
+  }
+
   saveAndDisable(event) {
     this.props.savePlaceInfo(event);
     this.setState({

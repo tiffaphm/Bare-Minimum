@@ -108,7 +108,8 @@ const PlacesOfInterest = db.define('placesofinterest', {
   lat: Sequelize.FLOAT,
   lng: Sequelize.FLOAT,
   placeName: Sequelize.STRING,
-  placeId: Sequelize.STRING
+  placeId: Sequelize.STRING,
+  status: Sequelize.STRING
 });
 
 //Chat Schema
