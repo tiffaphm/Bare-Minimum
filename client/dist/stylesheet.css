@@ -419,8 +419,22 @@ td {
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }*/
 
+
+.trip-cards-container {
+  width: 100%;
+  height: 100%;
+}
+
 .custom-card {
   float: left;
+  width: 100%;
+}
+
+.card-container {
+  width: 50%;
+  display: inline-block;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .custom-trip-history {
@@ -440,11 +454,6 @@ td {
 }
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.trip-card-container {
-  width: 100%;
-  height: 100%;
 }
 
 /* ---------------------------

@@ -17,6 +17,7 @@ const TripEntry = (props) => {
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
   
   return (
+    <div className="card-container">
       <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
         <a href="#">
           <img className="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" />
@@ -30,6 +31,7 @@ const TripEntry = (props) => {
         <hr className="my-0" />
         <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
       </div>
+    </div>
   );
 };
 
