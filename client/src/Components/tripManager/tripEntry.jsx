@@ -17,34 +17,20 @@ const TripEntry = (props) => {
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
   
   return (
-      <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
-        <a href="#">
-          <img className="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" />
-        </a>
-        <div className="card-body">
-          <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
-           <hr className="mt-2" />
-          <div className="card-text small custom-dates">Travel Dates</div>
-          <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
-        </div>
-        <hr className="my-0" />
-        <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
+    <div className="card mb-3" onClick={() => props.click(props.trip)}>
+      <a href="#">
+        <img className="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" />
+      </a>
+      <div className="card-body">
+        <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
+        <hr className="mt-2" />
+        <div className="card-text small custom-dates">Travel Dates</div>
+        <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
       </div>
+      <hr className="my-0" />
+      <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
+    </div>
   );
 };
 
 export default TripEntry;
-
-
-
-
-
-
-
-// <tr> 
-//     <td onClick={props.onClick}><a href='#'>{props.trip.name}</a></td>
-//     <td>{props.trip.location}</td>
-//     <td>{startDateFormat}</td>
-//     <td>{endDateFormat}</td>
-//     <td>{props.trip.accessCode}</td>
-//   </tr>
