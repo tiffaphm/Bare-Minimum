@@ -127,6 +127,7 @@ app.get('/fetchtrips', (req, res) => {
       res.status(200).send(tripsWithPhotos);
     })
     .catch((err) => {
+      console.log('err getting trips', err);
       res.status(500).end();
     });
 });

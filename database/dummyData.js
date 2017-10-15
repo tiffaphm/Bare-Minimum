@@ -5,9 +5,9 @@ const photos = [
   {name: 'np2.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/jvn8lnjavwwlnktxqrng.jpg', tripId: 1, userId: 1},
   {name: 'np3.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/btjf28tjumy4nhw4udyb.jpg', tripId: 1, userId: 1},
   {name: 'np4.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/nz7ouq1gixilrkgphkof.jpg', tripId: 1, userId: 1},
-  {name: 'np5.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/hdv1ktdyy9w4g50cge6c.jpg', tripId: 2, userId: 1},
-  {name: 'np6.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/dioodkqeos4k7rlmtnpv.jpg', tripId: 2, userId: 1},
-  {name: 'np7.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/kb1guzptx3v22yu8icxm.jpg', tripId: 2, userId: 1},
+  {name: 'np5.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/hdv1ktdyy9w4g50cge6c.jpg', tripId: 3, userId: 1},
+  {name: 'np6.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/dioodkqeos4k7rlmtnpv.jpg', tripId: 3, userId: 1},
+  {name: 'np7.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/kb1guzptx3v22yu8icxm.jpg', tripId: 3, userId: 1},
   {name: 'np8.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771827/m1u9zjb38xwdsg3jvh34.jpg', tripId: 3, userId: 1},
   {name: 'np9.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/dc6zyd625ksh4rhalzgz.jpg', tripId: 3, userId: 1},
   {name: 'np10.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/bkcadfbeotsuske7w5tl.jpg', tripId: 3, userId: 1}

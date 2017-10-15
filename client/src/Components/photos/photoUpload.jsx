@@ -105,7 +105,7 @@ class PhotoUpload extends React.Component {
             <p></p>
           </Dropzone>
         </div>
-        {this.state.images.map((photo, i) => <PhotoEntry photo={photo} size={this.props.photoSize()} key={i}/>)}
+        {this.state.images.map((photo, i) => <PhotoEntry photo={photo} size={this.props.photoSize ? this.props.photoSize() : 'col-md-4 col-sm-6 co-xs-12'} key={i}/>)}
       </div>
     );
   }
