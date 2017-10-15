@@ -117,7 +117,8 @@ const Chat = db.define('chat', {
   userId: Sequelize.INTEGER,
   tripId: Sequelize.INTEGER,
   message: Sequelize.TEXT,
-  username: Sequelize.TEXT
+  username: Sequelize.TEXT,
+  sentTo: Sequelize.TEXT
 });
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const TripEntry = (props) => {
 
@@ -15,23 +16,33 @@ const TripEntry = (props) => {
   let endMonth = endNewDate.getMonth() + 1;
   let endDay = endNewDate.getDate();
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
-  
+  // console.log('time format', moment(props.trip.createdAt).calender());
   return (
     <div className="card-container">
       <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
         <a href="#">
-          <img className="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" />
+          <img className="card-img-top img-fluid w-100" src={props.trip.photo.path} alt="" />
         </a>
         <div className="card-body">
           <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
-           <hr className="mt-2" />
+          <hr className="mt-2" />
           <div className="card-text small custom-dates">Travel Dates</div>
           <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
         </div>
-        <hr className="my-0" />
-        <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
       </div>
+    </div>
   );
 };
 
 export default TripEntry;
+
+//testing trip card photo class from upload component
+// col-md-4 col-sm-6 co-xs-12 gal-item
+
+
+//original trip card photo class
+// card-img-top img-fluid w-100
+
+//footer for trip card with timestamp of when it was posted
+//  <hr className="my-0" />
+        // <div className="card-footer small text-muted custom-dates">Posted sometime ago</div>

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { updateNotifications } from '../../Reducers';
 import { bindActionCreators } from 'redux';
 import $ from 'jquery';
+import ChatRoom from './chatRoom.jsx';
 
 const mapStateToProps = ({ user, trip, notifications }) => {
   return { trip, user, notifications };
@@ -21,11 +22,14 @@ class ChatPanel extends React.Component {
     super(props);
     this.state = {
       chats: [],
-      message: ''
+      message: '',
+      rooms: [],
+      active: false
     };
     this.updateInput = this.updateInput.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.getChatMessages = this.getChatMessages.bind(this);
+    this.handleRoomChange = this.handleRoomChange.bind(this);
   }
 
   updateInput(e) {
@@ -56,23 +60,58 @@ class ChatPanel extends React.Component {
     this.props.socket.emit('get chats', this.props.trip.id);
     this.props.socket.on('chats for trip', (chats) => {
       this.setState({chats: chats});
+      this.getRooms(chats);
     });
+  }
+
+  handleRoomChange(room) {
+    console.log('here with room change', room);
+  }
+
+  getRooms(chats) {
+    let users = chats.map(chat => chat.username);
+    let rooms = new Set(users);
+    if (rooms.size > 2) {
+      rooms.add('Group');
+      console.log('rooms', rooms);
+      this.setState({rooms: Array.from(rooms)});
+    } else {
+      this.setState({rooms: ['Group']});
+    }
   }
  
   render() {
     const timeString = moment().calendar().toLowerCase();    
     return (
-      <div className="card mb-3 chat-panel">
-        <div className="card-header">
-          <i className="fa fa-commets"></i> Trip Talk</div>
-        <div className="list-group list-group-flush small">
-          {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
-          <div className="chat-entry">
-            <input type="text" className="chat-input" value={this.state.message} onChange={this.updateInput}/>
-            <button onClick={this.handleMessage}>Send</button>
+      <div>
+        <div className="card mb-3 chat-panel">
+          <div className="card-header">
+            <i className="fa fa-commets"></i> Trip Talk
           </div>
+          <div className="chat-room-container">
+            <ul className="mb-3 nav nav-tabs">
+              {this.state.rooms.map((room, i) => {
+                if (room !== this.props.user.name) {
+                  if (!this.state.active) {
+                    this.state.active = true;
+                    return <ChatRoom active="true" room={room} key={i} roomChange={this.handleRoomChange} />;
+                  } else {
+                    return <ChatRoom active="false" room={room} key={i} roomChange={this.handleRoomChange} />;
+                  }
+                }
+              })}
+            </ul>
+            <br/>
+          </div>
+          <div className="list-group list-group-flush small">
+            {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
+            <div className="chat-entry">
+              <input type="text" className="chat-input" value={this.state.message} onChange={this.updateInput}/>
+              <button onClick={this.handleMessage}>Send</button>
+            </div>
+          </div>
+          <div className="card-footer small text-muted">updated {timeString}</div>
         </div>
-        <div className="card-footer small text-muted">updated {timeString}</div>
       </div>
     ); 
   }
