@@ -66,6 +66,7 @@ class ChatPanel extends React.Component {
         <div className="card-header">
           <i className="fa fa-commets"></i> Trip Talk</div>
         <div className="list-group list-group-flush small">
+        <div></div>
           {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
           <div className="chat-entry">
             <input type="text" className="chat-input" value={this.state.message} onChange={this.updateInput}/>

@@ -4,13 +4,6 @@ const query = require('../database/queryHelpers.js');
 let clientMap = {};
 
 io.on('connection', (socket) => {
-
-  // query.getChats()
-  //   .then(chats => {
-  //     // console.log('received chats from database on load', chats);
-  //     socket.emit('chat message', chats);
-  //   });
-
   console.log(`${socket.id} connected`);
 
   socket.on('disconnect', () => {
@@ -43,7 +36,7 @@ io.on('connection', (socket) => {
   socket.on('chat message', (message) => {
     query.addChatMessage(message)
       .then(result => { 
-        console.log('recevied from database chat', result);
+        // console.log('recevied from database chat', result);
       })
       .catch(err => console.log('error adding chat to database', err));
   });
@@ -53,8 +46,9 @@ io.on('connection', (socket) => {
       .then(chats => {
         // console.log('received chats from database in server', chats);
         socket.emit('chats for trip', chats);
-      });
-  })
+      })
+      .catch(err => console.log('error getting chats from database', err));
+  });
 
 });
 
