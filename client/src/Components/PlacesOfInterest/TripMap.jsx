@@ -25,6 +25,7 @@ class TripMap extends React.Component {
     this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
     this.removePlaceFromList = this.removePlaceFromList.bind(this);
     this.savePlaceInfo = this.savePlaceInfo.bind(this);
+    // this.loadSavedPlaces = this.loadSavedPlaces.bind(this);
     this.state = {
       markers: [this.props.tripCoords],
       newMarker: false,
@@ -53,24 +54,40 @@ class TripMap extends React.Component {
       // let savedInfo = new google.maps.InfoWindow();
       // let savedInfoContent = this.refs.savedinfowindow;
       // savedInfo.setContent(savedInfoContent);
+      let marker;
 
-      this.marker = new google.maps.Marker({
+      marker = new google.maps.Marker({
         map: this.map
       });
 
-      this.marker.addListener("click", () => {
-        infowindow.open(this.map, this.marker);
+      marker.addListener("click", () => {
+        infowindow.open(this.map, marker);
       });
 
-      this.marker.addListener("mouseover", () => {
-        infowindow.open(this.map, this.marker);
+      marker.addListener("mouseover", () => {
+        infowindow.open(this.map, marker);
       });
 
-      this.marker.addListener("mouseout", () => {
-        infowindow.open(this.map, this.marker);
+      marker.addListener("mouseout", () => {
+        infowindow.open(this.map, marker);
       });
 
-      let places;
+      $.ajax({
+      method: 'GET',
+      url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
+      success: (data) => {
+        console.log("this was a successful get request", data);
+        data.forEach((place) => {
+          marker = new google.maps.Marker({
+            map: this.map,
+            position: {lat: place.lat, lng: place.lng}
+          })
+        });
+      },
+      failure: (error) => {
+        console.log("something went wrong grabbing the data", error);
+      }
+    });
 
       // createMarker(place) {
       //   let placeLoc = place.geometry.location;
@@ -95,11 +112,11 @@ class TripMap extends React.Component {
         }
 
         // Set the position of the marker using the place ID and location
-        this.marker.setPlace({
+        marker.setPlace({
           placeId: place.place_id,
           location: place.geometry.location
         });
-        this.marker.setVisible(true);
+        marker.setVisible(true);
 
         infowindowContent.children["place-name"].textContent = place.name;
         // infowindowContent.children['place-id'].textContent = place.place_id;
@@ -109,33 +126,10 @@ class TripMap extends React.Component {
           place.formatted_phone_number;
         infowindowContent.children["place-website"].textContent = place.website;
         this.getPlaceInfo(place);
-        infowindow.open(this.map, this.marker);
+        infowindow.open(this.map, marker);
       });
     } // end of if statement
   } // end of componentwillreceiveprops
-
-  componentDidMount() {
-    this.getListOfSavedPlacesForTrip();
-  }
-
-  getListOfSavedPlacesForTrip() {
-    $.ajax({
-      method: 'GET',
-      url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
-      success: (data) => {
-        console.log("this was a successful get request", data);
-        // data.map((place, index) => {
-        //   let marker = new google.maps.Marker({
-        //     map: this.map,
-        //     position: {lat: place.lat, lng: place.lng}
-        //   })
-        // })
-      },
-      failure: (error) => {
-        console.log("something went wrong grabbing the data", error);
-      }
-    });
-  }
 
   getPlaceInfo(place) {
     searchedPlace = place;
@@ -186,10 +180,6 @@ class TripMap extends React.Component {
         placeToSave = copyOfPlaces.splice(i, 1)[0];
       }
     }
-
-    // console.log(typeof placeToSave.place_id);
-    // console.log(placeToSave.geometry.location.lat());
-    // console.log(this.props.trip, this.props.user);
 
     $.ajax({
       method: "POST",

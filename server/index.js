@@ -327,7 +327,8 @@ app.get('/placesofinterest', (req, res) => {
   if (req.query.tripId) {
     query.getPlacesOfInterest(req.query.tripId)
       .then((result) => {
-        res.send(result)
+        res.send(result);
+        return null;
       })
       .catch((error) => {
         res.send(400);

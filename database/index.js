@@ -105,10 +105,10 @@ const Notifications = db.define('notification', {
 const PlacesOfInterest = db.define('placesofinterest', {
   tripId: Sequelize.INTEGER,
   userId: Sequelize.INTEGER,
-  lat: {type: Sequelize.FLOAT, unique: true},
-  lng: {type: Sequelize.FLOAT, unique: true},
+  lat: Sequelize.FLOAT,
+  lng: Sequelize.FLOAT,
   placeName: Sequelize.STRING,
-  placeId: {type: Sequelize.STRING, unique: true},
+  placeId: Sequelize.STRING,
   status: Sequelize.STRING
 });
 
