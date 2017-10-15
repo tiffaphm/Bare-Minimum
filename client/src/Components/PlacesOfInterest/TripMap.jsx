@@ -14,8 +14,8 @@ import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 // import InputBoxForMap from "./InputBoxForMap.jsx";
 
 let searchedPlace = {};
-let mapStateToProps = ({ trip, user }) => {
-  return { trip, user };
+let mapStateToProps = (state) => {
+  return { trip: state.trip, user: state.user };
 };
 
 class TripMap extends React.Component {
@@ -70,6 +70,33 @@ class TripMap extends React.Component {
         infowindow.open(this.map, this.marker);
       })
 
+      let places;
+      let options = {
+        url: `${HOSTNAME}/placesofinterest/${this.props.trip.id}`,
+        success: (data) => {
+          console.log('this was a successful get request', data);
+          // data.map((place, index) => {
+          //   let marker = new google.maps.Marker({
+          //     map: this.map,
+          //     position: {lat: place.lat, lng: place.lng}
+          //   })
+          // })
+        },
+        failure: (error) => {
+          console.log('something went wrong grabbing the data', error);
+        }
+      }
+
+      $.ajax(options);
+
+      // createMarker(place) {
+      //   let placeLoc = place.geometry.location;
+      //   let marker = new google.maps.Marker({
+      //     map: this.map,
+      //     position: place.geometry.location
+      //   })
+      // }
+
       AutoComplete.addListener('place_changed', () => {
         infowindow.close();
         let place = AutoComplete.getPlace();
@@ -98,6 +125,7 @@ class TripMap extends React.Component {
         infowindowContent.children['place-website'].textContent = place.website;
         this.getPlaceInfo(place);
         infowindow.open(this.map, this.marker);
+
       });
 
     } // end of if statement
@@ -132,19 +160,38 @@ class TripMap extends React.Component {
 
   savePlaceInfo(event) {
     let placeId = event.target.id;
-    console.log(placeId);
     let copyOfPlaces = this.state.places.slice();
-    // let placeToSave = {};
+    let placeToSave = {};
 
-    // for (let i = 0; i < copyOfPlaces.length; i++) {
-    //   if (this.state.places[i].place_id === placeId) {
-    //     placeToSave = copyOfPlaces.splice(i, 1);
-    //   }
-    // }
+    for (let i = 0; i < copyOfPlaces.length; i++) {
+      if (this.state.places[i].place_id === placeId) {
+        placeToSave = copyOfPlaces.splice(i, 1)[0];
+      }
+    }
 
-    // $.ajax({
-    //   method: 
-    // })
+    // console.log(typeof placeToSave.place_id);
+    // console.log(placeToSave.geometry.location.lat());
+    // console.log(this.props.trip, this.props.user);
+
+    $.ajax({
+      method: 'POST',
+      url: HOSTNAME + '/placesofinterest',
+      data: JSON.stringify({
+        tripId: this.props.trip.id,
+        userId: this.props.user.id,
+        lat: placeToSave.geometry.location.lat(),
+        lng: placeToSave.geometry.location.lng(),
+        placeName: placeToSave.name,
+        placeId: placeToSave.place_id
+      }),
+      contentType: 'application/json',
+      success: (data) => {
+        console.log('place saved successfully!', data)
+      },
+      failure: (error) => {
+        console.log('there was an error saving', error)
+      }
+    })
   }
 
 
@@ -181,6 +228,8 @@ class TripMap extends React.Component {
 }
 
 TripMap.propTypes = {
+  user: PropTypes.object,
+  trip: PropTypes.string,
   center: PropTypes.object,
   latLng: PropTypes.array,
   zoom: PropTypes.number,
@@ -194,4 +243,4 @@ TripMap.defaultProps = {
   tripCoords: { lat: 37.783667, lng: -122.408885 }
 };
 
-export default connect(mapStateToProps)(scriptLoader([GoogleApiKey])(TripMap));
+export default scriptLoader([GoogleApiKey])(connect(mapStateToProps)(TripMap));

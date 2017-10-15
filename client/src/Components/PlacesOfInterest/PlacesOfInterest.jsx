@@ -1,7 +1,14 @@
 import React from 'react';
 import TripMap from './TripMap.jsx';
+import { connect } from 'react-redux';
+// import CreateTrip from '../Components/NavBarComponents/createTrip.jsx';
 
-export class PlacesOfInterest extends React.Component {
+
+let mapStateToProps = (state) => {
+  return { trip: state.trip, user: state.user };
+};
+
+class PlacesOfInterest extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -15,4 +22,4 @@ export class PlacesOfInterest extends React.Component {
   }
 }
 
-export default PlacesOfInterest;
+export default connect(mapStateToProps)(PlacesOfInterest);

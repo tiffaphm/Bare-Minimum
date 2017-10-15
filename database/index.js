@@ -105,8 +105,10 @@ const Notifications = db.define('notification', {
 const PlacesOfInterest = db.define('placesofinterest', {
   tripId: Sequelize.INTEGER,
   userId: Sequelize.INTEGER,
-  lat: Sequelize.INTEGER,
-  lng: Sequelize.INTEGER
+  lat: Sequelize.FLOAT,
+  lng: Sequelize.FLOAT,
+  placeName: Sequelize.STRING,
+  placeId: Sequelize.STRING
 });
 
 //Chat Schema
@@ -128,7 +130,7 @@ Expenses.sync();
 Sessions.sync();
 Photos.sync();
 Notifications.sync();
-PlacesOfInterest.sync();
+PlacesOfInterest.sync({force: true});
 Chat.sync();
 
 
@@ -181,5 +183,6 @@ module.exports = {
   Sessions: Sessions,
   Photos: Photos,
   Notifications: Notifications,
-  Chat: Chat
+  Chat: Chat,
+  PlacesOfInterest: PlacesOfInterest
 };

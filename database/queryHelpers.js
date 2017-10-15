@@ -279,6 +279,14 @@ const getChatsForTrip = (id) => {
   return db.Chat.findAll({where: {tripId: id}});
 };
 
+const addPlaceOfInterest = (place) => {
+  return db.PlacesOfInterest.create(place)
+}
+
+const getPlacesOfInterest = (id) => {
+  return db.PlacesOfInterest.findAll({where: {tripId: id}});
+}
+
 module.exports = {
   addUser: addUser,
   findUser: findUser,
@@ -299,7 +307,9 @@ module.exports = {
   addPhotos: addPhotos,
   getNotificationForUser: getNotificationForUser,
   addChatMessage: addChatMessage,
-  getChatsForTrip: getChatsForTrip
+  getChatsForTrip: getChatsForTrip,
+  addPlaceOfInterest: addPlaceOfInterest,
+  getPlacesOfInterest: getPlacesOfInterest
 };
 
 
