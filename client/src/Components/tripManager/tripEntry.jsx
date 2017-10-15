@@ -31,7 +31,6 @@ const TripEntry = (props) => {
         <hr className="my-0" />
         <div className="card-footer small text-muted custom-dates">Posted 32 mins ago</div>
       </div>
-    </div>
   );
 };
 
