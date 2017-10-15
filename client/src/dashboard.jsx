@@ -64,7 +64,9 @@ class Dashboard extends React.Component {
         return $.get(SERVER_URL + `/notifications?userId=${store.getState().user.id}`);
       })
       .then((data) => {
-        store.dispatch(reducer.updateNotifications(data[0].reverse()));
+        if (data.length > 0) {
+          store.dispatch(reducer.updateNotifications(data[0].reverse()));
+        }
       })
       .catch(err => {
         console.error('Error getting login user', err);
