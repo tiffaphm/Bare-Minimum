@@ -311,6 +311,30 @@ app.get('/notifications', (req, res) => {
   }
 });
 
+app.post('/placesofinterest', (req, res) => {
+  query.addPlaceOfInterest(req.body)
+    .then((result) => {
+      console.log('added place to database', result);
+      res.send(201);
+    })
+    .catch((error) => {
+      console.log('there was an error adding places to database', error);
+      res.send(400);
+    })
+})
+
+app.get('/placesofinterest', (req, res) => {
+  if (req.query.tripId) {
+    query.getPlacesOfInterest(req.query.tripId)
+      .then((result) => {
+        res.send(result)
+      })
+      .catch((error) => {
+        res.send(400);
+      })
+  }
+})
+
 const redirectUnmatched = (req, res) => {
   res.redirect(process.env.HOSTNAME + '/');
 };

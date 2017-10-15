@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 
 import GoogleApiKey from "./GoogleApiKey.jsx";
 import scriptLoader from "react-async-script-loader";
+import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 
 // import GeneralMarker from "./Markers/GeneralMarker.jsx";
 // import {
@@ -12,17 +14,21 @@ import scriptLoader from "react-async-script-loader";
 // import InputBoxForMap from "./InputBoxForMap.jsx";
 
 let searchedPlace = {};
+let mapStateToProps = (state) => {
+  return { trip: state.trip, user: state.user };
+};
 
 class TripMap extends React.Component {
   constructor(props) {
     super(props);
-    this.addMarker = this.addMarker.bind(this);
-    // this.markerHover = this.markerHover.bind(this);
     this.getPlaceInfo = this.getPlaceInfo.bind(this);
-    this.toggleInfoBox = this.toggleInfoBox.bind(this);
+    this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
+    this.removePlaceFromList = this.removePlaceFromList.bind(this);
+    this.savePlaceInfo = this.savePlaceInfo.bind(this);
     this.state = {
       markers: [this.props.tripCoords],
-      newMarker: false
+      newMarker: false,
+      places: []
     };
   }
 
@@ -64,6 +70,33 @@ class TripMap extends React.Component {
         infowindow.open(this.map, this.marker);
       })
 
+      let places;
+      let options = {
+        url: `${HOSTNAME}/placesofinterest/${this.props.trip.id}`,
+        success: (data) => {
+          console.log('this was a successful get request', data);
+          // data.map((place, index) => {
+          //   let marker = new google.maps.Marker({
+          //     map: this.map,
+          //     position: {lat: place.lat, lng: place.lng}
+          //   })
+          // })
+        },
+        failure: (error) => {
+          console.log('something went wrong grabbing the data', error);
+        }
+      }
+
+      $.ajax(options);
+
+      // createMarker(place) {
+      //   let placeLoc = place.geometry.location;
+      //   let marker = new google.maps.Marker({
+      //     map: this.map,
+      //     position: place.geometry.location
+      //   })
+      // }
+
       AutoComplete.addListener('place_changed', () => {
         infowindow.close();
         let place = AutoComplete.getPlace();
@@ -92,32 +125,75 @@ class TripMap extends React.Component {
         infowindowContent.children['place-website'].textContent = place.website;
         this.getPlaceInfo(place);
         infowindow.open(this.map, this.marker);
+
       });
 
     } // end of if statement
   } // end of componentwillreceiveprops
 
-  markerHover(marker) {
-    console.log("hi");
-  }
-
   getPlaceInfo(place) {
-    searchedPlace = place
+    searchedPlace = place;
+    this.addPlaceInfoToList(searchedPlace);
   }
 
-  savePlaceInfo() {
-    //post request to db
-  }
-
-  addMarker(event) {
-    console.log(window.google);
-  }
-
-  toggleInfoBox() {
+  addPlaceInfoToList(place) {
+    let copyOfPlaces = this.state.places.slice();
+    copyOfPlaces.push(place);
     this.setState({
-      newMarker: !this.state.newMarker
-    });
+      places: copyOfPlaces
+    })
   }
+
+  removePlaceFromList(event) {
+    let placeId = event.target.id;
+    let copyOfPlaces = this.state.places.slice();
+
+    for (let i = 0; i < copyOfPlaces.length; i++) {
+      if (this.state.places[i].place_id === placeId) {
+        copyOfPlaces.splice(i, 1);
+        this.setState({
+          places: copyOfPlaces
+        })
+      }
+    }
+  }
+
+  savePlaceInfo(event) {
+    let placeId = event.target.id;
+    let copyOfPlaces = this.state.places.slice();
+    let placeToSave = {};
+
+    for (let i = 0; i < copyOfPlaces.length; i++) {
+      if (this.state.places[i].place_id === placeId) {
+        placeToSave = copyOfPlaces.splice(i, 1)[0];
+      }
+    }
+
+    // console.log(typeof placeToSave.place_id);
+    // console.log(placeToSave.geometry.location.lat());
+    // console.log(this.props.trip, this.props.user);
+
+    $.ajax({
+      method: 'POST',
+      url: HOSTNAME + '/placesofinterest',
+      data: JSON.stringify({
+        tripId: this.props.trip.id,
+        userId: this.props.user.id,
+        lat: placeToSave.geometry.location.lat(),
+        lng: placeToSave.geometry.location.lng(),
+        placeName: placeToSave.name,
+        placeId: placeToSave.place_id
+      }),
+      contentType: 'application/json',
+      success: (data) => {
+        console.log('place saved successfully!', data)
+      },
+      failure: (error) => {
+        console.log('there was an error saving', error)
+      }
+    })
+  }
+
 
   render() {
     // let markers = this.state.markers.map((item, index) => (
@@ -125,40 +201,36 @@ class TripMap extends React.Component {
     // ))
 
     return (
-      <div className="trip-container">
-        <div className="trip-map-container col-md-10 col-sm-8">
+      <div className="trip-container row">
+        <div className="trip-map-container col-md-8 col-sm-8">
           <input
             ref="searchbox"
             id="pac-input"
             className="controls"
             type="text"
-            placeholder="Search..."
+            placeholder="Add places to your list..."
           />
-          <div ref="map" />
+          <div ref="map" className="g-map"/>
           <div ref="savedinfowindow">
             <span id="place-name" className="title" />
           </div>
           <div ref="infowindow">
-            <span id="place-name" className="title" />
-            <br />
-            <span id="place-address" className="place-address" />
-            <br />
-            <span id="place-phone" className="place-phone" />
-            <br />
-            <span id="place-website" className="place-website" />
-            <br />
-            <input type="button" value='save' onClick={this.savePlaceInfo} className="save-place-button" />
+            <span id="place-name" className="title" /><br />
+            <span id="place-address" className="place-address" /><br />
+            <span id="place-phone" className="place-phone" /><br />
+            <span id="place-website" className="place-website" /><br />
           </div>
         </div>
-        <div className="trip-places-list-container">
-        </div>
+          <PlacesOfInterestList places={this.state.places} removePlaceFromList={this.removePlaceFromList} savePlaceInfo={this.savePlaceInfo}/>
       </div>
     );
   }
 }
 
 TripMap.propTypes = {
-  center: PropTypes.any,
+  user: PropTypes.object,
+  trip: PropTypes.string,
+  center: PropTypes.object,
   latLng: PropTypes.array,
   zoom: PropTypes.number,
   tripCoords: PropTypes.any
@@ -171,4 +243,4 @@ TripMap.defaultProps = {
   tripCoords: { lat: 37.783667, lng: -122.408885 }
 };
 
-export default scriptLoader([GoogleApiKey])(TripMap);
+export default scriptLoader([GoogleApiKey])(connect(mapStateToProps)(TripMap));
