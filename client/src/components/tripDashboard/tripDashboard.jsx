@@ -5,7 +5,6 @@ import $ from 'jquery';
 import Mapbox from '../mapboxViewer.jsx';
 // import Landmarks from '../landmarks/landmarks.jsx';
 import TripNavBar from './tripNavBar.jsx';
-import UserInfo from './userInfo.jsx';
 // import ProfileEditor from '../profileEditor/ProfileEditor.jsx'; // remove after testing
 import reducer from '../../Reducers';
 import dummyData from './dummyData.js';
@@ -23,13 +22,8 @@ class TripDashboard extends React.Component {
     super(props);
 
     this.state = {
-      map: true,
-      users: [],
-      selectedUserInfo: ''
+      users: []
     };
-
-    this.toggleMap = this.toggleMap.bind(this);
-    this.showUserInfo = this.showUserInfo.bind(this);
   }
 
   // retrieves array of users on trip
@@ -43,30 +37,6 @@ class TripDashboard extends React.Component {
       },
       error: data => {
         console.error('FAILED GET - Userlist', data);
-      }
-    };
-
-    $.ajax(options);
-  }
-
-  toggleMap() {
-    this.setState({
-      map: !this.state.map
-    });
-  }
-
-  // select user to display info
-  // on click, set selectedUser to clicked
-  showUserInfo(userId) {
-    let options = {
-      url: `${HOSTNAME}/userinfo/${userId}/${this.props.trip.id}`,
-      success: data => {
-        this.setState({
-          selectedUserInfo: data
-        });
-      },
-      error: data => {
-        console.log('FAILED GET - User Info', data);
       }
     };
 
@@ -90,11 +60,7 @@ class TripDashboard extends React.Component {
               <TripDetails trip={this.props.trip} />
             </div>
             <div className="col-md-4">
-              <TripUserList  
-                users={this.state.users}
-                selectedUser={this.state.selectedUserInfo}
-                showUserInfo={this.showUserInfo}
-              />
+              <TripUserList users={this.state.users}/>
             </div>
           </div>
         </div>
@@ -102,7 +68,7 @@ class TripDashboard extends React.Component {
           <NotificationsPanel socket={this.props.socket} />
         </div>
         <div className="col-md-4 chat-container">
-        <ChatPanel socket={this.props.socket} />
+          <ChatPanel socket={this.props.socket} />
         </div>
       </div>
     );
