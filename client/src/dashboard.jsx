@@ -88,6 +88,7 @@ class Dashboard extends React.Component {
       url: SERVER_URL + '/fetchtrips',
       data: { userId: store.getState().user.id },
       success: (res) => {
+        console.log('trips with photos', res);
         this.setState({ trips: res });
       }
     });

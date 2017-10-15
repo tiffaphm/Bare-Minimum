@@ -271,6 +271,10 @@ const addPhotos = (images) => {
 
 };
 
+const findOnePhoto = (tripId) => {
+  return db.Photos.findOne({where: {id: tripId}});
+};
+
 const addChatMessage = (chatInfo) => {
   return db.Chat.create(chatInfo);
 };
@@ -280,16 +284,16 @@ const getChatsForTrip = (id) => {
 };
 
 const addPlaceOfInterest = (place) => {
-  return db.PlacesOfInterest.create(place)
-}
+  return db.PlacesOfInterest.create(place);
+};
 
 const getPlacesOfInterest = (id) => {
   return db.PlacesOfInterest.findAll({where: {tripId: id, status: 'saved'}});
-}
+};
 
 const updatePlacesOfInterest = (placeid) => {
-  return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {placeId: placeid, status: 'saved'}})
-}
+  return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {placeId: placeid, status: 'saved'}});
+};
 
 module.exports = {
   addUser: addUser,
@@ -314,7 +318,8 @@ module.exports = {
   getChatsForTrip: getChatsForTrip,
   addPlaceOfInterest: addPlaceOfInterest,
   getPlacesOfInterest: getPlacesOfInterest,
-  updatePlacesOfInterest: updatePlacesOfInterest
+  updatePlacesOfInterest: updatePlacesOfInterest,
+  findOnePhoto: findOnePhoto
 };
 
 

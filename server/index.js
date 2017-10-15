@@ -109,12 +109,22 @@ app.post('/jointrip', (req, res) => {
 });
 
 app.get('/fetchtrips', (req, res) => {
+  let allTrips;
   query.findTripsForUser(req.query.userId)
-    .then((result) => {
-      let finalResult = result.map((ele) => ele.dataValues);
-      // console.log('Trips for user:', finalResult);
-      res.status(200).send(finalResult);
-      return null;
+    .then((trips) => {
+      allTrips = trips;
+      let photos = [];
+      trips.forEach(trip => {
+        photos.push(query.findOnePhoto(trip.id));
+      });
+      return Promise.all(photos);
+    })
+    .then(photos => {
+      let tripsWithPhotos = allTrips.map((trip, i) => {
+        trip.dataValues.photo = photos[i];
+        return trip;
+      });
+      res.status(200).send(tripsWithPhotos);
     })
     .catch((err) => {
       res.status(500).end();
