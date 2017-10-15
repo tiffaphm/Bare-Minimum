@@ -17,7 +17,6 @@ const TripEntry = (props) => {
   let endDay = endNewDate.getDate();
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
   // console.log('time format', moment(props.trip.createdAt).calender());
-  console.log('trip photo', props.trip.photo.path);
   return (
     <div className="card-container">
       <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
@@ -30,14 +29,20 @@ const TripEntry = (props) => {
           <div className="card-text small custom-dates">Travel Dates</div>
           <div className="card-text small custom-dates"> {startDateFormat} - {endDateFormat}</div>
         </div>
-        <hr className="my-0" />
-        <div className="card-footer small text-muted custom-dates">Posted sometime ago</div>
       </div>
     </div>
   );
 };
 
 export default TripEntry;
+
+//testing trip card photo class from upload component
 // col-md-4 col-sm-6 co-xs-12 gal-item
 
+
+//original trip card photo class
 // card-img-top img-fluid w-100
+
+//footer for trip card with timestamp of when it was posted
+//  <hr className="my-0" />
+        // <div className="card-footer small text-muted custom-dates">Posted sometime ago</div>
