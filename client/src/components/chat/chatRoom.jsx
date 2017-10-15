@@ -17,8 +17,9 @@ class ChatRoom extends React.Component {
 
 
   render() {
-    return (
-      <li><a href="#" className="" onClick={() => this.props.roomChange(room)}>{this.props.room}</a></li>
+    return (this.props.active === 'true' 
+      ? <li className="active"><a href="#" className="nav nav-tabs" onClick={() => this.props.roomChange(room)}>{this.props.room.split(' ')[0]}</a></li>
+      : <li><a href="#" className="nav nav-tabs" onClick={() => this.props.roomChange(room)}>{this.props.room.split(' ')[0]}</a></li>
     );
   }
 }

@@ -23,7 +23,8 @@ class ChatPanel extends React.Component {
     this.state = {
       chats: [],
       message: '',
-      rooms: []
+      rooms: [],
+      active: false
     };
     this.updateInput = this.updateInput.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
@@ -88,9 +89,19 @@ class ChatPanel extends React.Component {
             <i className="fa fa-commets"></i> Trip Talk
           </div>
           <div className="chat-room-container">
-            <ul className="nav nav-tabs">
-              {this.state.rooms.map((room, i) => <ChatRoom room={room} key={i} roomChange={this.handleRoomChange} />)}
+            <ul className="mb-3 nav nav-tabs">
+              {this.state.rooms.map((room, i) => {
+                if (room !== this.props.user.name) {
+                  if (!this.state.active) {
+                    this.state.active = true;
+                    return <ChatRoom active="true" room={room} key={i} roomChange={this.handleRoomChange} />;
+                  } else {
+                    return <ChatRoom active="false" room={room} key={i} roomChange={this.handleRoomChange} />;
+                  }
+                }
+              })}
             </ul>
+            <br/>
           </div>
           <div className="list-group list-group-flush small">
             {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
