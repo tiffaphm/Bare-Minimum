@@ -335,6 +335,16 @@ app.get('/placesofinterest', (req, res) => {
   }
 })
 
+app.put('/placesofinterest', (req, res) => {
+  query.updatePlacesOfInterest(req.query.placeId)
+    .then((result) => {
+      res.send('success')
+    })
+    .catch((error) => {
+      res.send(400);
+    })
+})
+
 const redirectUnmatched = (req, res) => {
   res.redirect(process.env.HOSTNAME + '/');
 };

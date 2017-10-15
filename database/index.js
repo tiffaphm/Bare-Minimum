@@ -105,10 +105,11 @@ const Notifications = db.define('notification', {
 const PlacesOfInterest = db.define('placesofinterest', {
   tripId: Sequelize.INTEGER,
   userId: Sequelize.INTEGER,
-  lat: Sequelize.FLOAT,
-  lng: Sequelize.FLOAT,
+  lat: {type: Sequelize.FLOAT, unique: true},
+  lng: {type: Sequelize.FLOAT, unique: true},
   placeName: Sequelize.STRING,
-  placeId: Sequelize.STRING
+  placeId: {type: Sequelize.STRING, unique: true},
+  status: Sequelize.STRING
 });
 
 //Chat Schema

@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import GoogleApiKey from "./GoogleApiKey.jsx";
+import GoogleApiKey from "./GoogleApiKey.js";
 import scriptLoader from "react-async-script-loader";
-import PlacesOfInterestList from './PlacesOfInterestList.jsx';
+import PlacesOfInterestList from "./PlacesOfInterestList.jsx";
 
 // import GeneralMarker from "./Markers/GeneralMarker.jsx";
 // import {
@@ -14,7 +14,7 @@ import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 // import InputBoxForMap from "./InputBoxForMap.jsx";
 
 let searchedPlace = {};
-let mapStateToProps = (state) => {
+let mapStateToProps = state => {
   return { trip: state.trip, user: state.user };
 };
 
@@ -58,36 +58,19 @@ class TripMap extends React.Component {
         map: this.map
       });
 
-      this.marker.addListener('click', () => {
+      this.marker.addListener("click", () => {
         infowindow.open(this.map, this.marker);
-      })
+      });
 
-      this.marker.addListener('mouseover', () => {
+      this.marker.addListener("mouseover", () => {
         infowindow.open(this.map, this.marker);
-      })
+      });
 
-      this.marker.addListener('mouseout', () => {
+      this.marker.addListener("mouseout", () => {
         infowindow.open(this.map, this.marker);
-      })
+      });
 
       let places;
-      let options = {
-        url: `${HOSTNAME}/placesofinterest/${this.props.trip.id}`,
-        success: (data) => {
-          console.log('this was a successful get request', data);
-          // data.map((place, index) => {
-          //   let marker = new google.maps.Marker({
-          //     map: this.map,
-          //     position: {lat: place.lat, lng: place.lng}
-          //   })
-          // })
-        },
-        failure: (error) => {
-          console.log('something went wrong grabbing the data', error);
-        }
-      }
-
-      $.ajax(options);
 
       // createMarker(place) {
       //   let placeLoc = place.geometry.location;
@@ -97,7 +80,7 @@ class TripMap extends React.Component {
       //   })
       // }
 
-      AutoComplete.addListener('place_changed', () => {
+      AutoComplete.addListener("place_changed", () => {
         infowindow.close();
         let place = AutoComplete.getPlace();
         if (!place.geometry) {
@@ -118,18 +101,41 @@ class TripMap extends React.Component {
         });
         this.marker.setVisible(true);
 
-        infowindowContent.children['place-name'].textContent = place.name;
+        infowindowContent.children["place-name"].textContent = place.name;
         // infowindowContent.children['place-id'].textContent = place.place_id;
-        infowindowContent.children['place-address'].textContent = place.formatted_address;
-        infowindowContent.children['place-phone'].textContent = place.formatted_phone_number;
-        infowindowContent.children['place-website'].textContent = place.website;
+        infowindowContent.children["place-address"].textContent =
+          place.formatted_address;
+        infowindowContent.children["place-phone"].textContent =
+          place.formatted_phone_number;
+        infowindowContent.children["place-website"].textContent = place.website;
         this.getPlaceInfo(place);
         infowindow.open(this.map, this.marker);
-
       });
-
     } // end of if statement
   } // end of componentwillreceiveprops
+
+  componentDidMount() {
+    this.getListOfSavedPlacesForTrip();
+  }
+
+  getListOfSavedPlacesForTrip() {
+    $.ajax({
+      method: 'GET',
+      url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
+      success: (data) => {
+        console.log("this was a successful get request", data);
+        // data.map((place, index) => {
+        //   let marker = new google.maps.Marker({
+        //     map: this.map,
+        //     position: {lat: place.lat, lng: place.lng}
+        //   })
+        // })
+      },
+      failure: (error) => {
+        console.log("something went wrong grabbing the data", error);
+      }
+    });
+  }
 
   getPlaceInfo(place) {
     searchedPlace = place;
@@ -141,7 +147,7 @@ class TripMap extends React.Component {
     copyOfPlaces.push(place);
     this.setState({
       places: copyOfPlaces
-    })
+    });
   }
 
   removePlaceFromList(event) {
@@ -153,9 +159,21 @@ class TripMap extends React.Component {
         copyOfPlaces.splice(i, 1);
         this.setState({
           places: copyOfPlaces
-        })
+        });
       }
     }
+
+    $.ajax({
+      method: "PUT",
+      url: `${HOSTNAME}/placesofinterest?placeId=${placeId}`,
+      success: (data) => {
+        console.log('status updated');
+      },
+      failure: (error) => {
+        console.log('could not update status', error);
+      }
+
+    })
   }
 
   savePlaceInfo(event) {
@@ -174,26 +192,26 @@ class TripMap extends React.Component {
     // console.log(this.props.trip, this.props.user);
 
     $.ajax({
-      method: 'POST',
-      url: HOSTNAME + '/placesofinterest',
+      method: "POST",
+      url: HOSTNAME + "/placesofinterest",
       data: JSON.stringify({
         tripId: this.props.trip.id,
         userId: this.props.user.id,
         lat: placeToSave.geometry.location.lat(),
         lng: placeToSave.geometry.location.lng(),
         placeName: placeToSave.name,
-        placeId: placeToSave.place_id
+        placeId: placeToSave.place_id,
+        status: 'saved'
       }),
-      contentType: 'application/json',
+      contentType: "application/json",
       success: (data) => {
-        console.log('place saved successfully!', data)
+        console.log("place saved successfully!", data);
       },
       failure: (error) => {
-        console.log('there was an error saving', error)
+        console.log("there was an error saving", error);
       }
-    })
+    });
   }
-
 
   render() {
     // let markers = this.state.markers.map((item, index) => (
@@ -210,18 +228,26 @@ class TripMap extends React.Component {
             type="text"
             placeholder="Add places to your list..."
           />
-          <div ref="map" className="g-map"/>
+          <div ref="map" className="g-map" />
           <div ref="savedinfowindow">
             <span id="place-name" className="title" />
           </div>
           <div ref="infowindow">
-            <span id="place-name" className="title" /><br />
-            <span id="place-address" className="place-address" /><br />
-            <span id="place-phone" className="place-phone" /><br />
-            <span id="place-website" className="place-website" /><br />
+            <span id="place-name" className="title" />
+            <br />
+            <span id="place-address" className="place-address" />
+            <br />
+            <span id="place-phone" className="place-phone" />
+            <br />
+            <span id="place-website" className="place-website" />
+            <br />
           </div>
         </div>
-          <PlacesOfInterestList places={this.state.places} removePlaceFromList={this.removePlaceFromList} savePlaceInfo={this.savePlaceInfo}/>
+        <PlacesOfInterestList
+          places={this.state.places}
+          removePlaceFromList={this.removePlaceFromList}
+          savePlaceInfo={this.savePlaceInfo}
+        />
       </div>
     );
   }
@@ -229,7 +255,6 @@ class TripMap extends React.Component {
 
 TripMap.propTypes = {
   user: PropTypes.object,
-  trip: PropTypes.string,
   center: PropTypes.object,
   latLng: PropTypes.array,
   zoom: PropTypes.number,
