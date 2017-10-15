@@ -64,6 +64,7 @@ class TripDashboard extends React.Component {
             <NotificationsPanel socket={this.props.socket} />
           </div>
         </div>
+
       </div>
     );
   }
