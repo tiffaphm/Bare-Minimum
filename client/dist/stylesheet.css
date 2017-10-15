@@ -538,3 +538,14 @@ td {
   width: 100%;
   display: inline-block;
 }
+
+.add-photo-card {
+  position: relative;
+  text-align: center;
+  margin:auto;
+  padding: 30px;
+}
+
+.photo-card {
+  position: relative;
+}

@@ -272,7 +272,7 @@ const addPhotos = (images) => {
 };
 
 const findOnePhoto = (tripId) => {
-  return db.Photos.findOne({where: {id: tripId}});
+  return db.Photos.findOne({where: {tripId: tripId}});
 };
 
 const addChatMessage = (chatInfo) => {
