@@ -20,9 +20,9 @@ const TripEntry = (props) => {
   return (
     <div className="card-container">
       <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
-        <a href="#">
-          <img className="card-img-top img-fluid w-100" src={props.trip.photo.path} alt="" />
-        </a>
+        <div className="card-image">
+          <img src={props.trip.photo.path} alt="" />
+        </div>
         <div className="card-body">
           <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>
           <hr className="mt-2" />
