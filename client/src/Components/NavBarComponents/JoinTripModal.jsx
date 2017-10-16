@@ -41,7 +41,7 @@ class JoinTripModal extends React.Component {
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">&times;</button>
-              <h3 className="modal-title">Please provide the trip access code</h3>
+              <h4 className="modal-title">Please provide the trip access code</h4>
             </div>
             <div className="modal-body">
               <form role="form">
@@ -65,11 +65,3 @@ class JoinTripModal extends React.Component {
 }
 
 export default connect(mapStateToProps)(JoinTripModal);
-
-// <form role="form">
-//                 <div className="form-group row">
-//                   <label htmlFor="name">Trip Name:</label>
-//                   <div className="col-4">
-//                     <input className="form-control "type="text" placeholder="name.." id="name" name="name" value={this.state.name} onChange={this.getName.bind(this)} />
-//                   </div>
-//                 </div>
