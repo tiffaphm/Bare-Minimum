@@ -27,7 +27,6 @@ class TripMap extends React.Component {
     this.savePlaceInfo = this.savePlaceInfo.bind(this);
     // this.loadSavedPlaces = this.loadSavedPlaces.bind(this);
     this.state = {
-      markers: [this.props.tripCoords],
       newMarker: false,
       places: []
     };
@@ -189,8 +188,11 @@ class TripMap extends React.Component {
         userId: this.props.user.id,
         lat: placeToSave.geometry.location.lat(),
         lng: placeToSave.geometry.location.lng(),
-        placeName: placeToSave.name,
-        placeId: placeToSave.place_id,
+        name: placeToSave.name,
+        place_id: placeToSave.place_id,
+        formatted_address: placeToSave.formatted_address,
+        formatted_phone_number: placeToSave.formatted_phone_number,
+        website: placeToSave.website,
         status: 'saved'
       }),
       contentType: "application/json",
@@ -204,10 +206,6 @@ class TripMap extends React.Component {
   }
 
   render() {
-    // let markers = this.state.markers.map((item, index) => (
-    //   <GeneralMarker key={index} lat={item.lat} lng={item.lng}/>
-    // ))
-
     return (
       <div className="trip-container row">
         <div className="trip-map-container col-md-8 col-sm-8">

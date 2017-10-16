@@ -8,6 +8,20 @@ body {
   font-family: Muli, Roboto, Open Sans, sans-serif !important;
 }
 
+a {
+  color: #59c5e0;
+  font-weight: 700;
+}
+
+a:hover {
+  color: #ace2ef;
+  text-decoration: none;
+}
+
+.navbar-brand:hover, .fa-plane:hover, .nav-link:hover {
+  color: #59c5e0 !important;
+}
+
 .btn-row {
   margin-left: 0px;
 }
@@ -17,12 +31,25 @@ body {
 }
 
 .welcome-message {
+  margin-bottom: -30px;
+}
+
+.welcome-message h3 {
   display: inline-block !important;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 32px;
+}
+
+h5 {
+  color: #898989;
 }
 
 .trip-manager-container {
   width: 100%;
 }
+
+
 /* ---------------------------
   login page styles
 --------------------------- */
@@ -547,7 +574,7 @@ td {
   display: inline-block;
 }
 
-.add-photo-card {
+/*.add-photo-card {
   position: relative;
   text-align: center;
   margin:auto;
@@ -556,6 +583,14 @@ td {
 
 .photo-card {
   position: relative;
+}*/
+
+.card-footer {
+  border-top: none !important;
+}
+
+.card-header {
+  border-bottom: none !important;
 }
 
 .expenses {

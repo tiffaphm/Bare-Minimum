@@ -83,7 +83,7 @@ class ChatPanel extends React.Component {
   render() {
     const timeString = moment().calendar().toLowerCase();    
     return (
-      <div>
+      <div className="chat-panel-container">
         <div className="card mb-3 chat-panel">
           <div className="card-header">
             <i className="fa fa-commets"></i> Trip Talk

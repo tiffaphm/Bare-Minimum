@@ -30,19 +30,19 @@ data.users = [
 
 data.features = [
   {
-    name: 'Share Expense',
-    link: 'ExpenseTracker'
+    name: 'trip home',
+    link: 'TripDashboard'
   },
   // {
   //   name: 'Destinations',
   //   link: 'Landmarks'
   // },
   {
-    name: 'Calendar',
-    link: 'some_link_to_calendar'
+    name: 'expenses',
+    link: 'ExpenseTracker'
   },
   {
-    name: 'Photos',
+    name: 'photos',
     link: 'Photos'
   },
   // {
@@ -50,8 +50,8 @@ data.features = [
   //   link: 'TripDashboard'
   // },
   {
-    name: 'Trip Manager',
-    link: 'TripManager'
+    name: 'map',
+    link: 'PlacesOfInterest'
   }
 ];
 

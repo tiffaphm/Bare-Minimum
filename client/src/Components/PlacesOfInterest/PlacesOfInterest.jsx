@@ -1,6 +1,8 @@
 import React from 'react';
 import TripMap from './TripMap.jsx';
 import { connect } from 'react-redux';
+import TripNavBar from '../tripDashboard/tripNavBar.jsx';
+import dummyData from '../tripDashboard/dummyData.js';
 // import CreateTrip from '../Components/NavBarComponents/createTrip.jsx';
 
 
@@ -16,6 +18,7 @@ class PlacesOfInterest extends React.Component {
   render() {
     return (
       <div className="places-of-interest-container">
+        <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
         <TripMap />
       </div>
     )

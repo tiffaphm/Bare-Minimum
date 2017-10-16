@@ -31,7 +31,7 @@ class NotificationsPanel extends React.Component {
     return (
       <div className="card mb-3 notifications-panel">
         <div className="card-header">
-          <i className="fa fa-bell-o"></i>travel updates</div>
+          <i className="fa fa-bell-o"></i> travel updates</div>
         <div className="list-group list-group-flush small">
           {
             this.state.filtered ?
