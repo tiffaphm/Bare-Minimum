@@ -76,14 +76,41 @@ class CreateTripModal extends React.Component {
           <div className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">&times;</button>
-              <h2 className="modal-title">Trip Info</h2>
+              <h2 className="modal-title">Trip Details</h2>
             </div>
-            <div className="modal-body">
-              <label>Trip Name: <input type="text" placeholder="name.." name="name" value={this.state.name} onChange={this.getName.bind(this)} /></label>
-              <label>Location: <input type="text" placeholder="location.." name="location" value={this.state.location} onChange={this.getLocation.bind(this)}/></label>
-              <label>Lodging: <input type="text" placeholder="loding.." value={this.state.lodging} name="lodging" onChange={this.getLodging.bind(this)}/></label>
-              <label>Start Date: <input type="date" placeholder="start date.." name="startDate" value={this.state.startDate} onChange={this.getStartDate.bind(this)}/></label>
-              <label>End Date: <input type="date" placeholder="end date.." name="endDate" value={this.state.endDate} onChange={this.getEndDate.bind(this)}/></label>
+            <div className="modal-body modal-style">
+              <form role="form">
+                <div className="form-group row">
+                  <label htmlFor="name" className="col-3 col-form-label">Trip Name:  </label>
+                  <div className="col-4">
+                    <input className="form-control "type="text" placeholder="name.." id="name" name="name" value={this.state.name} onChange={this.getName.bind(this)} />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="location" className="col-3 col-form-label">Location:  </label>
+                  <div className="col-4">
+                    <input className="form-control "type="text" placeholder="location.." id="location" name="location" value={this.state.location} onChange={this.getLocation.bind(this)} />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="lodging" className="col-3 col-form-label">Lodging:  </label>
+                  <div className="col-4">
+                    <input className="form-control "type="text" placeholder="lodging.." id="lodging" name="lodging" value={this.state.lodging} onChange={this.getLodging.bind(this)} />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="start-date" className="col-3 col-form-label">Start Date:  </label>
+                  <div className="col-4">
+                    <input className="form-control "type="date" id="start-date" name="start-date" value={this.state.startDate} onChange={this.getStartDate.bind(this)} />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label htmlFor="end-date" className="col-3 col-form-label">End Date:  </label>
+                  <div className="col-4">
+                    <input className="form-control "type="date" id="end-date" name="end-date" value={this.state.endDate} onChange={this.getEndDate.bind(this)} />
+                  </div>
+                </div> 
+              </form> 
             </div>
             <div className="modal-footer">
               <button className="btn btn-primary" data-dismiss="modal" onClick={this.handleClick}>Add</button>
