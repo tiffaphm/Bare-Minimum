@@ -6,13 +6,6 @@ import GoogleApiKey from './GoogleApiKey.js';
 import scriptLoader from 'react-async-script-loader';
 import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 
-// import GeneralMarker from "./Markers/GeneralMarker.jsx";
-// import {
-//   GeneralMarkerStyle,
-//   GeneralMarkerHoverStyle
-// } from "./Markers/GeneralMarker.jsx";
-// import InputBoxForMap from "./InputBoxForMap.jsx";
-
 let searchedPlace = {};
 let mapStateToProps = state => {
   return { trip: state.trip, user: state.user };
@@ -35,14 +28,25 @@ class TripMap extends React.Component {
   componentWillReceiveProps({ isScriptLoadSucceed }) {
     let self = this;
     if (isScriptLoadSucceed) {
-<<<<<<< HEAD
+
+      function createMarker(p) {
+        let marker = new google.maps.Marker({
+          map: self.map,
+          position: new google.maps.LatLng(p.lat, p.lng)
+        })
+        let infowindow = new google.maps.InfoWindow({
+          content: p.name
+        })
+        marker.addListener('click', () => {
+          infowindow.open(self.map, marker);
+        })
+      }
+
       $.ajax({
         method: 'GET',
         url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
         success: (data) => {
           console.log('this was a successful get request', data);
-          
-          //get geoLocation
           let geoCoder = new google.maps.Geocoder;
           geoCoder.geocode({'address': this.props.trip.location}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {              
@@ -60,41 +64,32 @@ class TripMap extends React.Component {
 
               self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchbox);
 
-              let infowindow = new google.maps.InfoWindow();
+              self.infowindow = new google.maps.InfoWindow();
               let infowindowContent = self.refs.infowindow;
-              infowindow.setContent(infowindowContent);
+              self.infowindow.setContent(infowindowContent);
 
-              // let savedInfo = new google.maps.InfoWindow();
-              // let savedInfoContent = this.refs.savedinfowindow;
-              // savedInfo.setContent(savedInfoContent);
-              let marker;
-
-              marker = new google.maps.Marker({
+              self.marker = new google.maps.Marker({
                 map: self.map
               });
 
-              marker.addListener('click', () => {
-                infowindow.open(self.map, marker);
+              self.marker.addListener('click', () => {
+                self.infowindow.open(self.map, self.marker);
               });
 
-              marker.addListener('mouseover', () => {
-                infowindow.open(self.map, marker);
+              self.marker.addListener('mouseover', () => {
+                self.infowindow.open(self.map, self.marker);
               });
 
-              marker.addListener('mouseout', () => {
-                infowindow.open(self.map, marker);
+              self.marker.addListener('mouseout', () => {
+                self.infowindow.open(self.map, self.marker);
               });
-
 
               data.forEach((place) => {
-                marker = new google.maps.Marker({
-                  map: self.map,
-                  position: {lat: place.lat, lng: place.lng}
-                });
-              });
+                createMarker(place);
+              })
 
               AutoComplete.addListener('place_changed', () => {
-                infowindow.close();
+                self.infowindow.close();
                 let place = AutoComplete.getPlace();
                 if (!place.geometry) {
                   return;
@@ -108,11 +103,11 @@ class TripMap extends React.Component {
                 }
 
                 // Set the position of the marker using the place ID and location
-                marker.setPlace({
+                self.marker.setPlace({
                   placeId: place.place_id,
                   location: place.geometry.location
                 });
-                marker.setVisible(true);
+                self.marker.setVisible(true);
 
                 infowindowContent.children['place-name'].textContent = place.name;
                 // infowindowContent.children['place-id'].textContent = place.place_id;
@@ -120,7 +115,7 @@ class TripMap extends React.Component {
                 infowindowContent.children['place-phone'].textContent = place.formatted_phone_number;
                 infowindowContent.children['place-website'].textContent = place.website;
                 self.getPlaceInfo(place);
-                infowindow.open(self.map, marker);
+                self.infowindow.open(self.map, self.marker);
               });  
             } else {
               console.log('Geocode was not successful for the following reason: ' + status);
@@ -135,111 +130,6 @@ class TripMap extends React.Component {
 
       });
 
-=======
-      this.map = new google.maps.Map(this.refs.map, {
-        center: this.props.tripCoords,
-        zoom: this.props.zoom
-      });
-
-      let searchbox = this.refs.searchbox;
-      let AutoComplete = new google.maps.places.Autocomplete(searchbox);
-      AutoComplete.bindTo("bounds", this.map);
-
-      this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchbox);
-
-      this.infowindow = new google.maps.InfoWindow();
-      let infowindowContent = this.refs.infowindow;
-      this.infowindow.setContent(infowindowContent);
-
-      // let savedInfo = new google.maps.InfoWindow();
-      // let savedInfoContent = this.refs.savedinfowindow;
-      // savedInfo.setContent(savedInfoContent);
-
-      this.marker = new google.maps.Marker({
-        map: this.map
-      });
-
-      this.marker.addListener("click", () => {
-        this.infowindow.open(this.map, this.marker);
-      });
-
-      this.marker.addListener("mouseover", () => {
-        this.infowindow.open(this.map, this.marker);
-      });
-
-      this.marker.addListener("mouseout", () => {
-        this.infowindow.open(this.map, this.marker);
-      });
-
-    function createMarker(p) {
-      let marker = new google.maps.Marker({
-        map: self.map,
-        position: new google.maps.LatLng(p.lat, p.lng)
-      })
-      let infowindow = new google.maps.InfoWindow({
-        content: p.name
-      })
-      marker.addListener('click', () => {
-        infowindow.open(self.map, marker);
-      })
-    }
-
-    $.ajax({
-      method: 'GET',
-      url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
-      success: (data) => {
-        console.log("this was a successful get request", data);
-        data.forEach((place) => {
-          createMarker(place);
-        })
-      },
-      failure: (error) => {
-        console.log("something went wrong grabbing the data", error);
-      }
-    });
-
->>>>>>> Click on marker to show name of saved location
-      // createMarker(place) {
-      //   let placeLoc = place.geometry.location;
-      //   let marker = new google.maps.Marker({
-      //     map: this.map,
-      //     position: place.geometry.location
-      //   })
-      // }
-<<<<<<< HEAD
-=======
-
-      AutoComplete.addListener("place_changed", () => {
-        this.infowindow.close();
-        let place = AutoComplete.getPlace();
-        if (!place.geometry) {
-          return;
-        }
-
-        if (place.geometry.viewport) {
-          this.map.fitBounds(place.geometry.viewport);
-        } else {
-          this.map.setCenter(place.geometry.location);
-          this.map.setZoom(17);
-        }
-
-        // Set the position of the marker using the place ID and location
-        this.marker.setPlace({
-          placeId: place.place_id,
-          location: place.geometry.location
-        });
-        this.marker.setVisible(true);
-
-        infowindowContent.children["place-name"].textContent = place.name;
-        infowindowContent.children["place-address"].textContent =
-          place.formatted_address;
-        infowindowContent.children["place-phone"].textContent =
-          place.formatted_phone_number;
-        infowindowContent.children["place-website"].textContent = place.website;
-        this.getPlaceInfo(place);
-        this.infowindow.open(this.map, this.marker);
-      });
->>>>>>> Click on marker to show name of saved location
     } // end of if statement
   } // end of componentwillreceiveprops
 
