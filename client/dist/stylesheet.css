@@ -504,6 +504,14 @@ td {
 
 .chat-entry {
   width: 100%;
+  position: relative;
+  margin-bottom: 0px;
+}
+
+.chat-entry button {
+  position: absolute;
+  right:  0px;
+  top: 0px;
 }
 
 /*.chat-panel-main {
@@ -552,4 +560,9 @@ td {
 
 .expenses {
   text-align: center;
+}
+
+.add-scroll {
+  max-height: 300px;
+  overflow-y:scroll; 
 }
