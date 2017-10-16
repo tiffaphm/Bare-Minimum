@@ -45,8 +45,8 @@ const addChats = () => {
     .then(() => db.Chat.findOrCreate({where: {username: 'Eugene Soo', message: 'heyyyy', userId: '2', tripId: '1', sentTo: 'group' }}))
     .then(() => db.Chat.findOrCreate({where: {username: 'Neha Chaudhary', message: 'user chatt', userId: '1', tripId: '1', sentTo: 'Eugene' }}))
     .then(() => db.Chat.findOrCreate({where: {username: 'Johnny Li', message: 'heyyyy', userId: '3', tripId: '3', sentTo: 'group' }}))
-    .then(() => db.Chat.findOrCreate({where: {username: 'Neha Chaudhary', message: 'checking user chat', userId: '1', tripId: '3', sentTo: 'Johnny' }}))
-    .then(() => db.Chat.findOrCreate({where: {username: 'Neha Chaudhary', message: 'testing chat to eugnebe', userId: '1', tripId: '3', sentTo: 'Eugene' }}));
+    .then(() => db.Chat.findOrCreate({where: {username: 'Neha Chaudhary', message: 'are you awake', userId: '1', tripId: '3', sentTo: 'Johnny' }}))
+    .then(() => db.Chat.findOrCreate({where: {username: 'Neha Chaudhary', message: 'yes I am looking for places we can go to', userId: '1', tripId: '3', sentTo: 'Eugene' }}));
 };
 
 const addPhotos = () => {
