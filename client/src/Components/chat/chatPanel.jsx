@@ -86,7 +86,7 @@ class ChatPanel extends React.Component {
       <div className="chat-panel-container">
         <div className="card mb-3 chat-panel">
           <div className="card-header">
-            <i className="fa fa-commets"></i> Trip Talk
+            <i className="fa fa-fw fa-comment-o"></i> trip talk
           </div>
           <div className="list-group list-group-flush small add-scroll">
             {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
@@ -103,20 +103,4 @@ class ChatPanel extends React.Component {
 }
 
 export default connect(mapStateToProps)(ChatPanel);
-
-// <div className="chat-room-container">
-//             <ul className="mb-3 nav nav-tabs">
-//               {this.state.rooms.map((room, i) => {
-//                 if (room !== this.props.user.name) {
-//                   if (!this.state.active) {
-//                     this.state.active = true;
-//                     return <ChatRoom active="true" room={room} key={i} roomChange={this.handleRoomChange} />;
-//                   } else {
-//                     return <ChatRoom active="false" room={room} key={i} roomChange={this.handleRoomChange} />;
-//                   }
-//                 }
-//               })}
-//             </ul>
-//             <br/>
-//           </div>
 

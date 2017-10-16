@@ -603,3 +603,54 @@ td {
   max-height: 300px;
   overflow-y:scroll; 
 }
+
+.trip-buttons-container {
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  margin-left: -20px;
+  text-align: center;
+}
+
+.trip-buttons-container a:not([href]):not([tabindex]) {
+  color: #41bbdf;
+  text-transform: uppercase;
+}
+
+.trip-buttons-container a {
+  margin: 0px 10px;
+  padding: 10px 10px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+  color: #7ad0e6;
+}
+
+.trip-buttons-container a:before,
+.trip-buttons-container a:after {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 2px;
+  background: #2bc3d8;
+  content: '';
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.trip-buttons-container a:before {
+  top: 0px;
+  transform: translateY(10px);
+}
+
+.trip-buttons-container a:after {
+  bottom: 0px;
+  transform: translateY(-10px);
+}
+
+.trip-buttons-container a:hover:before,
+.trip-buttons-container a:hover:after {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
