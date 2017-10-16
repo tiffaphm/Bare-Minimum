@@ -16,13 +16,21 @@ const TripEntry = (props) => {
   let endMonth = endNewDate.getMonth() + 1;
   let endDay = endNewDate.getDate();
   let endDateFormat = endMonth + '/' + endDay + '/' + endYear;
-  // console.log('time format', moment(props.trip.createdAt).calender());
+
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  }
+  let images = ['./images/mountaincelebration.jpeg', './images/mountainlake.jpeg', './images/oceanview.jpeg']
+
+          // {props.trip.photo ? <img src={props.trip.photo.path} alt="" />
+
   return (
     <div className="card-container">
       <div className="card mb-3 custom-card" onClick={() => props.click(props.trip)}>
         <div className="card-image">
-          {props.trip.photo ? <img src={props.trip.photo.path} alt="" />
-            : <span style={{margin: '0 auto'}}>Please go to photos <br/>and add a trip photo</span>}
+          <img src={images[getRandomIntInclusive(0, (images.length-1))]} />
         </div>
         <div className="card-body">
           <h4 className="card-title mb-1 custom-card-name"><a href="#">{props.trip.name}</a></h4>

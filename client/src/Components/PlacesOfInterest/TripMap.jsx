@@ -18,7 +18,7 @@ class TripMap extends React.Component {
     this.addPlaceInfoToList = this.addPlaceInfoToList.bind(this);
     this.removePlaceFromList = this.removePlaceFromList.bind(this);
     this.savePlaceInfo = this.savePlaceInfo.bind(this);
-    // this.loadSavedPlaces = this.loadSavedPlaces.bind(this);
+    this.saveColor = this.saveColor.bind(this);
     this.state = {
       newMarker: false,
       places: []
@@ -50,7 +50,7 @@ class TripMap extends React.Component {
           this.setState({
             places: data
           });
-          
+
           let geoCoder = new google.maps.Geocoder;
           geoCoder.geocode({'address': this.props.trip.location}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {              
@@ -176,6 +176,10 @@ class TripMap extends React.Component {
     });
   }
 
+  saveColor(color) {
+    //need to put a PUT request here
+  }
+
   savePlaceInfo(event) {
     let placeId = event.target.id;
     let copyOfPlaces = this.state.places.slice();
@@ -242,6 +246,7 @@ class TripMap extends React.Component {
           places={this.state.places}
           removePlaceFromList={this.removePlaceFromList}
           savePlaceInfo={this.savePlaceInfo}
+          saveColor={this.props.saveColor}
         />
       </div>
     );

@@ -16,6 +16,7 @@ class PlacesOfInterestListEntry extends React.Component {
 
   saveAndDisable(event) {
     this.props.savePlaceInfo(event);
+    this.props.saveColor(color);
     this.setState({
       saved: !this.state.saved
     })
@@ -58,7 +59,7 @@ class PlacesOfInterestListEntry extends React.Component {
           <span className="close-entry fa fa-times-circle" onClick={this.props.removePlaceFromList} id={this.props.place.place_id}></span>
           {saveButton}
           <div className="media">
-            <ColorCircle />
+            <ColorCircle saveColor={this.props.saveColor}/>
             <div className="media-body">
               <strong style={titleStyle}>{this.props.place.name}</strong><br/>
               <div className="text-muted smaller">

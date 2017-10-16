@@ -6,8 +6,9 @@ import PlacesOfInterestListEntry from './PlacesOfInterestListEntry.jsx';
 class PlacesOfInterestList extends React.Component {
   constructor(props) {
     super(props);
-
   }
+
+
 
   render() {
     return (
@@ -17,7 +18,7 @@ class PlacesOfInterestList extends React.Component {
             <i className="fa fa-fw fa-list-ul"></i> list of places
           </div>
           {this.props.places.map((item, index) => 
-            <PlacesOfInterestListEntry place={item} key={index} removePlaceFromList={this.props.removePlaceFromList} savePlaceInfo={this.props.savePlaceInfo}/>
+            <PlacesOfInterestListEntry place={item} key={index} removePlaceFromList={this.props.removePlaceFromList} savePlaceInfo={this.props.savePlaceInfo} saveColor={this.props.saveColor}/>
           )}
         </div>
       </div>

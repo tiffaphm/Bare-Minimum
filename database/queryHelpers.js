@@ -291,7 +291,7 @@ const getPlacesOfInterest = (id) => {
   return db.PlacesOfInterest.findAll({where: {tripId: id, status: 'saved'}});
 };
 
-const updatePlacesOfInterest = (placeid) => {
+const updatePlacesOfInterest = (placeid, tripid) => {
   return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {place_id: placeid, status: 'saved'}});
 };
 
