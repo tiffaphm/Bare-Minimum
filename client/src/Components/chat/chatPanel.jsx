@@ -5,7 +5,7 @@ import moment from 'moment';
 import { updateNotifications } from '../../Reducers';
 import { bindActionCreators } from 'redux';
 import $ from 'jquery';
-import ChatRoom from './chatRoom.jsx';
+// import ChatRoom from './chatRoom.jsx';
 
 const mapStateToProps = ({ user, trip, notifications }) => {
   return { trip, user, notifications };
@@ -88,26 +88,11 @@ class ChatPanel extends React.Component {
           <div className="card-header">
             <i className="fa fa-commets"></i> Trip Talk
           </div>
-          <div className="chat-room-container">
-            <ul className="mb-3 nav nav-tabs">
-              {this.state.rooms.map((room, i) => {
-                if (room !== this.props.user.name) {
-                  if (!this.state.active) {
-                    this.state.active = true;
-                    return <ChatRoom active="true" room={room} key={i} roomChange={this.handleRoomChange} />;
-                  } else {
-                    return <ChatRoom active="false" room={room} key={i} roomChange={this.handleRoomChange} />;
-                  }
-                }
-              })}
-            </ul>
-            <br/>
-          </div>
-          <div className="list-group list-group-flush small">
+          <div className="list-group list-group-flush small add-scroll">
             {this.state.chats.map((chat, i) => <ChatEntry chat={chat} key={i} />)}
-            <div className="chat-entry">
-              <input type="text" className="chat-input" value={this.state.message} onChange={this.updateInput}/>
-              <button onClick={this.handleMessage}>Send</button>
+            <div className="form-group chat-entry">
+              <input type="text" className="chat-input form-control" value={this.state.message} onChange={this.updateInput}/>
+              <button className="btn" onClick={this.handleMessage}>Send</button>
             </div>
           </div>
           <div className="card-footer small text-muted">updated {timeString}</div>
@@ -118,4 +103,20 @@ class ChatPanel extends React.Component {
 }
 
 export default connect(mapStateToProps)(ChatPanel);
+
+// <div className="chat-room-container">
+//             <ul className="mb-3 nav nav-tabs">
+//               {this.state.rooms.map((room, i) => {
+//                 if (room !== this.props.user.name) {
+//                   if (!this.state.active) {
+//                     this.state.active = true;
+//                     return <ChatRoom active="true" room={room} key={i} roomChange={this.handleRoomChange} />;
+//                   } else {
+//                     return <ChatRoom active="false" room={room} key={i} roomChange={this.handleRoomChange} />;
+//                   }
+//                 }
+//               })}
+//             </ul>
+//             <br/>
+//           </div>
 
