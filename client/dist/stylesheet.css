@@ -603,3 +603,16 @@ td {
   max-height: 300px;
   overflow-y:scroll; 
 }
+
+.modal-style {
+  margin-left: 15px;
+}
+
+#add-trip input, #join-trip input {
+  min-width: 200px;
+}
+
+#add-trip .modal-header, #join-trip .modal-header {
+    text-align: center;
+    display: block;
+}

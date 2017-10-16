@@ -43,10 +43,10 @@ class JoinTripModal extends React.Component {
               <button type="button" className="close" data-dismiss="modal">&times;</button>
               <h4 className="modal-title">Please provide the trip access code</h4>
             </div>
-            <div className="modal-body">
+            <div className="modal-body modal-style">
               <form role="form">
                 <div className="form-group row">
-                  <label htmlFor="trip-code">Trip Access Code:  </label>
+                  <label htmlFor="trip-code" className="col-4 col-form-label">Trip Access Code:  </label>
                   <div className="col-4">
                     <input className="form-control" type="text" placeholder="access code.." id="trip-code" name="accessCode" value={this.state.code} onChange={this.getCode} />
                   </div>
