@@ -51,7 +51,7 @@ class TripDashboard extends React.Component {
     return (
       <div className="trip-dashboard-container">
         <div className="row">
-          <div className="col-md-9">
+          <div className="col-md-8">
             <TripNavBar
               features={dummyData.features}
               dispatch={this.props.dispatch}
@@ -59,7 +59,7 @@ class TripDashboard extends React.Component {
             <TripDetails trip={this.props.trip} />
             <TripUserList users={this.state.users}/>
           </div>
-          <div className="col-md-3 notifications-container">
+          <div className="col-md-4 notifications-container">
             <NotificationsPanel socket={this.props.socket} />
             <ChatPanel socket={this.props.socket} />
           </div>

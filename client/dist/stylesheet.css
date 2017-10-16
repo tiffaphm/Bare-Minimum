@@ -515,8 +515,6 @@ td {
   .notifications-panel {
     margin-left: 0px;
     margin-right: 15px;
-    width: 90%;
-    display: inline-block;
   }
 
   .notifications-container {
