@@ -291,7 +291,7 @@ app.post('/photos', (req, res) => {
     .then(result => {
       console.log('added all photos to database', result);
       // TODO: send notification through socket;
-      res.status(201).end();
+      res.status(201).end('added');
       return null;
     })
     .catch(err => {
