@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import GoogleApiKey from "./GoogleApiKey.js";
-import scriptLoader from "react-async-script-loader";
-import PlacesOfInterestList from "./PlacesOfInterestList.jsx";
+import GoogleApiKey from './GoogleApiKey.js';
+import scriptLoader from 'react-async-script-loader';
+import PlacesOfInterestList from './PlacesOfInterestList.jsx';
 
 // import GeneralMarker from "./Markers/GeneralMarker.jsx";
 // import {
@@ -35,58 +35,104 @@ class TripMap extends React.Component {
   componentWillReceiveProps({ isScriptLoadSucceed }) {
     let self = this;
     if (isScriptLoadSucceed) {
-      this.map = new google.maps.Map(this.refs.map, {
-        center: this.props.tripCoords,
-        zoom: this.props.zoom
-      });
-
-      let searchbox = this.refs.searchbox;
-      let AutoComplete = new google.maps.places.Autocomplete(searchbox);
-      AutoComplete.bindTo("bounds", this.map);
-
-      this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchbox);
-
-      let infowindow = new google.maps.InfoWindow();
-      let infowindowContent = this.refs.infowindow;
-      infowindow.setContent(infowindowContent);
-
-      // let savedInfo = new google.maps.InfoWindow();
-      // let savedInfoContent = this.refs.savedinfowindow;
-      // savedInfo.setContent(savedInfoContent);
-      let marker;
-
-      marker = new google.maps.Marker({
-        map: this.map
-      });
-
-      marker.addListener("click", () => {
-        infowindow.open(this.map, marker);
-      });
-
-      marker.addListener("mouseover", () => {
-        infowindow.open(this.map, marker);
-      });
-
-      marker.addListener("mouseout", () => {
-        infowindow.open(this.map, marker);
-      });
-
       $.ajax({
-      method: 'GET',
-      url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
-      success: (data) => {
-        console.log("this was a successful get request", data);
-        data.forEach((place) => {
-          marker = new google.maps.Marker({
-            map: this.map,
-            position: {lat: place.lat, lng: place.lng}
-          })
-        });
-      },
-      failure: (error) => {
-        console.log("something went wrong grabbing the data", error);
-      }
-    });
+        method: 'GET',
+        url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
+        success: (data) => {
+          console.log('this was a successful get request', data);
+          
+          //get geoLocation
+          let geoCoder = new google.maps.Geocoder;
+          geoCoder.geocode({'address': this.props.trip.location}, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {              
+              var defaultLatLng = results[0].geometry.location;
+
+              //create map items
+              self.map = new google.maps.Map(self.refs.map, {
+                center: {lat: defaultLatLng.lat(), lng: defaultLatLng.lng()},
+                zoom: self.props.zoom
+              });
+
+              let searchbox = self.refs.searchbox;
+              let AutoComplete = new google.maps.places.Autocomplete(searchbox);
+              AutoComplete.bindTo('bounds', self.map);
+
+              self.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchbox);
+
+              let infowindow = new google.maps.InfoWindow();
+              let infowindowContent = self.refs.infowindow;
+              infowindow.setContent(infowindowContent);
+
+              // let savedInfo = new google.maps.InfoWindow();
+              // let savedInfoContent = this.refs.savedinfowindow;
+              // savedInfo.setContent(savedInfoContent);
+              let marker;
+
+              marker = new google.maps.Marker({
+                map: self.map
+              });
+
+              marker.addListener('click', () => {
+                infowindow.open(self.map, marker);
+              });
+
+              marker.addListener('mouseover', () => {
+                infowindow.open(self.map, marker);
+              });
+
+              marker.addListener('mouseout', () => {
+                infowindow.open(self.map, marker);
+              });
+
+
+              data.forEach((place) => {
+                marker = new google.maps.Marker({
+                  map: self.map,
+                  position: {lat: place.lat, lng: place.lng}
+                });
+              });
+
+              AutoComplete.addListener('place_changed', () => {
+                infowindow.close();
+                let place = AutoComplete.getPlace();
+                if (!place.geometry) {
+                  return;
+                }
+
+                if (place.geometry.viewport) {
+                  self.map.fitBounds(place.geometry.viewport);
+                } else {
+                  self.map.setCenter(place.geometry.location);
+                  self.map.setZoom(17);
+                }
+
+                // Set the position of the marker using the place ID and location
+                marker.setPlace({
+                  placeId: place.place_id,
+                  location: place.geometry.location
+                });
+                marker.setVisible(true);
+
+                infowindowContent.children['place-name'].textContent = place.name;
+                // infowindowContent.children['place-id'].textContent = place.place_id;
+                infowindowContent.children['place-address'].textContent = place.formatted_address;
+                infowindowContent.children['place-phone'].textContent = place.formatted_phone_number;
+                infowindowContent.children['place-website'].textContent = place.website;
+                self.getPlaceInfo(place);
+                infowindow.open(self.map, marker);
+              });  
+            } else {
+              console.log('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+
+        },
+        failure: (error) => {
+          console.log('something went wrong grabbing the data', error);
+        }
+
+
+      });
 
       // createMarker(place) {
       //   let placeLoc = place.geometry.location;
@@ -95,38 +141,6 @@ class TripMap extends React.Component {
       //     position: place.geometry.location
       //   })
       // }
-
-      AutoComplete.addListener("place_changed", () => {
-        infowindow.close();
-        let place = AutoComplete.getPlace();
-        if (!place.geometry) {
-          return;
-        }
-
-        if (place.geometry.viewport) {
-          this.map.fitBounds(place.geometry.viewport);
-        } else {
-          this.map.setCenter(place.geometry.location);
-          this.map.setZoom(17);
-        }
-
-        // Set the position of the marker using the place ID and location
-        marker.setPlace({
-          placeId: place.place_id,
-          location: place.geometry.location
-        });
-        marker.setVisible(true);
-
-        infowindowContent.children["place-name"].textContent = place.name;
-        // infowindowContent.children['place-id'].textContent = place.place_id;
-        infowindowContent.children["place-address"].textContent =
-          place.formatted_address;
-        infowindowContent.children["place-phone"].textContent =
-          place.formatted_phone_number;
-        infowindowContent.children["place-website"].textContent = place.website;
-        this.getPlaceInfo(place);
-        infowindow.open(this.map, marker);
-      });
     } // end of if statement
   } // end of componentwillreceiveprops
 
@@ -157,7 +171,7 @@ class TripMap extends React.Component {
     }
 
     $.ajax({
-      method: "PUT",
+      method: 'PUT',
       url: `${HOSTNAME}/placesofinterest?placeId=${placeId}`,
       success: (data) => {
         console.log('status updated');
@@ -166,7 +180,7 @@ class TripMap extends React.Component {
         console.log('could not update status', error);
       }
 
-    })
+    });
   }
 
   savePlaceInfo(event) {
@@ -181,8 +195,8 @@ class TripMap extends React.Component {
     }
 
     $.ajax({
-      method: "POST",
-      url: HOSTNAME + "/placesofinterest",
+      method: 'POST',
+      url: HOSTNAME + '/placesofinterest',
       data: JSON.stringify({
         tripId: this.props.trip.id,
         userId: this.props.user.id,
@@ -195,12 +209,12 @@ class TripMap extends React.Component {
         website: placeToSave.website,
         status: 'saved'
       }),
-      contentType: "application/json",
+      contentType: 'application/json',
       success: (data) => {
-        console.log("place saved successfully!", data);
+        console.log('place saved successfully!', data);
       },
       failure: (error) => {
-        console.log("there was an error saving", error);
+        console.log('there was an error saving', error);
       }
     });
   }

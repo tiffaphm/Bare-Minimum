@@ -135,7 +135,7 @@ Expenses.sync();
 Sessions.sync();
 Photos.sync();
 Notifications.sync();
-PlacesOfInterest.sync({force: true});
+PlacesOfInterest.sync();
 Chat.sync();
 
 
