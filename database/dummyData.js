@@ -4,7 +4,7 @@ const photos = [
   {name: 'np1.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/t1e319xpjoypglffj89x.jpg', tripId: 1, userId: 1},
   {name: 'np2.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/jvn8lnjavwwlnktxqrng.jpg', tripId: 1, userId: 1},
   {name: 'np3.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/btjf28tjumy4nhw4udyb.jpg', tripId: 1, userId: 1},
-  {name: 'np4.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/nz7ouq1gixilrkgphkof.jpg', tripId: 1, userId: 1},
+  {name: 'np4.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771734/nz7ouq1gixilrkgphkof.jpg', tripId: 3, userId: 1},
   {name: 'np5.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/hdv1ktdyy9w4g50cge6c.jpg', tripId: 3, userId: 1},
   {name: 'np6.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/dioodkqeos4k7rlmtnpv.jpg', tripId: 3, userId: 1},
   {name: 'np7.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/kb1guzptx3v22yu8icxm.jpg', tripId: 3, userId: 1},
