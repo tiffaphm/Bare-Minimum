@@ -38,5 +38,10 @@ bower_components/
 package-lock.json
 
 # API Keys
+<<<<<<< HEAD
 client/src/Components/PlacesOfInterest/GoogleApiKey.js
 client/src/components/PlacesOfInterest/GoogleApiKey.js
+=======
+client/src/components/PlacesOfInterest/GoogleApiKey.js
+client/src/Components/PlacesOfInterest/GoogleApiKey.js
+>>>>>>> Click on marker to show name of saved location
