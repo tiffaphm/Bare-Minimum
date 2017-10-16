@@ -562,6 +562,10 @@ td {
   text-align: center;
 }
 
+.text-position {
+  text-align: center;
+}
+
 .add-scroll {
   max-height: 300px;
   overflow-y:scroll; 

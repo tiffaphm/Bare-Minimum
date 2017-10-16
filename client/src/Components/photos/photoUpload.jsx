@@ -51,7 +51,9 @@ class PhotoUpload extends React.Component {
       success: (images) => {
         console.log('back in client with trip photos after adding to database', images);
         // this.setState({images: images});
-        this.props.dispatch(reducer.changePhotos(images));
+        // this.props.dispatch(reducer.changePhotos(images));
+        // this.props.updatePhotos();
+        // this.setState({images: []});
       },
       error: (err) => {
         console.log('error while adding photos to database', err);
@@ -94,18 +96,16 @@ class PhotoUpload extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <Dropzone
-            multiple={true}
-            accept="image/*"
-            onDrop={this.onImageDrop}
-            className="upload-image">
-            <p>  Drag and drop images here  </p>
-            <button className="btn upload-button">Upload Image</button>
-            <p></p>
-          </Dropzone>
-        </div>
-        {this.state.images.map((photo, i) => <PhotoEntry photo={photo} size={this.props.photoSize ? this.props.photoSize() : 'col-md-4 col-sm-6 co-xs-12'} key={i}/>)}
+        <Dropzone
+          multiple={true}
+          accept="image/*"
+          onDrop={this.onImageDrop}
+          className="upload-image text-position">
+          <p>  Drag and drop images here  </p>
+          <button className="btn upload-button">Upload Image</button>
+          <p></p>
+        </Dropzone>
+        {this.state.images.map((photo, i) => <PhotoEntry photo={photo} size={this.props.addSize()} key={i}/>)}
       </div>
     );
   }
