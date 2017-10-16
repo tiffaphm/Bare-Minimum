@@ -23,8 +23,7 @@ const NavSideBar = (props) => {
   return (
     <div className="universal-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
-        <i className="fa fa-fw fa-plane logo"></i>
-        <a className="navbar-brand" href="dashboard.html"> travels.</a>
+        <a className="navbar-brand" href="dashboard.html"><i className="fa fa-fw fa-plane logo"></i> travels.</a>
         <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>

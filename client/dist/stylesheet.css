@@ -9,13 +9,17 @@ body {
 }
 
 a {
-  color: #662257;
+  color: #59c5e0;
   font-weight: 700;
 }
 
 a:hover {
-  color: #936F8B;
+  color: #ace2ef;
   text-decoration: none;
+}
+
+.navbar-brand:hover, .fa-plane:hover, .nav-link:hover {
+  color: #59c5e0 !important;
 }
 
 .btn-row {
@@ -570,7 +574,7 @@ td {
   display: inline-block;
 }
 
-.add-photo-card {
+/*.add-photo-card {
   position: relative;
   text-align: center;
   margin:auto;
@@ -579,8 +583,15 @@ td {
 
 .photo-card {
   position: relative;
+}*/
+
+.card-footer {
+  border-top: none !important;
 }
 
+.card-header {
+  border-bottom: none !important;
+}
 .add-scroll {
   max-height: 300px;
   overflow-y:scroll; 
