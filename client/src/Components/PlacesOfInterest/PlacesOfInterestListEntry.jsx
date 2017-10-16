@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ColorCircle from './ColorCircle.jsx';
 
 class PlacesOfInterestListEntry extends React.Component {
   constructor(props) {
@@ -22,9 +22,6 @@ class PlacesOfInterestListEntry extends React.Component {
   }
 
   render() {
-    let entryStyle = {
-      overflow: 'hidden'
-    }
 
     let infoTextStyle = {
       margin: '0 0 0 15px',
@@ -35,11 +32,6 @@ class PlacesOfInterestListEntry extends React.Component {
     let iStyle = {
       float: 'left',
       marginTop: '3px'
-    }
-
-    let imgStyle = {
-      marginLeft: '-7px',
-      marginRight: '0.7rem !important'
     }
 
     let titleStyle = {
@@ -61,12 +53,12 @@ class PlacesOfInterestListEntry extends React.Component {
     let website = this.props.place.website ? <div><i className="fa fa-external-link" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}><a href={this.props.place.website}>{this.props.place.website}</a></span></div> : null;
 
     return (
-      <div className="list-group list-group-flush small" style={entryStyle}>
+      <div className="list-group list-group-flush small">
         <div className="list-group-item">
           <span className="close-entry fa fa-times-circle" onClick={this.props.removePlaceFromList} id={this.props.place.place_id}></span>
           {saveButton}
           <div className="media">
-            <div className="color-code-circle" style={imgStyle}/>
+            <ColorCircle />
             <div className="media-body">
               <strong style={titleStyle}>{this.props.place.name}</strong><br/>
               <div className="text-muted smaller">
