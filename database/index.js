@@ -107,8 +107,11 @@ const PlacesOfInterest = db.define('placesofinterest', {
   userId: Sequelize.INTEGER,
   lat: Sequelize.FLOAT,
   lng: Sequelize.FLOAT,
-  placeName: Sequelize.STRING,
-  placeId: Sequelize.STRING,
+  name: Sequelize.STRING,
+  place_id: Sequelize.STRING,
+  formatted_address: Sequelize.STRING,
+  formatted_phone_number: Sequelize.STRING,
+  website: Sequelize.STRING,
   status: Sequelize.STRING
 });
 
@@ -132,7 +135,7 @@ Expenses.sync();
 Sessions.sync();
 Photos.sync();
 Notifications.sync();
-PlacesOfInterest.sync();
+PlacesOfInterest.sync({force: true});
 Chat.sync();
 
 
