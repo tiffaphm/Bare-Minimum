@@ -21,6 +21,8 @@ class ExpenseTracker extends React.Component {
       totalExpense: 0,
       usersOnTrip: []
     };
+
+    this.findUser = this.findUser.bind(this);
   }
 
   handleBack () {
@@ -28,18 +30,18 @@ class ExpenseTracker extends React.Component {
   }
 
   getUsers() {
-    let options = {
+    let request = {
       url: HOSTNAME + '/tripusers/' + this.props.trip.id,
       success: (data) => {
         this.setState({
-          usersOnTrip: data
+          usersOnTrip: data,
         });
       },
       error: (data) => {
         console.error('FAILED GET - Userlist', data);
       }
     };
-    $.ajax(options);
+    $.ajax(request);
   }
 
   componentDidMount () {
@@ -49,15 +51,15 @@ class ExpenseTracker extends React.Component {
 
   fetchExpenses () {
     let options = { tripId: this.props.trip.id };
-    let self = this;
     $.ajax({
       url: SERVER_URL + '/expense',
       data: options,
       method: 'GET',
-      success: function(res) {
-        self.setState({ expenses: res });
-        self.setState({ totalExpense: res.reduce((acc, currExp) => {
-          return acc + currExp.amount;
+      success: (expenses) => {
+        console.log('received expenses', expenses);
+        this.setState({ expenses: expenses });
+        this.setState({ totalExpense: expenses.reduce((total, expense) => {
+          return total + expense.amount;
         }, 0).toFixed(2) });
       }
     });
@@ -76,30 +78,30 @@ class ExpenseTracker extends React.Component {
       <div className='row'>
         <div className='col-md-8 col-md-offset-2'>
           <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
-          <h3>Expenses Tracker</h3>
+          <h3 className="expenses">Expenses Tracker</h3>
           <div>
             <ExpenseInput usersOnTrip={this.state.usersOnTrip} fetchExpenses={this.fetchExpenses.bind(this)} />
             <hr />
             <div>
-              <h4>All Expenses</h4>
-                <section>
-                  <div className="tbl-header">
-                    <table cellPadding="0" cellSpacing="0" border="0">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Amount</th>
-                          <th>Description</th>
-                          <th>Shared By</th>
-                          <th>Paid By</th>
-                        </tr>
-                      </thead>
-                    </table>
-                    <ExpenseEntry />
-                </div>
-                </section>
-              <h3>Total Cost</h3>
-              <div className="ExpenseEntry">${this.state.totalExpense}</div>
+              <h4 className="expenses">Total Expenses</h4>
+              <h3 className="ExpenseEntry expenses"><b>${this.state.totalExpense}</b></h3>
+              <br/>
+              <h4 className="expenses ">All Expenses</h4>
+              <div className="tbl-header">
+                <table className="table">
+                  <thead className="thead-default">
+                    <tr>
+                      <th>#</th>
+                      <th>Amount</th>
+                      <th>Description</th>
+                      <th>Paid By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.expenses.map((expense, i) => <ExpenseEntry expense={expense} row={i + 1} key={i} payer={this.findUser(expense.userId)}/>)}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -113,8 +115,3 @@ let mapStateToProps = ({ trip, user }) => {
 };
 
 export default connect(mapStateToProps)(ExpenseTracker);
-
-
-// {this.state.expenses.map((item) => {
-//                 return <ExpenseEntry expense={item} key={item.id} payer={this.findUser(item.userId)}/>;
-//               })}

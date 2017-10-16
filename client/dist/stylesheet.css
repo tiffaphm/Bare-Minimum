@@ -558,6 +558,10 @@ td {
   position: relative;
 }
 
+.expenses {
+  text-align: center;
+}
+
 .add-scroll {
   max-height: 300px;
   overflow-y:scroll; 
