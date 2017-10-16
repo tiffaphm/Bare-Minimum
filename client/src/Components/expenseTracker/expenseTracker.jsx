@@ -98,7 +98,7 @@ class ExpenseTracker extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.expenses.map((expense, i) => <ExpenseEntry expense={expense} row={i+1} key={i} payer={this.findUser(expense.userId)}/>)}
+                    {this.state.expenses.map((expense, i) => <ExpenseEntry expense={expense} row={i + 1} key={i} payer={this.findUser(expense.userId)}/>)}
                   </tbody>
                 </table>
               </div>
