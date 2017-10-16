@@ -292,7 +292,7 @@ const getPlacesOfInterest = (id) => {
 };
 
 const updatePlacesOfInterest = (placeid) => {
-  return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {placeId: placeid, status: 'saved'}});
+  return db.PlacesOfInterest.update({status: 'unsaved'}, {where: {place_id: placeid, status: 'saved'}});
 };
 
 module.exports = {

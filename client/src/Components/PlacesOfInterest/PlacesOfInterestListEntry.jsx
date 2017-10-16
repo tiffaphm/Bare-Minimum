@@ -56,7 +56,9 @@ class PlacesOfInterestListEntry extends React.Component {
       marginRight: '-20px'
     }
 
-    let saveButton = this.state.saved ? <span className="fa fa-plus-circle" style={savedStyle} id={this.props.place.place_id}></span> : <span className="save-entry fa fa-plus-circle" id={this.props.place.place_id} onClick={this.saveAndDisable}></span>;
+    let saveButton = this.props.place.status === 'saved' || this.state.saved ? <span className="fa fa-plus-circle" style={savedStyle} id={this.props.place.place_id}></span> : <span className="save-entry fa fa-plus-circle" id={this.props.place.place_id} onClick={this.saveAndDisable}></span>;
+    let phoneNumber = this.props.place.formatted_phone_number ? <div><i className="fa fa-phone" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{this.props.place.formatted_phone_number}</span></div> : null;
+    let website = this.props.place.website ? <div><i className="fa fa-external-link" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}><a href={this.props.place.website}>{this.props.place.website}</a></span></div> : null;
 
     return (
       <div className="list-group list-group-flush small" style={entryStyle}>
@@ -64,13 +66,13 @@ class PlacesOfInterestListEntry extends React.Component {
           <span className="close-entry fa fa-times-circle" onClick={this.props.removePlaceFromList} id={this.props.place.place_id}></span>
           {saveButton}
           <div className="media">
-            <img className="d-flex mr-3 rounded-circle" style={imgStyle} src="http://placehold.it/45x45" alt=""/>
+            <div className="color-code-circle" style={imgStyle}/>
             <div className="media-body">
               <strong style={titleStyle}>{this.props.place.name}</strong><br/>
               <div className="text-muted smaller">
                 <i className="fa fa-map-marker" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{this.props.place.formatted_address}</span>
-                <i className="fa fa-phone" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}>{this.props.place.formatted_phone_number}</span>
-                <i className="fa fa-external-link" style={iStyle} aria-hidden="true"></i> <span style={infoTextStyle}><a href={this.props.place.website}>{this.props.place.website}</a></span>
+                {phoneNumber}
+                {website}
               </div>
             </div>
           </div>

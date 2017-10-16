@@ -47,6 +47,10 @@ class TripMap extends React.Component {
         url: `${HOSTNAME}/placesofinterest?tripId=${this.props.trip.id}`,
         success: (data) => {
           console.log('this was a successful get request', data);
+          this.setState({
+            places: data
+          });
+          
           let geoCoder = new google.maps.Geocoder;
           geoCoder.geocode({'address': this.props.trip.location}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {              

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import '../dist/vendor/bootstrap/css/bootstrap.css';
-import '../dist/stylesheet.css';
 import '../dist/sb-admin.css';
+import '../dist/stylesheet.css';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
     } else if (store.getState().view === 'ExpenseTracker') {
       return <ExpenseTracker />;
     } else if (store.getState().view === 'PlacesOfInterest') {
-      return <PlacesOfInterest socket={this.state.socket}/>;
+      return <PlacesOfInterest />;
     } else if (store.getState().view === 'Photos') {
       return <PhotoList />;
     } else {
