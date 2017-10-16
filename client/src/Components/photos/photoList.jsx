@@ -32,6 +32,7 @@ class PhotoList extends React.Component {
     };
 
     this.getPhotos = this.getPhotos.bind(this);
+    this.photoSize = this.photoSize.bind(this);
   }
 
   componentDidMount () {
@@ -45,7 +46,7 @@ class PhotoList extends React.Component {
       method: 'GET',
       success: (photos) => {
         // console.log('received photos', photos);
-        this.setState({photos: photos});
+        this.setState({photos: photos.reverse()});
         // this.props.dispatch(reducer.changePhotos(photos));
       },
       error: (err) => {
@@ -69,10 +70,14 @@ class PhotoList extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
-        <PhotoUpload photoSize={this.photoSize.bind(this)}/>
-        {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} id={i} key={photo.name} size={this.photoSize()}/>)}
+      <div>
+        <div>
+          <TripNavBar features={dummyData.features} dispatch={this.props.dispatch}/>
+          <PhotoUpload addSize={this.photoSize} updatePhotos={this.getPhotos}/>
+          <div className="row">
+            {this.state.photos.map((photo, i) => <PhotoEntry photo={photo} id={i} key={i} size={this.photoSize()}/>)}
+          </div>
+        </div>
       </div>
     );
   }
