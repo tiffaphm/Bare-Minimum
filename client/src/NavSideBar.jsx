@@ -16,8 +16,8 @@ let mapStateToProps = ({ trip }) => {
 
 const NavSideBar = (props) => {
 
-  let getMap = () => {
-    props.dispatch(reducer.changeView('PlacesOfInterest'));
+  let getTripDashboard = () => {
+    props.dispatch(reducer.changeView('TripDashboard'));
   };
 
   return (
@@ -30,18 +30,6 @@ const NavSideBar = (props) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Map">
-              <a className="nav-link" onClick={getMap}>
-                <i className="fa fa-fw fa-map"></i>
-                <span className="nav-link-text"> Map</span>
-              </a>
-            </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Photos">
-              <a className="nav-link" href="charts.html">
-                <i className="fa fa-fw fa-photo"></i>
-                <span className="nav-link-text"> Photos</span>
-              </a>
-            </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Create A Trip">
               <a className="nav-link">
                 <i className="fa fa-fw fa-plus"></i>
