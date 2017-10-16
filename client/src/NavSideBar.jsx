@@ -62,63 +62,6 @@ const NavSideBar = (props) => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-              <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-                <i className="fa fa-fw fa-file"></i>
-                <span className="nav-link-text">Example Pages</span>
-              </a>
-              <ul className="sidenav-second-level collapse" id="collapseExamplePages">
-                <li>
-                  <a href="login.html">Login Page</a>
-                </li>
-                <li>
-                  <a href="register.html">Registration Page</a>
-                </li>
-                <li>
-                  <a href="forgot-password.html">Forgot Password Page</a>
-                </li>
-                <li>
-                  <a href="blank.html">Blank Page</a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-              <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                <i className="fa fa-fw fa-sitemap"></i>
-                <span className="nav-link-text">Menu Levels</span>
-              </a>
-              <ul className="sidenav-second-level collapse" id="collapseMulti">
-                <li>
-                  <a href="#">Second Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Second Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Second Level Item</a>
-                </li>
-                <li>
-                  <a className="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-                  <ul className="sidenav-third-level collapse" id="collapseMulti2">
-                    <li>
-                      <a href="#">Third Level Item</a>
-                    </li>
-                    <li>
-                      <a href="#">Third Level Item</a>
-                    </li>
-                    <li>
-                      <a href="#">Third Level Item</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-              <a className="nav-link" href="#">
-                <i className="fa fa-fw fa-link"></i>
-                <span className="nav-link-text">Link</span>
-              </a>
-            </li>
           </ul>
           <ul className="navbar-nav sidenav-toggler">
             <li className="nav-item">
@@ -166,18 +109,6 @@ const NavSideBar = (props) => {
 
             <StatusDropDown />
 
-            <li className="nav-item">
-              <form className="form-inline my-2 my-lg-0 mr-lg-2">
-                <div className="input-group">
-                  <input className="form-control" type="text" placeholder="Search for..."/>
-                  <span className="input-group-btn">
-                    <button className="btn btn-primary" type="button">
-                      <i className="fa fa-search"></i>
-                    </button>
-                  </span>
-                </div>
-              </form>
-            </li>
             <li className="nav-item">
               <a className="nav-link" data-toggle="modal" data-target="#exampleModal" onClick={props.handleLogout}>
                 <i className="fa fa-fw fa-sign-out"></i>Logout</a>

@@ -8,6 +8,16 @@ body {
   font-family: Muli, Roboto, Open Sans, sans-serif !important;
 }
 
+a {
+  color: #662257;
+  font-weight: 700;
+}
+
+a:hover {
+  color: #936F8B;
+  text-decoration: none;
+}
+
 .btn-row {
   margin-left: 0px;
 }
@@ -17,12 +27,25 @@ body {
 }
 
 .welcome-message {
+  margin-bottom: -30px;
+}
+
+.welcome-message h3 {
   display: inline-block !important;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 32px;
+}
+
+h5 {
+  color: #898989;
 }
 
 .trip-manager-container {
   width: 100%;
 }
+
+
 /* ---------------------------
   login page styles
 --------------------------- */

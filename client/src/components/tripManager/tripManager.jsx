@@ -37,8 +37,10 @@ class Dashboard extends React.Component {
     return (
       <div className="trip-manager-container">
         <div className="row">
-          <div className="welcome-message col-md-8">
+          <div className="col-md-8">
+            <div className="welcome-message">
             <h3>Welcome back, {this.props.user.name}</h3>
+            </div>
             <div className="trip-history manager-main custom-trip-history">
               <TripList trips={this.props.trips} click={this.selectTrip} />
             </div>
