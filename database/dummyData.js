@@ -10,7 +10,11 @@ const photos = [
   {name: 'np7.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771811/kb1guzptx3v22yu8icxm.jpg', tripId: 3, userId: 1},
   {name: 'np8.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771827/m1u9zjb38xwdsg3jvh34.jpg', tripId: 3, userId: 1},
   {name: 'np9.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/dc6zyd625ksh4rhalzgz.jpg', tripId: 3, userId: 1},
-  {name: 'np10.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/bkcadfbeotsuske7w5tl.jpg', tripId: 3, userId: 1}
+  {name: 'np10.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507771828/bkcadfbeotsuske7w5tl.jpg', tripId: 3, userId: 1},
+  {name: 'np11.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507842415/x6j29slguzd78qrykqq6.jpg', tripId: 3, userId: 1},
+  {name: 'np12.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507858613/lmodccpd7f1cf0gz7ihv.jpg', tripId: 3, userId: 1},
+  {name: 'np13.jpg', path: 'https://res.cloudinary.com/djffzbz5m/image/upload/v1507856406/gldloixnpfxkvigvi5zw.jpg', tripId: 3, userId: 1},
+  {name: 'np13.jpg', path: 'http://res.cloudinary.com/djffzbz5m/image/upload/v1507855409/iimns71emzcl4a515n5q.jpg', tripId: 3, userId: 1}
 ];
 
 const sharedTrips = [
@@ -29,9 +33,9 @@ const addUsers = () => {
 };
 
 const addTrips = () => {
-  return db.Trips.findOrCreate({where: {name: 'HR6', location: 'San Francisco', startDate: '2017-10-12', endDate: '2017-10-18', lodging: 'HR-6thFloor', accessCode: 'HR6', isopen: 'true'}})
+  return db.Trips.findOrCreate({where: {name: 'HR-6th Floor', location: 'San Francisco', startDate: '2017-10-12', endDate: '2017-10-18', lodging: 'HR-6thFloor', accessCode: 'HR6', isopen: 'true'}})
     .then(() => db.Trips.findOrCreate({where: {name: 'HR7', location: 'San Jose', startDate: '2017-10-14', endDate: '2017-10-20', lodging: 'HR-7thFloor', accessCode: 'HR7', isopen: 'true'}}))
-    .then(() => db.Trips.findOrCreate({where: {name: 'HR8', location: 'San Mateo', startDate: '2017-10-15', endDate: '2017-10-22', lodging: 'HR-8thFloor', accessCode: 'HR8', isopen: 'true'}}));
+    .then(() => db.Trips.findOrCreate({where: {name: 'HR-8th Floor', location: 'San Francisco', startDate: '2017-10-15', endDate: '2017-10-22', lodging: 'HR-8thFloor', accessCode: 'HR8', isopen: 'true'}}));
 
 };
 
